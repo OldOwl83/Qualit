@@ -1,0 +1,22 @@
+//Colours
+
+$primary_dark_color: rgb(32, 179, 32);
+$secondary_dark_color: rgb(255, 187, 0);
+
+$primary_light_color: lighten( $primary_dark_color, 40%);
+$secondary_light_color: rgb(251, 226, 157);
+
+$primary_bright_color: rgb(145, 255, 0);
+
+$white: beige;
+
+$primary_light_text_color: lighten( $primary_light_color, 6% );
+
+
+//Heights
+
+$menu_buttons_height: 30px;
+
+//Numbers
+
+$userProfile_buttons_number: 2;

@@ -1,0 +1,270 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Cantarell";
+}
+
+html {
+  position: relative;
+  height: 100vh;
+  font-size: 14px;
+  overflow: hidden;
+}
+
+body {
+  padding: 12px;
+  max-height: 98%;
+  background-color: #fbe29d;
+}
+
+#top-padding-coverer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 12px;
+  z-index: 1;
+  background-color: #fbe29d;
+}
+
+#root {
+  width: 100%;
+  margin: 0 auto;
+}
+
+h3 {
+  margin: 6px auto;
+  font-family: "Cantarell";
+  font-size: 2rem;
+}
+
+.whole-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: #0000;
+}
+
+.modal-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: #0003;
+  z-index: 1;
+}
+
+#topNavbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  height: 7vh;
+}
+
+#block1 {
+  width: 12%;
+}
+
+#block2 {
+  width: 40%;
+}
+
+#userProfile {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 18%;
+  padding: 4px;
+  background-color: #24c924;
+  border: 2px solid #91ff00;
+  border-radius: 30px;
+  cursor: pointer;
+}
+#userProfile #imageProfile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20%;
+  height: 100%;
+}
+#userProfile #imageProfile i {
+  font-size: 2.8rem;
+  color: #ffbb00;
+}
+#userProfile #imageProfile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border: 1px solid #188818;
+  border-radius: 30px;
+  box-sizing: border-box;
+}
+#userProfile p {
+  width: 80%;
+  padding: 0 8px;
+  font-family: "Cantarell";
+  font-weight: bold;
+  text-align: center;
+  font-size: 1.6rem;
+  color: #c8f5c8;
+  transition: color 0.4s;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+#userProfile:hover p {
+  color: #555;
+}
+#userProfile .buttonsContainer {
+  position: absolute;
+  bottom: -2px;
+  left: 12%;
+  z-index: -2;
+  display: flex;
+  flex-direction: column;
+  width: 76%;
+  box-sizing: border-box;
+  transition: bottom 0.35s linear;
+}
+#userProfile .buttonsContainer button {
+  width: 100%;
+  height: 30px;
+  box-sizing: border-box;
+  font-size: 1.1rem;
+  background-color: #ffbb00;
+  border: 1px solid orange;
+  border-top: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.4s;
+}
+#userProfile .buttonsContainer button:hover {
+  background-color: #888;
+}
+#userProfile:hover .buttonsContainer {
+  bottom: -63px;
+}
+
+.forms {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 26%;
+  margin: -6% auto 0;
+  padding: 30px;
+  background-color: #20b320;
+  border-radius: 10px;
+  box-shadow: 0px 0px 3px 4px #777;
+}
+.forms h3 {
+  color: #c8f5c8;
+}
+.forms input {
+  width: 80%;
+  margin: 26px auto 0px;
+  padding: 8px;
+  font-family: "Arial";
+  font-size: 1.1rem;
+  color: #444;
+  background-color: beige;
+  border: 1px solid #20b320;
+  border-radius: 6px;
+}
+.forms input:focus {
+  outline: none;
+  box-shadow: 0 0 2px 3px #91ff00;
+}
+.forms input::selection {
+  color: green;
+  background-color: #91ff00;
+}
+.forms input[type=file] {
+  font-size: 0.8rem;
+}
+.forms .sendButton {
+  width: 70%;
+  margin: 40px auto 0;
+  padding: 8px;
+  font-family: "Cantarell", sans-serif;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333;
+  background-color: #ffc933;
+  border: 1px solid #20b320;
+  border-radius: 6px;
+}
+.forms .sendButton:hover {
+  box-shadow: 0 0 2px 3px #91ff00;
+}
+.forms .sendButton:active {
+  color: beige;
+  background-color: #666;
+}
+.forms button:focus {
+  outline: none;
+  box-shadow: 0 0 2px 3px #91ff00;
+}
+.forms a {
+  text-decoration: none;
+}
+.forms a:focus {
+  outline: none;
+  text-decoration: underline;
+}
+.forms .link {
+  margin-top: 14px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  text-align: center;
+  color: #333;
+  transition: color 0.4s linear;
+}
+.forms .link:hover {
+  color: #0000af;
+}
+.forms .fa-window-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  font-size: 1.6rem;
+  color: #ffc933;
+  cursor: pointer;
+}
+
+#cont_spinner {
+  margin-top: -6%;
+  padding: 60px;
+  text-align: center;
+  background-color: #fbe29d;
+  border: 2px solid #20b320;
+  border-radius: 20%;
+  box-shadow: 0 0 2px 3px #91ff00;
+}
+#cont_spinner i {
+  font-size: 5rem;
+  color: #ff642c;
+  transform-origin: center;
+  animation: turn 1.6s infinite;
+}
+
+@keyframes turn {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/*# sourceMappingURL=style.css.map */

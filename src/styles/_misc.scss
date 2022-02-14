@@ -1,0 +1,24 @@
+@mixin whole-bg( $bg-color: #0000, $justif-cont: center ){
+    position: absolute;
+    top: 0;
+    left: 0;
+    
+    display: flex;
+    justify-content: $justif-cont;
+    align-items: center;
+    
+    width: 100%;
+    height: 100%;
+    
+    background-color: $bg-color;
+}
+
+.whole-bg{
+    @include whole-bg;
+}
+
+.modal-bg{
+    @include whole-bg(#0003);
+
+    z-index: 1;
+}
