@@ -24,7 +24,7 @@ export const ProfileUpdate = () => {
 
         e.preventDefault();
 
-        let newData = { ...usProf, ...formValues };
+        let newData = { ...formValues };
         
         const file = selectedPicture.current.files[0];
 
@@ -55,7 +55,7 @@ export const ProfileUpdate = () => {
                 type="text"
                 placeholder={ lastName }
                 name="lastName"
-                id="lastName"
+                autoComplete='off'
                 value={ lastName }
                 onChange={ handleChangeValues }
             />
@@ -64,7 +64,7 @@ export const ProfileUpdate = () => {
                 type="text"
                 placeholder={ firstName }
                 name="firstName"
-                id="firstName"
+                autoComplete='off'
                 value={ firstName }
                 onChange={ handleChangeValues }
             />
@@ -73,7 +73,7 @@ export const ProfileUpdate = () => {
                 type="file"
                 placeholder='Elija una foto'
                 name="photo"
-                id="photo"
+                autoComplete='off'
                 ref={ selectedPicture }
             />
 

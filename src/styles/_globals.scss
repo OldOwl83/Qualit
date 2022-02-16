@@ -10,7 +10,10 @@ $primary_bright_color: rgb(145, 255, 0);
 
 $white: beige;
 
+$primary_dark_text_color: darken( $primary_dark_color, 6% );
 $primary_light_text_color: lighten( $primary_light_color, 6% );
+$secondary_dark_text_color: lighten( $secondary_dark_color, 6% );
+$secondary_light_text_color: lighten( $secondary_light_color, 6% );
 
 
 //Heights

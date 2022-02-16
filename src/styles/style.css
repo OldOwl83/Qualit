@@ -60,7 +60,7 @@ h3 {
   width: 100%;
   height: 100%;
   background-color: #0003;
-  z-index: 1;
+  z-index: 10;
 }
 
 #topNavbar {
@@ -70,12 +70,118 @@ h3 {
   height: 7vh;
 }
 
-#block1 {
-  width: 12%;
+#courseSelector {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  width: 64%;
+  box-sizing: border-box;
+  background-color: #ffcf4d;
+  border: 2px solid #20b320;
+  border-radius: 30px;
 }
-
-#block2 {
-  width: 40%;
+#courseSelector .selector {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20%;
+  height: 110%;
+  font-family: "Arial";
+  font-size: 1.2rem;
+  color: #444;
+  cursor: pointer;
+}
+#courseSelector .selector p {
+  font-family: "Cantarell";
+  font-weight: bold;
+  text-align: center;
+  font-size: 1.6rem;
+  color: orangered;
+  transition: color 0.4s;
+}
+#courseSelector .selector:hover p {
+  color: #555;
+}
+#courseSelector .selector .buttonsContainer {
+  position: absolute;
+  bottom: 0px;
+  left: 0%;
+  z-index: -2;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  box-sizing: border-box;
+  transition: transform 0.35s linear;
+}
+#courseSelector .selector .buttonsContainer button {
+  width: 100%;
+  padding: 6px;
+  height: 30px;
+  box-sizing: border-box;
+  font-size: 1.1rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  background-color: #42dd42;
+  border: 1px solid #91ff00;
+  border-top: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.4s;
+}
+#courseSelector .selector .buttonsContainer button:hover {
+  background-color: #888;
+}
+#courseSelector .selector .buttonsContainer .active {
+  background-color: #188818;
+}
+#courseSelector .selector .buttonsContainer .active:hover {
+  background-color: #188818;
+}
+#courseSelector .selector:hover .buttonsContainer {
+  transform: translateY(100%);
+}
+#courseSelector #classSelector {
+  width: 16%;
+}
+#courseSelector #courseOptContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  width: 24%;
+  font-size: 1.6rem;
+  text-align: center;
+}
+#courseSelector #courseOptContainer i {
+  color: #1b991b;
+  transition: color 0.4s;
+  cursor: pointer;
+}
+#courseSelector #courseOptContainer i:hover {
+  color: #555;
+}
+#courseSelector #courseOptContainer button {
+  width: 36%;
+  padding: 8px;
+  font-family: "Cantarell", sans-serif;
+  font-size: 1rem;
+  font-weight: bold;
+  color: orangered;
+  background-color: beige;
+  border: 1px solid #555;
+  border-radius: 6px;
+  transition: color 0.3s, background-color 0.3s;
+}
+#courseSelector #courseOptContainer button:hover {
+  color: beige;
+  background-color: orangered;
+}
+#courseSelector #courseOptContainer button:active {
+  color: beige;
+  background-color: #444;
 }
 
 #userProfile {

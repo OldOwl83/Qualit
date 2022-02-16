@@ -1,4 +1,5 @@
 import React from 'react'
+import { CourseSelector } from './CourseSelector'
 import { UserProfile } from './UserProfile'
 
 export const TopNavbar = () => {
@@ -6,8 +7,7 @@ export const TopNavbar = () => {
     
         <div id="topNavbar">
 
-            <div id='block1'></div>
-            <div id='block2'></div>
+            <CourseSelector />
 
             <UserProfile />
         </div>

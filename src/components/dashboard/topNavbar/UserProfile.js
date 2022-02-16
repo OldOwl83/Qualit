@@ -50,14 +50,14 @@ export const UserProfile = () => {
 
     return (
 
-        ( !photo || urlPhoto ) &&
+        // ( !photo || urlPhoto ) &&
         
         <div id="userProfile"> 
             
             <div id="imageProfile">
 
                 { !photo ? 
-                <i class="fas fa-user-circle"></i> :
+                <i className="fas fa-user-circle"></i> :
                 <img src={ urlPhoto } alt="Perfil de usuario" /> }
 
             </div>

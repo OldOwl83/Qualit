@@ -10,11 +10,14 @@ export const Dashboard = () => {
     const { formScreen } = useSelector( state => state.ui );
 
     return (
+        <>
+        { formScreen && <FormScreen formComponent={ formScreen } />}
+        
         <div className='animate__animated animate__fadeIn'>
 
             <TopNavbar />
 
-            { formScreen && <FormScreen formComponent={ formScreen } />}
         </div>
+        </>
     );
 }
