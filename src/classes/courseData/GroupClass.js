@@ -12,7 +12,7 @@ export class Group
 
     addNewCourse( courseObj )
     {
-        for( let course of this.courses)
+        for( const course of this.courses)
             if( course.course === courseObj.course )
                 throw Error( "Este curso ya existe." );
                 
@@ -24,11 +24,16 @@ export class Group
         if( this.courses[ courseIndex ].course === newName )
             return;
 
-        for( let course of this.courses)
+        for( const course of this.courses)
             if( course.course === newName )
                 throw Error("Este curso ya existe.");
 
         this.courses[ courseIndex ].course = newName;
+    }
+
+    deleteCourse( courseIndex )
+    {
+        this.courses.splice( courseIndex, 1 );
     }
 
     addNewStudent( studentObj )

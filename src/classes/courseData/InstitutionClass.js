@@ -12,7 +12,7 @@ export class Institution
 
     addNewGroup( groupObj )
     {
-        for( let group of this.groups)
+        for( const group of this.groups)
             if( group.group === groupObj.group )
                 throw Error("Este grupo ya existe.");
 
@@ -24,10 +24,15 @@ export class Institution
         if( this.groups[ groupIndex ].group === newName )
             return;
 
-        for( let group of this.groups)
+        for( const group of this.groups)
             if( group.group === newName )
                 throw Error("Este grupo ya existe.");
 
         this.groups[ groupIndex ].group = newName;
+    }
+
+    deleteGroup( groupIndex )
+    {
+        this.groups.splice( groupIndex, 1 );
     }
 }

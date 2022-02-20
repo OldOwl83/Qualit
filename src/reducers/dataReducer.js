@@ -9,8 +9,60 @@ const initialState = new Data();
 
 export const dataReducer = ( state = initialState, action ) => {
 
+    let newState;
+
     switch ( action.type ) {
 
+    //Establecimiento del curso activo
+        case actionTypes.activeCourse.setActiveInstit:
+
+            return {
+                ...state,
+                activeCourse: {
+                    ...state.activeCourse,
+                    institution: action.payload,
+                    group: 0,
+                    course: 0,
+                }
+            };
+
+        case actionTypes.activeCourse.setActiveGroup:
+
+            return {
+                ...state,
+                activeCourse: {
+                    ...state.activeCourse,
+                    group: action.payload,
+                    course: 0,
+                }
+            };
+
+        case actionTypes.activeCourse.setActiveCourse:
+            
+            state.activeCourse.course = action.payload;
+
+            return {
+                ...state,
+                activeCourse: {
+                    ...state.activeCourse,
+                    course: action.payload,
+                }
+            };
+
+        
+        case actionTypes.activeCourse.resetActives:
+
+            return {
+                ...state,
+                activeCourse: {
+                    ...state.activeCourse,
+                    institution: -1,
+                    group: -1,
+                    course: -1,
+                }
+            };
+
+    //Gestión de cursos
         case actionTypes.data.dataLoad:
 
             return action.payload;
@@ -19,47 +71,81 @@ export const dataReducer = ( state = initialState, action ) => {
 
             return initialState;
 
+
         case actionTypes.data.addCourse:
+
+            newState = new Data( state.institutions, state.activeCourse );
+
+            const { institutions, activeCourse } = newState;
         
-            for( let instit of state.institutions )
+            for( let i = 0; i < institutions.length; i++ )
             {
-                if( instit.institution === action.payload.institution )
+                if( institutions[i].institution === action.payload.institution )
                 {
-                    for( let group of instit.groups )
+                    for( let j = 0; j < institutions[i].groups.length; j++ )
                     {
-                        if( group.group === action.payload.group )
+                        if( institutions[i].groups[j].group === action.payload.group )
                         {
-                            group.addNewCourse( new Course( action.payload.course ))
+                            institutions[i].groups[j].addNewCourse( new Course( action.payload.course ) )
+
+                            activeCourse.institution = i;
+                            activeCourse.group = j;
+                            activeCourse.course = institutions[i].groups[j].courses.length - 1;
                             
-                            return state;
+                            return newState;
                         }
                     }
 
-                    instit.addNewGroup( new Group( action.payload.group, [ new Course( action.payload.course ) ] ) );
+                    institutions[i].addNewGroup( new Group( action.payload.group, [ new Course( action.payload.course ) ] ) );
 
-                    return state;
+                    activeCourse.institution = i;
+                    activeCourse.group = institutions[i].groups.length - 1;
+                    activeCourse.course = 0;
+
+                    return newState;
                 }
             }
 
-            state.addNewInstitution( new Institution( action.payload.institution, [ new Group( action.payload.group, [ new Course( action.payload.course ) ] ) ] ) );
+            newState.addNewInstitution( new Institution( action.payload.institution, [ new Group( action.payload.group, [ new Course( action.payload.course ) ] ) ] ) );
+
+            activeCourse.institution = institutions.length - 1;
+            activeCourse.group = 0;
+            activeCourse.course = 0;
             
-            return state;
+            return newState;
 
         case actionTypes.data.updateCourse:
 
-            //Falta validar la no repetición de nombres de instituciones en el arreglo data.
+            newState = new Data( state.institutions, state.activeCourse );
 
-            state.updateInstitName( action.payload.dataLocation.instLoc, action.payload.newData.institution );
+            newState.updateInstitName( state.activeCourse.institution, action.payload.institution );
 
-            state.institutions[ action.payload.dataLocation.instLoc ].updateGroupName( action.payload.dataLocation.groupLoc, action.payload.newData.group );
+            newState.institutions[ state.activeCourse.institution ].updateGroupName( state.activeCourse.group, action.payload.group );
 
-            state.institutions[ action.payload.dataLocation.instLoc ].groups[ action.payload.dataLocation.groupLoc ].updateCourseName( action.payload.dataLocation.courseLoc, action.payload.newData.course );
+            newState.institutions[ state.activeCourse.institution ].groups[ state.activeCourse.group ].updateCourseName( state.activeCourse.course, action.payload.course );
 
-            return state;
+            return newState;
+
+        case actionTypes.data.deleteCourse:
+
+            newState = new Data( state.institutions );
+
+            newState.institutions[ state.activeCourse.institution ].groups[ state.activeCourse.group ].deleteCourse( state.activeCourse.course );
+
+            if( newState.institutions[ state.activeCourse.institution].groups[ state.activeCourse.group ].courses.length === 0 )
+            {
+                newState.institutions[ state.activeCourse.institution ].deleteGroup( state.activeCourse.group );
+
+                if( newState.institutions[ state.activeCourse.institution].groups.length === 0 )
+                    newState.deleteInstitution( state.activeCourse.institution );
+            }
+
+            return newState;
 
 
+        //Gestión estudiantes
             case actionTypes.data.addStudent:
-//jhgjhg
+
                 return state;
 
     

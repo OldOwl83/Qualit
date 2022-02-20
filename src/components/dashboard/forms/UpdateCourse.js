@@ -10,15 +10,15 @@ export const UpdateCourse = () => {
 
     const dispatch = useDispatch();
 
-    const { data, activeCourse } = useSelector( state => state)
+    const { institutions, activeCourse } = useSelector( state => state.data)
 
     const [ formValues, handleFormValues, formReset ] = useForms( { 
 
-        institution: data.institutions[ activeCourse.institution ].institution,
+        institution: institutions[ activeCourse.institution ].institution,
 
-        group: data.institutions[ activeCourse.institution ].groups[ activeCourse.group ].group,
+        group: institutions[ activeCourse.institution ].groups[ activeCourse.group ].group,
 
-        course: data.institutions[ activeCourse.institution ].groups[ activeCourse.group ].courses[ activeCourse.course ].course,
+        course: institutions[ activeCourse.institution ].groups[ activeCourse.group ].courses[ activeCourse.course ].course,
     } );
 
     const { institution, group, course } = formValues;
@@ -29,13 +29,7 @@ export const UpdateCourse = () => {
         e.preventDefault();
                         
         try{
-            dispatch( updateCourseAction( { 
-            
-                institution: activeCourse.institution,
-                group: activeCourse.group,
-                course: activeCourse.course,
-            
-            }, { institution, group, course } ) );
+            dispatch( updateCourseAction( { institution, group, course } ) );
         }catch( err )
         {
             Swal.fire({
@@ -105,7 +99,7 @@ export const UpdateCourse = () => {
                     ref={ selectedPicture }
                 /> */}
 
-            <button type='submit' className='sendButton'>Agregar curso</button>
+            <button type='submit' className='sendButton'>Actualizar</button>
         </form>
     )
 }

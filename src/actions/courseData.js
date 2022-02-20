@@ -20,23 +20,20 @@ export const addCourseAction = ( institution, group, course ) => (
     }
 );
 
-export const updateCourseAction = ( dataLocation, newData ) => (
+export const updateCourseAction = ( newData ) => (
     {
         type: actionTypes.data.updateCourse,
         payload: {
+            institution: newData.institution,
+            group: newData.group,
+            course: newData.course,
+        },
+    }
+);
 
-            dataLocation: {
-                instLoc: dataLocation.institution,
-                groupLoc: dataLocation.group,
-                courseLoc: dataLocation.course,
-            },
-
-            newData: {
-                institution: newData.institution,
-                group: newData.group,
-                course: newData.course,
-            }
-        }
+export const deleteCourseAction = () => (
+    {
+        type: actionTypes.data.deleteCourse,
     }
 );
 
@@ -55,7 +52,7 @@ export const uploadData = ( data, uid ) => {
                     icon: 'success',
                     title: 'Cambios guardados',
                     showConfirmButton: false,
-                    timer: 1200
+                    timer: 1000
                   });
             })
             .catch( ( err ) => {

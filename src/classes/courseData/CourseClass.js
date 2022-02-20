@@ -11,7 +11,7 @@ export class Course
 
     addNewStage( stageObj )
     {
-        for( let stage of this.stages)
+        for( const stage of this.stages)
             if( stage.stage === stageObj.stage )
                 throw Error( "Esta etapa ya existe." );
 
@@ -23,7 +23,7 @@ export class Course
         if( this.stages[ stageIndex ].stage === newName )
             return;
 
-        for( let stage of this.stages)
+        for( const stage of this.stages)
             if( stage.stage === newName )
                 throw Error("Esta etapa ya existe.");
 

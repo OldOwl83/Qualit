@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
 
 import { setActiveCourse, setActiveGroup, setActiveInstitution } from '../../../actions/activeCourse';
-import { uploadData } from '../../../actions/courseData';
+import { deleteCourseAction, uploadData } from '../../../actions/courseData';
 import { setFormScreen } from '../../../actions/ui';
 import { AddCourse } from '../forms/AddCourse';
 import { UpdateCourse } from '../forms/UpdateCourse';
@@ -11,8 +11,9 @@ import { UpdateCourse } from '../forms/UpdateCourse';
 export const CourseSelector = () => {
 
     const dispatch = useDispatch();
-    const { data, activeCourse, auth } = useSelector( state => state );
+    const { data, auth } = useSelector( state => state );
 
+    const { institutions, activeCourse } = data;
 
     const handleNewCourse = () => {
 
@@ -25,6 +26,58 @@ export const CourseSelector = () => {
 
             dispatch( setFormScreen( <UpdateCourse /> ) );
         else
+        {
+            Swal.fire({
+                title: 'No hay ningún curso seleccionado',
+                icon: 'error',
+                showClass: {
+                  popup: 'animate__animated animate__backInDown'
+                },
+                hideClass: {
+                  popup: 'animate__animated animate__backOutUp'
+                }
+              });
+
+              return;
+        }
+    };
+
+    const handleDeleteCourse = () => {
+
+        if( activeCourse.course !== -1 )
+        {
+            Swal.fire({
+                title: `¿Está seguro/a que desea borrar el curso "${institutions[activeCourse.institution].groups[activeCourse.group].courses[activeCourse.course].course}"?`,
+                text: 'Si guarda los cambios, se eliminará de manera definitiva.',
+                icon: 'warning',
+                showCancelButton: true,
+                cancelButtonText: 'Cancelar',
+                confirmButtonText: 'Aceptar',
+                focusCancel: true,
+                showClass: {
+                  popup: 'animate__animated animate__backInDown'
+                },
+                hideClass: {
+                  popup: 'animate__animated animate__backOutUp'
+                }
+              })
+              .then( result => {
+
+                if( result.isConfirmed )
+                {
+                    dispatch( deleteCourseAction() );
+                    
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Curso eliminado',
+                        showConfirmButton: false,
+                        timer: 1000
+                      });
+                }
+              });
+
+        }else
         {
             Swal.fire({
                 title: 'No hay ningún curso seleccionado',
@@ -56,7 +109,7 @@ export const CourseSelector = () => {
 
                 <div className='buttonsContainer'>
                     {
-                        data.institutions.map( ( instit, index ) => (
+                        institutions.map( ( instit, index ) => (
 
                             <button 
                                 key={ instit.institution }
@@ -79,7 +132,7 @@ export const CourseSelector = () => {
                     {
                         activeCourse.institution !== -1 &&
                         
-                        data.institutions[ activeCourse.institution ].groups.map( ( group, index ) => (
+                        institutions[ activeCourse.institution ].groups.map( ( group, index ) => (
 
                             <button 
                                 key={ group.group }
@@ -102,7 +155,7 @@ export const CourseSelector = () => {
                     {
                         activeCourse.group !== -1 &&
                         
-                        data.institutions[ activeCourse.institution ].groups[ activeCourse.group ].courses.map( ( course, index ) => (
+                        institutions[ activeCourse.institution ].groups[ activeCourse.group ].courses.map( ( course, index ) => (
 
                             <button 
                                 key={ course.course }
@@ -120,7 +173,8 @@ export const CourseSelector = () => {
             <div id="courseOptContainer">
 
                 <i className="fas fa-plus" title="Agregar curso" onClick={ handleNewCourse }></i>
-                <i className="fas fa-pen" title="Editar curso" onClick={ handleUpdateCourse }></i>
+                <i className="fas fa-pen" title="Editar curso seleccionado" onClick={ handleUpdateCourse }></i>
+                <i className="fas fa-trash-alt" title="Eliminar curso seleccionado" onClick={ handleDeleteCourse }></i>
                 <button 
                     title="Salvar los últimos cambios"
                     onClick={ handleDataSave }

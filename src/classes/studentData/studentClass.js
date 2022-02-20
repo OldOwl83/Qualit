@@ -16,7 +16,7 @@ export class Student
 
     addNewGrade( gradeObj )
     {
-        for( let grade of this.grades)
+        for( const grade of this.grades)
             if( `${grade.course}${grade.stage}${grade.test}` === `${gradeObj.course}${gradeObj.stage}${gradeObj.test}` )
                 throw Error( "Esta nota ya existe." );
 
@@ -28,7 +28,7 @@ export class Student
         if( this.grades[ gradeIndex ].course === newCourse && this.grades[ gradeIndex ].stage === newStage && this.grades[ gradeIndex ].test === newTest )
             return;
 
-        for( let grade of this.grades)
+        for( const grade of this.grades)
             if( `${grade.course}${grade.stage}${grade.test}` === `${gradeObj.course}${gradeObj.stage}${gradeObj.test}` )
                 throw Error( "Esta nota ya existe." );
 

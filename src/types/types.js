@@ -23,9 +23,11 @@ export const actionTypes = {
     data: {
         addCourse: "[data] Add course",
         updateCourse: "[data] Update course",
+        deleteCourse: "[data Delete course",
 
         addStudent: "[data] Add student",
         updateStudent: "[data[ Update student",
+        deleteStudent: "[data] Delete student",
 
         dataLoad: "[data] Load data",
         fullDataErase: "[data] Erase full data",

@@ -4,12 +4,13 @@ import { Institution } from "./InstitutionClass";
 
 export class Data
 {
-    constructor( institArr = [] )
+    constructor( institArr = [], activeCourse = { institution: -1, group: -1, course: -1 } )
     {
         if( !Array.isArray( institArr ) )
             throw TypeError("El objeto Data toma un array como parámetro.");
 
         this.institutions = institArr;
+        this.activeCourse = activeCourse;
     }
 
     parseDataFromDB( dataFromDB = [] ) 
@@ -37,7 +38,7 @@ export class Data
 
     addNewInstitution( institObj )
     {
-        for( let instit of this.institutions)
+        for( const instit of this.institutions)
             if( instit.institution === institObj.institution )
                 throw Error("Esta institución ya existe.");
 
@@ -49,10 +50,15 @@ export class Data
         if( this.institutions[ institIndex ].institution === newName )
             return;
 
-        for( let instit of this.institutions)
+        for( const instit of this.institutions)
             if( instit.institution === newName )
                 throw Error("Esta institución ya existe.");
 
         this.institutions[ institIndex ].institution = newName;
+    }
+
+    deleteInstitution( institIndex )
+    {
+        this.institutions.splice( institIndex, 1 );
     }
 }
