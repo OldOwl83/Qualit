@@ -7,6 +7,9 @@ import { actionTypes } from "../types/types";
 import { doc, setDoc } from "firebase/firestore";
 import { deleteUserProfileAction, getUserProfile } from "./usProf";
 import { startLoading, stopLoading } from "./ui";
+import { downloadData, fullDataEraseAction, uploadData } from "./courseData";
+import { resetActiveCourse } from "./activeCourse";
+import { Data } from "../classes/courseData/DataClass";
 
 
 export const register = ( newUserData, setSuccess ) => {
@@ -28,6 +31,8 @@ export const register = ( newUserData, setSuccess ) => {
                     email: email,
                     photo: '',
                 });
+
+                await dispatch( uploadData( new Data(), resp.user.uid ) );
 
                 dispatch( logout() );
 
@@ -67,6 +72,8 @@ export const login = ( loginData ) => {
                 if( user.emailVerified )
                 {
                     await dispatch( getUserProfile( user.uid ) );
+
+                    await dispatch( downloadData( user.uid ) );
 
                     dispatch( loginAction( user.uid ) );
                 }else
@@ -135,6 +142,11 @@ export const logout = () => {
                     }
                 });
             })
+            .finally( () => {
+
+                dispatch( fullDataEraseAction() );
+                dispatch( resetActiveCourse() );
+            });
     };
 };
 

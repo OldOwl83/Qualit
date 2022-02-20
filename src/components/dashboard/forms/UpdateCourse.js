@@ -3,57 +3,43 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { useForms } from '../../../hooks/useForms'
 import { unsetFormScreen } from '../../../actions/ui';
-import { setCourseAction } from '../../../actions/data';
+import { updateCourseAction } from '../../../actions/courseData';
 import Swal from 'sweetalert2';
 
-export const SetCourse = () => {
+export const UpdateCourse = () => {
 
     const dispatch = useDispatch();
 
-    const data = useSelector( state => state.data );
+    const { data, activeCourse } = useSelector( state => state)
 
-    const [ formValues, handleFormValues ] = useForms( { 
+    const [ formValues, handleFormValues, formReset ] = useForms( { 
 
-        institution: '',
-        group: '',
-        course: '',
+        institution: data.institutions[ activeCourse.institution ].institution,
+
+        group: data.institutions[ activeCourse.institution ].groups[ activeCourse.group ].group,
+
+        course: data.institutions[ activeCourse.institution ].groups[ activeCourse.group ].courses[ activeCourse.course ].course,
     } );
 
     const { institution, group, course } = formValues;
 
 
-    const handleSetCourse = ( e ) => {
+    const handleUpdateCourse = ( e ) => {
 
         e.preventDefault();
-
-        // for( let elem of data )
-        //     if( elem.institution === institution )
-        //         for( let grou of elem.groups )
-        //             if( grou.group === group )
-        //                 for( let cours of grou.courses )
-        //                     if( cours.course === course )
-        //                     {
-        //                         Swal.fire({
-        //                             title: 'Curso existente',
-        //                             text: 'Ya existe un curso que coincide con los datos ingresados. Modifique los datos del nuevo curso o elimine el anterior.',
-        //                             icon: 'error',
-        //                             showClass: {
-        //                               popup: 'animate__animated animate__backInDown'
-        //                             },
-        //                             hideClass: {
-        //                               popup: 'animate__animated animate__backOutUp'
-        //                             }
-        //                           });
-
-        //                           return;
-                            // }
                         
         try{
-            dispatch( setCourseAction( institution, group, course ) );
+            dispatch( updateCourseAction( { 
+            
+                institution: activeCourse.institution,
+                group: activeCourse.group,
+                course: activeCourse.course,
+            
+            }, { institution, group, course } ) );
         }catch( err )
         {
             Swal.fire({
-                title: 'Error en el registro del curso',
+                title: 'Error en la actualización del curso',
                 text: err,
                 icon: 'error',
                 showClass: {
@@ -64,6 +50,8 @@ export const SetCourse = () => {
                 }
               });
 
+              formReset();
+
               return;
         }
 
@@ -73,15 +61,15 @@ export const SetCourse = () => {
 
     return (
     
-        <form onSubmit={ handleSetCourse } className='forms' >
+        <form onSubmit={ handleUpdateCourse } className='forms' >
 
             <i className="far fa-window-close" onClick={ () => dispatch( unsetFormScreen() ) }></i>
 
-            <h3>Nueva planilla</h3>
+            <h3>Editar curso</h3>
 
             <input 
                 type="text"
-                placeholder={ "Institución" }
+                placeholder="Institución"
                 name="institution"
                 autoComplete='on'
                 required
@@ -91,7 +79,7 @@ export const SetCourse = () => {
 
             <input 
                 type="text"
-                placeholder={ "Grupo" }
+                placeholder="Grupo"
                 name="group"
                 autoComplete='on'
                 required
@@ -101,7 +89,7 @@ export const SetCourse = () => {
 
             <input 
                 type="text"
-                placeholder={ "Curso" }
+                placeholder="Curso"
                 name="course"
                 autoComplete='off'
                 required

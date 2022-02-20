@@ -2,6 +2,7 @@ import React from 'react'
 import { useSelector } from 'react-redux';
 
 import { FormScreen } from './FormScreen';
+import { GradeSheet } from '../gradeSheet/GradeSheet';
 import { TopNavbar } from './topNavbar/TopNavbar';
 
 
@@ -16,6 +17,8 @@ export const Dashboard = () => {
         <div className='animate__animated animate__fadeIn'>
 
             <TopNavbar />
+
+            <GradeSheet />
 
         </div>
         </>

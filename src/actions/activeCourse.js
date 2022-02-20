@@ -20,3 +20,10 @@ export const setActiveCourse = ( courseIndex ) => (
         payload: courseIndex,
     }
 );
+
+
+export const resetActiveCourse = () => (
+    {
+        type: actionTypes.activeCourse.resetActives,
+    }
+);

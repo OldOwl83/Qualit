@@ -37,6 +37,17 @@ export const activeCourseReducer = ( state = initialState, action ) => {
                 }
             );
 
+        
+        case actionTypes.activeCourse.resetActives:
+            return (
+                {
+                    ...state,
+                    institution: -1,
+                    group: -1,
+                    course: -1,
+                }
+            );
+
 
         default:
 

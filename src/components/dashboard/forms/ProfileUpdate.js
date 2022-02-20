@@ -53,7 +53,7 @@ export const ProfileUpdate = () => {
 
             <input 
                 type="text"
-                placeholder={ lastName }
+                placeholder={ lastName ? lastName : "Apellido" }
                 name="lastName"
                 autoComplete='off'
                 value={ lastName }
@@ -62,7 +62,7 @@ export const ProfileUpdate = () => {
 
             <input 
                 type="text"
-                placeholder={ firstName }
+                placeholder={ firstName ? firstName : "Nombre" }
                 name="firstName"
                 autoComplete='off'
                 value={ firstName }

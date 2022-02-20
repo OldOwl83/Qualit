@@ -1,18 +1,49 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
+import Swal from 'sweetalert2';
 
 import { setActiveCourse, setActiveGroup, setActiveInstitution } from '../../../actions/activeCourse';
+import { uploadData } from '../../../actions/courseData';
 import { setFormScreen } from '../../../actions/ui';
-import { SetCourse } from '../forms/SetCourse';
+import { AddCourse } from '../forms/AddCourse';
+import { UpdateCourse } from '../forms/UpdateCourse';
 
 export const CourseSelector = () => {
 
     const dispatch = useDispatch();
-    const { data, activeCourse } = useSelector( state => state );
+    const { data, activeCourse, auth } = useSelector( state => state );
 
-    const handleNewSubject = () => {
 
-        dispatch( setFormScreen( <SetCourse /> ) );
+    const handleNewCourse = () => {
+
+        dispatch( setFormScreen( <AddCourse /> ) );
+    };
+
+    const handleUpdateCourse = () => {
+
+        if( activeCourse.course !== -1 )
+
+            dispatch( setFormScreen( <UpdateCourse /> ) );
+        else
+        {
+            Swal.fire({
+                title: 'No hay ningún curso seleccionado',
+                icon: 'error',
+                showClass: {
+                  popup: 'animate__animated animate__backInDown'
+                },
+                hideClass: {
+                  popup: 'animate__animated animate__backOutUp'
+                }
+              });
+
+              return;
+        }
+    };
+
+    const handleDataSave = () => {
+
+        dispatch( uploadData( data, auth.uid ) );
     };
 
 
@@ -25,7 +56,7 @@ export const CourseSelector = () => {
 
                 <div className='buttonsContainer'>
                     {
-                        data.map( ( instit, index ) => (
+                        data.institutions.map( ( instit, index ) => (
 
                             <button 
                                 key={ instit.institution }
@@ -48,7 +79,7 @@ export const CourseSelector = () => {
                     {
                         activeCourse.institution !== -1 &&
                         
-                        data[ activeCourse.institution ].groups.map( ( group, index ) => (
+                        data.institutions[ activeCourse.institution ].groups.map( ( group, index ) => (
 
                             <button 
                                 key={ group.group }
@@ -71,7 +102,7 @@ export const CourseSelector = () => {
                     {
                         activeCourse.group !== -1 &&
                         
-                        data[ activeCourse.institution ].groups[ activeCourse.group ].courses.map( ( course, index ) => (
+                        data.institutions[ activeCourse.institution ].groups[ activeCourse.group ].courses.map( ( course, index ) => (
 
                             <button 
                                 key={ course.course }
@@ -88,9 +119,12 @@ export const CourseSelector = () => {
 
             <div id="courseOptContainer">
 
-                <i className="fas fa-plus" title="Agregar curso" onClick={ handleNewSubject }></i>
-                <i className="fas fa-pen" title="Editar curso"></i>
-                <button title="Salvar los últimos cambios realizados">Guardar</button>
+                <i className="fas fa-plus" title="Agregar curso" onClick={ handleNewCourse }></i>
+                <i className="fas fa-pen" title="Editar curso" onClick={ handleUpdateCourse }></i>
+                <button 
+                    title="Salvar los últimos cambios"
+                    onClick={ handleDataSave }
+                >Guardar</button>
                 
             </div>
 

@@ -13,6 +13,7 @@ import { PrivateRoutes } from './PrivateRoutes';
 import { authentication } from '../SDKs/firebase';
 import { getUserProfile } from '../actions/usProf';
 import { LoadSpinner } from '../components/LoadSpinner';
+import { downloadData } from '../actions/courseData';
 
 
 export const AppRouter = () => {
@@ -28,6 +29,7 @@ export const AppRouter = () => {
             if( user?.uid && user?.emailVerified )
             {
                 await dispatch( getUserProfile( user.uid ) );
+                await dispatch( downloadData( user.uid ) );
                 dispatch( loginAction( user.uid ) );
             }
         });

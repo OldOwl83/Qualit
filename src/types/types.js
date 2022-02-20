@@ -21,12 +21,21 @@ export const actionTypes = {
     },
 
     data: {
-        setCourse: "[data] Set course",
+        addCourse: "[data] Add course",
+        updateCourse: "[data] Update course",
+
+        addStudent: "[data] Add student",
+        updateStudent: "[data[ Update student",
+
+        dataLoad: "[data] Load data",
+        fullDataErase: "[data] Erase full data",
     },
 
     activeCourse: {
         setActiveInstit: "[actCourse] Set active Institution",
         setActiveGroup: "[actCourse] Set active Group",
         setActiveCourse: "[actCourse] Set active Course",
+
+        resetActives: "[actCourse] Reset active course",
     }
 };
