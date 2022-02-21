@@ -120,4 +120,31 @@
 
         cursor: pointer;
     }
+
+    #buttonsContainer{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+
+        width: 80%;
+        margin: 40px auto 0;
+        box-sizing: border-box;
+
+        .sendButton{
+            margin: 0;
+        }
+    }
+}
+
+.fa-trash-alt{
+    color: rgb(235, 0, 0) !important;
+    font-size: 1.8rem;
+    cursor: pointer;
+
+    transition: color .4s !important;
+
+    &:hover{
+        color: darken(rgb(233, 38, 38), 18%) !important;
+    }
 }

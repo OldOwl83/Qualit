@@ -38,11 +38,12 @@ export class Group
 
     addNewStudent( studentObj )
     {
-        for( const student of this.students )
+        for( const student of this.students ) //Asignación automática de ID
             if( student.id >= studentObj.id )
                 studentObj.assignID( student.id + 1);
 
         this.students.push( studentObj );
+    //Ordenamiento alfabético
         this.students.sort( ( elem1, elem2 ) => {
             
             if( `${elem1.lastName}${elem1.firstName}` > `${elem2.lastName}${elem2.firstName}` )
@@ -57,5 +58,10 @@ export class Group
         this.students[ studentIndex ].lastName = newData.lastName;
         this.students[ studentIndex ].firstName = newData.firstName;
         this.students[ studentIndex ].additionalData = newData.additionalData;
+    }
+
+    deleteStudent( studentIndex )
+    {
+        this.students.splice( studentIndex, 1 );
     }
 }

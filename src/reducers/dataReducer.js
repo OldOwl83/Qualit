@@ -5,6 +5,7 @@ import { Group } from "../classes/courseData/GroupClass";
 import { Institution } from "../classes/courseData/InstitutionClass";
 import { Data } from "../classes/courseData/DataClass";
 import { Student } from "../classes/studentData/studentClass";
+import { Stage } from "../classes/courseData/StageClass";
 
 const initialState = new Data();
 
@@ -151,6 +152,24 @@ export const dataReducer = ( state = initialState, action ) => {
 
                 return newState;
 
+            case actionTypes.data.deleteStudent:
+
+                newState = new Data( state.institutions, state.activeCourse );
+
+                newState.institutions[ state.activeCourse.institution ].groups[ state.activeCourse.group ].deleteStudent( action.payload );
+
+                return newState;
+
+        //Gestión etapas
+            case actionTypes.data.addStage:
+
+                newState = new Data( state.institutions, state.activeCourse );
+
+                newState.institutions[ state.activeCourse.institution ].groups[ state.activeCourse.group ].courses[ state.activeCourse.course].addNewStage( new Stage( action.payload.stage, Number( action.payload.percentWeight ) ) );
+
+                return newState;
+
+                
     
         default:
             return state;

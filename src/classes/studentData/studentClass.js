@@ -29,13 +29,13 @@ export class Student
         this.grades.push( gradeObj );
     }
 
-    updateGradeProperties( gradeIndex, { newCourse, newStage, newTest } )
+    updateGradeProperties( gradeIndex, { newCourse, newStage, newTestGroup, newTest } )
     {
-        if( this.grades[ gradeIndex ].course === newCourse && this.grades[ gradeIndex ].stage === newStage && this.grades[ gradeIndex ].test === newTest )
+        if( this.grades[ gradeIndex ].course === newCourse && this.grades[ gradeIndex ].stage === newStage && this.grades[ gradeIndex ].testGroup === newTestGroup && this.grades[ gradeIndex ].test === newTest )
             return;
 
         for( const grade of this.grades)
-            if( `${grade.course}${grade.stage}${grade.test}` === `${newCourse}${newStage}${newTest}` )
+            if( `${grade.course}${grade.stage}${grade.testGroup}${grade.test}` === `${newCourse}${newStage}${newTestGroup}${newTest}` )
                 throw Error( "Esta nota ya existe." );
 
         this.grades[ gradeIndex ].course = newCourse;

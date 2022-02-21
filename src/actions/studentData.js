@@ -18,3 +18,10 @@ export const updateStudentAction = ( lastName, firstName, additionalData, studen
         },
     }
 );
+
+export const deleteStudentAction = ( studentIndex ) => (
+    {
+        type: actionTypes.data.deleteStudent,
+        payload: studentIndex,
+    }
+);

@@ -38,6 +38,17 @@ export const deleteCourseAction = () => (
 );
 
 
+export const addStageAction = ( name, percentWeight ) => (
+    {
+        type: actionTypes.data.addStage,
+        payload: {
+            stage: name,
+            percentWeight: percentWeight,
+        }
+    }
+);
+
+
 export const uploadData = ( data, uid ) => {
 
     return async( dispatch ) => {

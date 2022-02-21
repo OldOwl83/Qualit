@@ -51,9 +51,10 @@ export const StudentsColumn = () => {
             <p 
                 className='cells' 
                 id="studentOptCell"
-            >
-                    
-                    <i className="fas fa-plus" title="Agregar estudiante" onClick={ handleNewStudent }></i>
+                title="Agregar estudiante" 
+                onClick={ handleNewStudent }
+            >    
+                    <i className="fas fa-plus"></i>
             </p>
         </div>
     )

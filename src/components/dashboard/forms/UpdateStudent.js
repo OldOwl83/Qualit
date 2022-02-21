@@ -5,7 +5,7 @@ import Swal from 'sweetalert2';
 
 import { unsetFormScreen } from '../../../actions/ui';
 import { useForms } from '../../../hooks/useForms';
-import { updateStudentAction } from '../../../actions/studentData';
+import { deleteStudentAction, updateStudentAction } from '../../../actions/studentData';
 
 export const UpdateStudent = ( { studentIndex } ) => {
     
@@ -51,6 +51,42 @@ export const UpdateStudent = ( { studentIndex } ) => {
         dispatch( unsetFormScreen() );
     };
 
+    const handleDeleteStudent = () => {
+        
+        Swal.fire({
+            title: `¿Está seguro/a que desea eliminar al/a estudiante "${institutions[activeCourse.institution].groups[activeCourse.group].students[studentIndex].lastName}"?`,
+            text: 'Si guarda los cambios, se perderán sus datos de manera definitiva.',
+            icon: 'warning',
+            showCancelButton: true,
+            cancelButtonText: 'Cancelar',
+            confirmButtonText: 'Aceptar',
+            focusCancel: true,
+            showClass: {
+                popup: 'animate__animated animate__backInDown'
+            },
+            hideClass: {
+                popup: 'animate__animated animate__backOutUp'
+            }
+            })
+            .then( result => {
+
+                if( result.isConfirmed )
+                {
+                    dispatch( deleteStudentAction( studentIndex ) );
+                    
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Estudiante eliminado/a',
+                        showConfirmButton: false,
+                        timer: 1000
+                        });
+
+                    dispatch( unsetFormScreen() );
+                }
+            });
+    };
+
 
     return (
     
@@ -88,7 +124,10 @@ export const UpdateStudent = ( { studentIndex } ) => {
                 onChange={ handleFormValues }
             ></textarea>
 
-            <button type='submit' className='sendButton'>Actualizar datos</button>
+            <div id="buttonsContainer">
+                <button type='submit' className='sendButton'>Actualizar datos</button>
+                <i className="fas fa-trash-alt" title="Eliminar estudiante" onClick={ handleDeleteStudent }></i>
+            </div>
         </form>
     )
 }

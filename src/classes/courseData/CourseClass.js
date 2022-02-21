@@ -1,6 +1,8 @@
+import { Stage } from "./StageClass";
+
 export class Course
 {
-    constructor( name, stagesArr = [] )
+    constructor( name, stagesArr = [ new Stage( '(sin nombre)', 0 )] )
     {
         if( typeof name !== "string" || !Array.isArray( stagesArr ) )
             throw TypeError("Los objetos Course toman un string y un array como parámetros.");
@@ -28,5 +30,10 @@ export class Course
                 throw Error("Esta etapa ya existe.");
 
         this.stages[ stageIndex ].stage = newName;
+    }
+
+    deleteStage( stageIndex )
+    {
+        this.stages.splice( stageIndex, 1 );
     }
 }
