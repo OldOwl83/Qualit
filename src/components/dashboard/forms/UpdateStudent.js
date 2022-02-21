@@ -1,36 +1,40 @@
 import React from 'react'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Swal from 'sweetalert2';
 
-import { useForms } from '../../../hooks/useForms'
 import { unsetFormScreen } from '../../../actions/ui';
-import { addStudentAction } from '../../../actions/studentData';
+import { useForms } from '../../../hooks/useForms';
+import { updateStudentAction } from '../../../actions/studentData';
 
-export const AddStudent = () => {
-
+export const UpdateStudent = ( { studentIndex } ) => {
+    
     const dispatch = useDispatch();
+
+    const { institutions, activeCourse } = useSelector( state => state.data );
+
+    const student = institutions[ activeCourse.institution ].groups[ activeCourse.group ].students[ studentIndex ];
 
     const [ formValues, handleFormValues ] = useForms( { 
 
-        lastName: '',
-        firstName: '',
-        additionalData: '',
+        lastName: student.lastName,
+        firstName: student.firstName,
+        additionalData: student.additionalData,
     } );
 
     const { lastName, firstName, additionalData } = formValues;
 
 
-    const handleAddStudent = ( e ) => {
+    const handleUpdateStudent = ( e ) => {
 
         e.preventDefault();
-                        
+
         try{
-            dispatch( addStudentAction( lastName, firstName, additionalData ) );
+            dispatch( updateStudentAction( lastName, firstName, additionalData, studentIndex ) );
         }catch( err )
         {
             Swal.fire({
-                title: 'Error en el registro del/la estudiante',
+                title: 'Error en la actualización del/la estudiante',
                 text: err,
                 icon: 'error',
                 showClass: {
@@ -50,11 +54,11 @@ export const AddStudent = () => {
 
     return (
     
-        <form onSubmit={ handleAddStudent } className='forms' >
+        <form onSubmit={ handleUpdateStudent } className='forms' >
 
             <i className="far fa-window-close" onClick={ () => dispatch( unsetFormScreen() ) }></i>
 
-            <h3>Nuevo/a estudiante</h3>
+            <h3>Editar estudiante</h3>
 
             <input 
                 type="text"
@@ -84,7 +88,7 @@ export const AddStudent = () => {
                 onChange={ handleFormValues }
             ></textarea>
 
-            <button type='submit' className='sendButton'>Añadir estudiante al curso</button>
+            <button type='submit' className='sendButton'>Actualizar datos</button>
         </form>
     )
 }

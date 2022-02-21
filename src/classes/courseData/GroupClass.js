@@ -38,7 +38,24 @@ export class Group
 
     addNewStudent( studentObj )
     {
+        for( const student of this.students )
+            if( student.id >= studentObj.id )
+                studentObj.assignID( student.id + 1);
+
         this.students.push( studentObj );
+        this.students.sort( ( elem1, elem2 ) => {
+            
+            if( `${elem1.lastName}${elem1.firstName}` > `${elem2.lastName}${elem2.firstName}` )
+                return 1;
+            else
+                return -1;
+        } );
     }
 
+    updateStudentData( studentIndex, newData )
+    {
+        this.students[ studentIndex ].lastName = newData.lastName;
+        this.students[ studentIndex ].firstName = newData.firstName;
+        this.students[ studentIndex ].additionalData = newData.additionalData;
+    }
 }

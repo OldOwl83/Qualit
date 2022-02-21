@@ -8,17 +8,21 @@ import { TopNavbar } from './topNavbar/TopNavbar';
 
 export const Dashboard = () => {
 
-    const { formScreen } = useSelector( state => state.ui );
+    const { ui, data } = useSelector( state => state );
+
+    const { formScreen } = ui;
+
+    const { activeCourse } = data;
 
     return (
         <>
         { formScreen && <FormScreen formComponent={ formScreen } />}
         
-        <div className='animate__animated animate__fadeIn'>
+        <div id="dashboard" className='animate__animated animate__fadeIn'>
 
             <TopNavbar />
 
-            <GradeSheet />
+            { activeCourse.course !== -1 && <GradeSheet /> }
 
         </div>
         </>

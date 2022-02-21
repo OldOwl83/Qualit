@@ -1,3 +1,4 @@
+import { Student } from "../studentData/studentClass";
 import { Course } from "./CourseClass";
 import { Group } from "./GroupClass";
 import { Institution } from "./InstitutionClass";
@@ -27,7 +28,12 @@ export class Data
                     return new Course( course.course, stages );
                 });
     
-                const students = []; //Continuar con el mapeo de students
+                const students = group.students.map( student => {
+
+                    const grades = []; //TODO: Mapeo de notas
+
+                    return new Student( student.lastName, student.firstName, student.additionalData, grades, student.id );
+                });
     
                 return new Group( group.group, courses, students );
             }); 

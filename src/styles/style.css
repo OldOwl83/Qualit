@@ -15,6 +15,7 @@ body {
   padding: 12px;
   max-height: 98%;
   background-color: #fbe29d;
+  user-select: none;
 }
 
 #top-padding-coverer {
@@ -276,7 +277,7 @@ h3 {
 .forms h3 {
   color: #c8f5c8;
 }
-.forms input {
+.forms input, .forms textarea {
   width: 80%;
   margin: 26px auto 0px;
   padding: 8px;
@@ -286,12 +287,13 @@ h3 {
   background-color: beige;
   border: 1px solid #20b320;
   border-radius: 6px;
+  resize: none;
 }
-.forms input:focus {
+.forms input:focus, .forms textarea:focus {
   outline: none;
   box-shadow: 0 0 2px 3px #91ff00;
 }
-.forms input::selection {
+.forms input::selection, .forms textarea::selection {
   color: green;
   background-color: #91ff00;
 }
@@ -371,6 +373,65 @@ h3 {
   to {
     transform: rotate(360deg);
   }
+}
+#mainSheet {
+  position: relative;
+  z-index: -5;
+  display: flex;
+  flex-direction: row;
+  width: 96%;
+  height: 82vh;
+  margin: 5vh auto 0;
+  padding: 18px;
+  box-sizing: border-box;
+  background-color: #fdeec4;
+  border-radius: 10px;
+  box-shadow: 0px 0px 3px 3px #777;
+}
+#mainSheet .cells {
+  margin: 1px;
+  padding: 3px 5px;
+  border-radius: 6px;
+}
+#mainSheet h3 {
+  font-size: 1.6rem;
+  text-align: center;
+  background-color: #2dd92d;
+  border: 1px solid #188818;
+}
+#mainSheet h4 {
+  font-size: 1.2rem;
+  text-align: center;
+  background-color: #83e983;
+  border: 1px solid #188818;
+}
+#mainSheet h5 {
+  font-size: 1rem;
+  text-align: center;
+  background-color: #ffc933;
+  border: 1px solid #cc9600;
+}
+
+#studentsColumn {
+  width: 14%;
+  height: 100%;
+}
+#studentsColumn .students {
+  font-weight: bold;
+  text-align: left;
+  border: 1px solid #666;
+  cursor: pointer;
+}
+#studentsColumn #studentOptCell {
+  font-size: 1.2rem;
+  text-align: right;
+  color: #105810;
+  background-color: #aaa;
+  cursor: pointer;
+}
+
+#gradesGrid {
+  width: 86%;
 }
 
 /*# sourceMappingURL=style.css.map */

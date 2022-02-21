@@ -1,11 +1,20 @@
 import { actionTypes } from "../types/types";
 
 
-export const addStudentAction = ( id, lastName, firstName ) => (
+export const addStudentAction = ( lastName, firstName, additionalData ) => (
     {
         type: actionTypes.data.addStudent,
         payload: {
-            id, lastName, firstName,
+            lastName, firstName, additionalData
+        },
+    }
+);
+
+export const updateStudentAction = ( lastName, firstName, additionalData, studentIndex ) => (
+    {
+        type: actionTypes.data.updateStudent,
+        payload: {
+            lastName, firstName, additionalData, studentIndex,
         },
     }
 );

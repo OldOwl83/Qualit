@@ -1,17 +1,23 @@
 export class Student
 {
-    constructor( id, lastName, firstName, gradesArr = [] )
+    constructor( lastName, firstName, additionalData, gradesArr = [], id = 0 )
     {
-        if( typeof id !== "string" || typeof lastName !== "string" || typeof firstName !== "string" || !Array.isArray( gradesArr ) )
+        if( typeof lastName !== "string" || typeof firstName !== "string" || typeof additionalData !== "string" || !Array.isArray( gradesArr ) )
             throw TypeError( "Los objetos Student toman tres string y un array como parámetros." );
 
-        if( !id )
-            throw Error( "El parámetro ID es obligatorio." );
+        if( !lastName )
+            throw Error( "El parámetro 'lastName' es obligatorio." );
 
         this.id = id;
         this.lastName = lastName;
         this.firstName = firstName;
+        this.additionalData = additionalData;
         this.grades = gradesArr;
+    }
+
+    assignID( id )
+    {
+       this.id = id;
     }
 
     addNewGrade( gradeObj )
@@ -29,7 +35,7 @@ export class Student
             return;
 
         for( const grade of this.grades)
-            if( `${grade.course}${grade.stage}${grade.test}` === `${gradeObj.course}${gradeObj.stage}${gradeObj.test}` )
+            if( `${grade.course}${grade.stage}${grade.test}` === `${newCourse}${newStage}${newTest}` )
                 throw Error( "Esta nota ya existe." );
 
         this.grades[ gradeIndex ].course = newCourse;

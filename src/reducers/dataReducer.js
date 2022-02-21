@@ -4,6 +4,7 @@ import { Course } from "../classes/courseData/CourseClass";
 import { Group } from "../classes/courseData/GroupClass";
 import { Institution } from "../classes/courseData/InstitutionClass";
 import { Data } from "../classes/courseData/DataClass";
+import { Student } from "../classes/studentData/studentClass";
 
 const initialState = new Data();
 
@@ -16,51 +17,38 @@ export const dataReducer = ( state = initialState, action ) => {
     //Establecimiento del curso activo
         case actionTypes.activeCourse.setActiveInstit:
 
-            return {
-                ...state,
-                activeCourse: {
+            return new Data( state.institutions, {
                     ...state.activeCourse,
                     institution: action.payload,
                     group: 0,
                     course: 0,
-                }
-            };
+            });
 
         case actionTypes.activeCourse.setActiveGroup:
 
-            return {
-                ...state,
-                activeCourse: {
-                    ...state.activeCourse,
-                    group: action.payload,
-                    course: 0,
-                }
-            };
+            return new Data( state.institutions, {
+                ...state.activeCourse,
+                group: action.payload,
+                course: 0,
+            });
 
         case actionTypes.activeCourse.setActiveCourse:
             
             state.activeCourse.course = action.payload;
 
-            return {
-                ...state,
-                activeCourse: {
-                    ...state.activeCourse,
-                    course: action.payload,
-                }
-            };
-
+            return new Data( state.institutions, {
+                ...state.activeCourse,
+                course: action.payload,
+            }); 
         
         case actionTypes.activeCourse.resetActives:
 
-            return {
-                ...state,
-                activeCourse: {
-                    ...state.activeCourse,
-                    institution: -1,
-                    group: -1,
-                    course: -1,
-                }
-            };
+            return new Data( state.institutions, {
+                ...state.activeCourse,
+                institution: -1,
+                group: -1,
+                course: -1,
+        });
 
     //Gestión de cursos
         case actionTypes.data.dataLoad:
@@ -146,7 +134,22 @@ export const dataReducer = ( state = initialState, action ) => {
         //Gestión estudiantes
             case actionTypes.data.addStudent:
 
-                return state;
+                newState = new Data( state.institutions, state.activeCourse );
+
+                newState.institutions[ state.activeCourse.institution ].groups[ state.activeCourse.group ].addNewStudent( new Student( action.payload.lastName, action.payload.firstName, action.payload.additionalData ));
+
+                return newState;
+
+            case actionTypes.data.updateStudent:
+
+                newState = new Data( state.institutions, state.activeCourse );
+
+                newState.institutions[ state.activeCourse.institution ].groups[ state.activeCourse.group ].updateStudentData( action.payload.studentIndex, { 
+                    lastName: action.payload.lastName,
+                    firstName: action.payload.firstName,
+                    additionalData: action.payload.additionalData } );
+
+                return newState;
 
     
         default:
