@@ -7,6 +7,7 @@ export const HomeSite = () => {
         <>
         <h2>Bienvenidos a Qualit</h2>
         <Link to="register">Ir a la página de registro</Link>
+        <hr/>
         <Link to="login">Ir a la página de acceso</Link>
         </>
     )

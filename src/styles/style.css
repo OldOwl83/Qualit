@@ -453,6 +453,7 @@ h3 {
   font-size: 1.4rem;
   text-align: center;
   background-color: #aaa;
+  border: 1px solid #666;
   cursor: pointer;
   transition: background-color 0.4s;
 }
@@ -471,6 +472,7 @@ h3 {
 #gradesGrid #stagesContainer {
   display: flex;
   flex-direction: row;
+  margin-top: -1px;
 }
 #gradesGrid .buttons {
   cursor: pointer;
@@ -478,6 +480,13 @@ h3 {
 }
 #gradesGrid .buttons:hover {
   background-color: #aaa;
+}
+#gradesGrid #add {
+  background-color: #aaa;
+  border: 1px solid #666;
+}
+#gradesGrid #add:hover {
+  background-color: #666;
 }
 
 /*# sourceMappingURL=style.css.map */

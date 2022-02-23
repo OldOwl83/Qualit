@@ -24,10 +24,17 @@ export const GradesGrid = () => {
 
             <div id='stagesContainer'>
                 {
-                    institutions[ activeCourse.institution ].groups[ activeCourse.group ].courses[ activeCourse.course ].stages.map( stage => <Stage key={ stage.stage } stageObj={ stage } /> )
+                    institutions[ activeCourse.institution ].groups[ activeCourse.group ].courses[ activeCourse.course ].stages.map( ( stage, index ) => (
+                    
+                    <Stage 
+                        key={ stage.stage } 
+                        stageObj={ stage } 
+                        stageIndex={ index } 
+                    />) )
                 }
 
                 <h4 
+                    id='add'
                     className='cells buttons'
                     title='Añadir etapa'
                     onClick={ handleNewStage }

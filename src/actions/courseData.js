@@ -48,6 +48,55 @@ export const addStageAction = ( name, percentWeight ) => (
     }
 );
 
+export const updateStageAction = ( name, percentWeight, stageIndex ) => (
+    {
+        type: actionTypes.data.updateStage,
+        payload: {
+            stage: name,
+            percentWeight,
+            stageIndex
+        }
+    }
+);
+
+export const deleteStageAction = ( stageIndex ) => (
+    {
+        type: actionTypes.data.deleteStage,
+        payload: stageIndex
+    }
+);
+
+
+export const addTestGroupAction = ( name, percentWeight, stageIndex ) => (
+    {
+        type: actionTypes.data.addTestGroup,
+        payload: {
+            testGroup: name,
+            percentWeight,
+            stageIndex
+        }
+    }
+);
+
+export const updateTestGroupAction = ( name, percentWeight, testGroupIndex, stageIndex ) => (
+    {
+        type: actionTypes.data.updateTestGroup,
+        payload: {
+            testGroup: name,
+            percentWeight,
+            testGroupIndex,
+            stageIndex,
+        }
+    }
+);
+
+export const deleteTestGroupAction = ( testGroupIndex, stageIndex ) => (
+    {
+        type: actionTypes.data.deleteTestGroup,
+        payload: { testGroupIndex, stageIndex }
+    }
+);
+
 
 export const uploadData = ( data, uid ) => {
 

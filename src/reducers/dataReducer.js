@@ -6,6 +6,7 @@ import { Institution } from "../classes/courseData/InstitutionClass";
 import { Data } from "../classes/courseData/DataClass";
 import { Student } from "../classes/studentData/studentClass";
 import { Stage } from "../classes/courseData/StageClass";
+import { TestGroup } from "../classes/courseData/TestGroupClass";
 
 const initialState = new Data();
 
@@ -169,7 +170,46 @@ export const dataReducer = ( state = initialState, action ) => {
 
                 return newState;
 
+            case actionTypes.data.updateStage:
+
+                newState = new Data( state.institutions, state.activeCourse );
                 
+                newState.institutions[ state.activeCourse.institution ].groups[ state.activeCourse.group ].courses[ state.activeCourse.course].updateStage( action.payload.stageIndex, action.payload.stage, Number( action.payload.percentWeight ) );
+
+                return newState;
+
+            case actionTypes.data.deleteStage:
+
+                newState = new Data( state.institutions, state.activeCourse );
+                
+                newState.institutions[ state.activeCourse.institution ].groups[ state.activeCourse.group ].courses[ state.activeCourse.course].deleteStage( action.payload ); 
+
+                return newState;
+
+        //Gestión categorías
+            case actionTypes.data.addTestGroup:
+
+                newState = new Data( state.institutions, state.activeCourse );
+
+                newState.institutions[ state.activeCourse.institution ].groups[ state.activeCourse.group ].courses[ state.activeCourse.course ].stages[ action.payload.stageIndex ].addNewTestGroup( new TestGroup( action.payload.testGroup, Number( action.payload.percentWeight ) ) );
+
+                return newState;
+
+            case actionTypes.data.updateTestGroup:
+
+                newState = new Data( state.institutions, state.activeCourse );
+                
+                newState.institutions[ state.activeCourse.institution ].groups[ state.activeCourse.group ].courses[ state.activeCourse.course].stages[ action.payload.stageIndex ].updateTestGroup( action.payload.testGroupIndex, action.payload.testGroup, Number( action.payload.percentWeight ) );
+
+                return newState;
+
+            case actionTypes.data.deleteTestGroup:
+
+                newState = new Data( state.institutions, state.activeCourse );
+                
+                newState.institutions[ state.activeCourse.institution ].groups[ state.activeCourse.group ].courses[ state.activeCourse.course].stages[ action.payload.stageIndex ].deleteTestGroup( action.payload.testGroupIndex ); 
+
+                return newState;
     
         default:
             return state;

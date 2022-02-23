@@ -5,31 +5,32 @@ import Swal from 'sweetalert2';
 
 import { useForms } from '../../../hooks/useForms'
 import { unsetFormScreen } from '../../../actions/ui';
-import { addStageAction } from '../../../actions/courseData';
+import { addTestGroupAction } from '../../../actions/courseData';
 
-export const AddStage = () => {
+
+export const AddTestGroup = ( { stageIndex } ) => {
 
     const dispatch = useDispatch();
 
     const [ formValues, handleFormValues ] = useForms( { 
 
-        stage: '',
+        testGroup: '',
         percentWeight: '',
     } );
 
-    const { stage, percentWeight } = formValues;
+    const { testGroup, percentWeight } = formValues;
 
 
-    const handleAddStage = ( e ) => {
+    const handleAddTestGroup = ( e ) => {
 
         e.preventDefault();
                         
         try{
-            dispatch( addStageAction( stage, percentWeight ) );
+            dispatch( addTestGroupAction( testGroup, percentWeight, stageIndex ) );
         }catch( err )
         {
             Swal.fire({
-                title: 'Error en el registro de la etapa',
+                title: 'Error en el registro de la categoría',
                 text: err,
                 icon: 'error',
                 showClass: {
@@ -49,7 +50,7 @@ export const AddStage = () => {
 
     return (
     
-        <form onSubmit={ handleAddStage } className='forms' >
+        <form onSubmit={ handleAddTestGroup } className='forms' >
 
             <i className="far fa-window-close" onClick={ () => dispatch( unsetFormScreen() ) }></i>
 
@@ -57,24 +58,24 @@ export const AddStage = () => {
 
             <input 
                 type="text"
-                placeholder="Nombre de la etapa"
-                name="stage"
+                placeholder="Nombre de la categoría"
+                name="testGroup"
                 autoComplete='off'
                 required
-                value={ stage }
+                value={ testGroup }
                 onChange={ handleFormValues }
             />
 
             <input 
                 type="text"
-                placeholder="Incidencia porcentual en el promedio final"
+                placeholder="Incidencia porcentual en la etapa"
                 name="percentWeight"
                 autoComplete='off'
                 value={ percentWeight }
                 onChange={ handleFormValues }
             />
 
-            <button type='submit' className='sendButton'>Agregar etapa</button>
+            <button type='submit' className='sendButton'>Agregar categoría</button>
         </form>
     )
 }
