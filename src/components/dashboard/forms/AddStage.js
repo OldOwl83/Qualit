@@ -60,6 +60,7 @@ export const AddStage = () => {
                 placeholder="Nombre de la etapa"
                 name="stage"
                 autoComplete='off'
+                autoFocus
                 required
                 value={ stage }
                 onChange={ handleFormValues }

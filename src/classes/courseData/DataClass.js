@@ -3,6 +3,7 @@ import { Course } from "./CourseClass";
 import { Group } from "./GroupClass";
 import { Institution } from "./InstitutionClass";
 import { Stage } from "./StageClass";
+import { Test } from "./TestClass";
 import { TestGroup } from "./TestGroupClass";
 
 export class Data
@@ -29,7 +30,7 @@ export class Data
 
                         const testGroups = stage.testGroups.map( tG => {
 
-                            const tests = []; //TODO: Continuar con el mapeo de tests
+                            const tests = tG.tests.map( test => new Test( test.test, test.percentWeight, test.additionalData ) );
 
                             return new TestGroup( tG.testGroup, tG.percentWeight, tests );
                         });

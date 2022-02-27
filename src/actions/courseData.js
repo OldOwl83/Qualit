@@ -98,6 +98,41 @@ export const deleteTestGroupAction = ( testGroupIndex, stageIndex ) => (
 );
 
 
+export const addTestAction = ( name, percentWeight, additionalData, testGroupIndex, stageIndex ) => (
+    {
+        type: actionTypes.data.addTest,
+        payload: {
+            test: name,
+            percentWeight,
+            additionalData,
+            testGroupIndex,
+            stageIndex 
+        }
+    }
+);
+
+export const updateTestAction = ( name, percentWeight, additionalData, testIndex, testGroupIndex, stageIndex ) => (
+    {
+        type: actionTypes.data.updateTest,
+        payload: {
+            test: name,
+            percentWeight,
+            additionalData,
+            testIndex,
+            testGroupIndex,
+            stageIndex 
+        }
+    }
+);
+
+export const deleteTestAction = ( testIndex, testGroupIndex, stageIndex ) => (
+    {
+        type: actionTypes.data.deleteTest,
+        payload: { testIndex, testGroupIndex, stageIndex }
+    }
+);
+
+
 export const uploadData = ( data, uid ) => {
 
     return async( dispatch ) => {

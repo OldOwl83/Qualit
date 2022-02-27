@@ -27,35 +27,34 @@ export const StudentsColumn = () => {
     return (
         <div id="studentsColumn">
 
-            <h3 className='cells'>Curso</h3>
-            <h4 className='cells'>Etapas</h4>
-            <h4 className='cells'>Categorías</h4>
-            <h5 className='cells'>Evaluaciones</h5>
+            <h3 className='cells container bigTitle'>Curso</h3>
+            <h4 className='cells container stageContainer'>Etapas</h4>
+            <h4 className='cells container testGroupContainer'>Categorías</h4>
+            <h5 className='cells container testContainer'>Evaluaciones</h5>
             
 
             { 
                 students.map( ( student, index ) => {
                     return (
-                        <p 
+                        <div 
                             key={ student.id }
-                            className='cells students'
+                            className='cells container students'
                             title="Editar estudiante"
                             onClick={ () => handleStudentUpdate( index ) }
                         >
                             { `${ student.lastName }, ${ student.firstName }` }
-                        </p> 
+                        </div> 
                     )
                 })
             }
 
-            <p 
-                className='cells' 
-                id="studentOptCell"
+            <div 
+                className='cells buttons' 
                 title="Agregar estudiante" 
                 onClick={ handleNewStudent }
             >    
                     <i className="fas fa-plus"></i>
-            </p>
+            </div>
         </div>
     )
 }

@@ -1,6 +1,6 @@
 export class TestGroup
 {
-    constructor( name = '', percentWeight = 0, testsArr = [] )
+    constructor( name = 's/n', percentWeight = 0, testsArr = [] )
     {
         if( typeof name !== "string" || typeof percentWeight !== "number" || !Array.isArray( testsArr ) )
             throw TypeError("Los objetos TestGroup toman un string, un number y un array como parámetros.");
@@ -19,7 +19,7 @@ export class TestGroup
         this.tests.push( testObj );
     }
 
-    updateTest( testIndex, name, weight, date )
+    updateTest( testIndex, name, weight, additionalData )
     {
         if( this.tests[ testIndex ].test !== name )    
             for( const test of this.tests)
@@ -28,7 +28,7 @@ export class TestGroup
 
         this.tests[ testIndex ].test = name;
         this.tests[ testIndex ].percentWeight = weight;
-        this.tests[ testIndex ].date = date;
+        this.tests[ testIndex ].additionalData = additionalData;
     }
 
     deleteTest( testIndex )

@@ -18,35 +18,92 @@
     .cells{
         margin: 1px;
         padding: 4px 6px;
+        height: fit-content;
+    }
 
+    .container{
+        margin: 1px;
+        border: 1px solid;
         border-radius: 6px;
+    }
+
+    .bigTitle{
+        background-color: lighten( $primary_dark_color, 10% );
+        border-color: darken( $primary_dark_color, 10% );
+    }
+    
+    .stageContainer{
+        background-color: lighten( $primary_dark_color, 30% );
+        border-color: darken( $primary_dark_color, 10% );
+    }
+
+    .testGroupContainer{
+        background-color: lighten( $primary_dark_text_color, 50% );
+        border-color: darken( $primary_dark_color, 10% );
+    }
+    
+    .testContainer{
+        background-color: lighten( $secondary_dark_color, 10% );
+        border-color: darken( $primary_dark_color, 10% );
     }
 
     h3{
         font-size: 1.4rem;
 
         text-align: center;
-
-        background-color: lighten( $primary_dark_color, 10% );
-        border: 1px solid darken( $primary_dark_color, 10% );
     }
 
     h4{
         font-size: 1.1rem;
 
         text-align: center;
-
-        background-color: lighten( $primary_dark_color, 30% );
-        border: 1px solid darken( $primary_dark_color, 10% );
     }
 
     h5{
         font-size: 1rem;
 
         text-align: center;
+    }
 
-        background-color: lighten( $secondary_dark_color, 10% );
-        border: 1px solid darken( $secondary_dark_color, 10% );
+    .buttons{
+        width: fit-content;
+        
+        border: 1px solid #333;
+        border-radius: 6px;
+        cursor: pointer;
+    
+        transition: background-color .3s;
+    
+        &:hover{
+            background-color: #aaa;
+        }
+
+        &.stage{
+            background-color: lighten( $primary_dark_color, 30% );
+        }
+
+        &.testGroup{
+            background-color: lighten( $primary_dark_text_color, 50% );
+        }
+
+        &.test{
+            background-color: lighten( $secondary_dark_color, 10% );
+        }
+    }
+
+    .grades{
+        width: 2vw;
+
+        font-size: 1.2rem;
+        font-weight: bold;
+        text-align: center;
+
+        border: 1px solid #666;
+        cursor: pointer;
+
+        &:focus{
+            user-select: all;
+        }
     }
 }
 
@@ -54,6 +111,10 @@
 
     width: 14%;
     height: 100%;
+
+    .cells{
+        margin-bottom: 2px;
+    }
 
     .students{
         font-size: 1.2rem;
@@ -69,25 +130,6 @@
             background-color: #aaa;
         }
     }
-
-    #studentOptCell{
-
-        font-size: 1.4rem;
-        text-align: center;
-        background-color: #aaa;
-        border: 1px solid #666;
-        cursor: pointer;
-
-        transition: background-color .4s;
-
-        &:hover{
-            background-color: #666;
-        }
-        
-        .fas{
-            color: black;
-        }
-    }
 }
 
 #gradesGrid{
@@ -100,26 +142,31 @@
 
         display: flex;
         flex-direction: row;
-
-        margin-top: -1px;
-    }
-
-    .buttons{
-        cursor: pointer;
-
-        transition: background-color .3s;
-
-        &:hover{
-            background-color: #aaa;
-        }
-    }
-
-    #add{
-        background-color: #aaa;
-        border: 1px solid #666;
-
-        &:hover{
-            background-color: #666;
-        }
     }
 }
+
+#stagesContainer{
+    
+    h4{
+        cursor: pointer;
+        color: black;
+        
+        transition: color .3s;
+    }
+    h4:hover{
+        color: darken($primary_dark_color , 20%);
+    }
+}
+
+#testGroupsContainer, #testsContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+#gradesContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+

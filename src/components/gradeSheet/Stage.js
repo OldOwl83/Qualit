@@ -20,11 +20,10 @@ export const Stage = ( { stageObj, stageIndex } ) => {
     };
 
     return (
-        <>
-
+        <div className='container stageContainer'>
             <h4 
-                className='cells buttons'
-                title='Editar etapa' 
+                className='cells'
+                title={ `Editar etapa "${ stageObj.stage }"` } 
                 onClick={ handleStageUpdate }
             >
                 { stageObj.stage }
@@ -42,15 +41,14 @@ export const Stage = ( { stageObj, stageIndex } ) => {
                     /> ))
                 }
 
-                <h4 
-                    id='addTestGroup'
-                    className='cells buttons'
-                    title='Añadir etapa'
+                <div 
+                    className='cells buttons testGroup'
+                    title='Añadir categoría'
                     onClick={ handleNewTestGroup }
                 >
                     <i className="fas fa-plus"></i>
-                </h4>
+                </div>
             </div>
-        </>
+        </div>
     )
 }

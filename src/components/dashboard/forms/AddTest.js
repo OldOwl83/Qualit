@@ -5,32 +5,33 @@ import Swal from 'sweetalert2';
 
 import { useForms } from '../../../hooks/useForms'
 import { unsetFormScreen } from '../../../actions/ui';
-import { addTestGroupAction } from '../../../actions/courseData';
+import { addTestAction } from '../../../actions/courseData';
 
 
-export const AddTestGroup = ( { stageIndex } ) => {
+export const AddTest = ( { testGroupIndex, stageIndex } ) => {
 
     const dispatch = useDispatch();
 
     const [ formValues, handleFormValues ] = useForms( { 
 
-        testGroup: '',
+        test: '',
         percentWeight: '',
+        additionalData: '',
     } );
 
-    const { testGroup, percentWeight } = formValues;
+    const { test, percentWeight, additionalData } = formValues;
 
 
-    const handleAddTestGroup = ( e ) => {
+    const handleAddTest = ( e ) => {
 
         e.preventDefault();
                         
         try{
-            dispatch( addTestGroupAction( testGroup, percentWeight, stageIndex ) );
+            dispatch( addTestAction( test, percentWeight, additionalData, testGroupIndex, stageIndex ) );
         }catch( err )
         {
             Swal.fire({
-                title: 'Error en el registro de la categoría',
+                title: 'Error en el registro de la evaluación',
                 text: err,
                 icon: 'error',
                 showClass: {
@@ -50,33 +51,41 @@ export const AddTestGroup = ( { stageIndex } ) => {
 
     return (
     
-        <form onSubmit={ handleAddTestGroup } className='forms' >
+        <form onSubmit={ handleAddTest } className='forms' >
 
             <i className="far fa-window-close" onClick={ () => dispatch( unsetFormScreen() ) }></i>
 
-            <h3>Nueva etapa</h3>
+            <h3>Nueva evaluación</h3>
 
             <input 
                 type="text"
-                placeholder="Nombre de la categoría"
-                name="testGroup"
+                placeholder="Evaluación"
+                name="test"
                 autoComplete='off'
                 autoFocus
-                required
-                value={ testGroup }
+                value={ test }
                 onChange={ handleFormValues }
             />
 
             <input 
                 type="text"
-                placeholder="Incidencia porcentual en la etapa"
+                placeholder="Incidencia porcentual en la categoría"
                 name="percentWeight"
                 autoComplete='off'
                 value={ percentWeight }
                 onChange={ handleFormValues }
-            />
+                />
 
-            <button type='submit' className='sendButton'>Agregar categoría</button>
+            <textarea
+                placeholder='Datos adicionales'
+                name='additionalData'
+                rows='3'
+                maxLength='200'
+                value={ additionalData }
+                onChange={ handleFormValues }
+            ></textarea>
+
+            <button type='submit' className='sendButton'>Añadir evaluación</button>
         </form>
     )
 }

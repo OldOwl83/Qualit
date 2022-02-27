@@ -54,7 +54,7 @@ export const UpdateTestGroup = ( { testGroupIndex, stageIndex } ) => {
     const handleDeleteTestGroup = () => {
         
         Swal.fire({
-            title: `¿Está seguro/a que desea eliminar la cateogría "${institutions[activeCourse.institution].groups[activeCourse.group].courses[activeCourse.course].stages[stageIndex].testGroups[ testGroupIndex ].testGroup }"?`,
+            title: `¿Está seguro/a de que desea eliminar la cateogría "${institutions[activeCourse.institution].groups[activeCourse.group].courses[activeCourse.course].stages[stageIndex].testGroups[ testGroupIndex ].testGroup }"?`,
             text: 'Si guarda los cambios, se perderán sus datos de manera definitiva; incluidas las evaluaciones. Puede editar éstas si quiere conservarlas',
             icon: 'warning',
             showCancelButton: true,
@@ -108,7 +108,7 @@ export const UpdateTestGroup = ( { testGroupIndex, stageIndex } ) => {
 
             <input 
                 type="text"
-                placeholder="Incidencia porcentual en la etapa"
+                placeholder="Incidencia procentual en la etapa"
                 name="percentWeight"
                 autoComplete='off'
                 value={ percentWeight }

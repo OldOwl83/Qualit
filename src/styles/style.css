@@ -413,30 +413,78 @@ h3 {
 #mainSheet .cells {
   margin: 1px;
   padding: 4px 6px;
+  height: fit-content;
+}
+#mainSheet .container {
+  margin: 1px;
+  border: 1px solid;
   border-radius: 6px;
+}
+#mainSheet .bigTitle {
+  background-color: #2dd92d;
+  border-color: #188818;
+}
+#mainSheet .stageContainer {
+  background-color: #83e983;
+  border-color: #188818;
+}
+#mainSheet .testGroupContainer {
+  background-color: #c0f4c0;
+  border-color: #188818;
+}
+#mainSheet .testContainer {
+  background-color: #ffc933;
+  border-color: #188818;
 }
 #mainSheet h3 {
   font-size: 1.4rem;
   text-align: center;
-  background-color: #2dd92d;
-  border: 1px solid #188818;
 }
 #mainSheet h4 {
   font-size: 1.1rem;
   text-align: center;
-  background-color: #83e983;
-  border: 1px solid #188818;
 }
 #mainSheet h5 {
   font-size: 1rem;
   text-align: center;
+}
+#mainSheet .buttons {
+  width: fit-content;
+  border: 1px solid #333;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+#mainSheet .buttons:hover {
+  background-color: #aaa;
+}
+#mainSheet .buttons.stage {
+  background-color: #83e983;
+}
+#mainSheet .buttons.testGroup {
+  background-color: #c0f4c0;
+}
+#mainSheet .buttons.test {
   background-color: #ffc933;
-  border: 1px solid #cc9600;
+}
+#mainSheet .grades {
+  width: 2vw;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-align: center;
+  border: 1px solid #666;
+  cursor: pointer;
+}
+#mainSheet .grades:focus {
+  user-select: all;
 }
 
 #studentsColumn {
   width: 14%;
   height: 100%;
+}
+#studentsColumn .cells {
+  margin-bottom: 2px;
 }
 #studentsColumn .students {
   font-size: 1.2rem;
@@ -449,20 +497,6 @@ h3 {
 #studentsColumn .students:hover {
   background-color: #aaa;
 }
-#studentsColumn #studentOptCell {
-  font-size: 1.4rem;
-  text-align: center;
-  background-color: #aaa;
-  border: 1px solid #666;
-  cursor: pointer;
-  transition: background-color 0.4s;
-}
-#studentsColumn #studentOptCell:hover {
-  background-color: #666;
-}
-#studentsColumn #studentOptCell .fas {
-  color: black;
-}
 
 #gradesGrid {
   display: flex;
@@ -472,21 +506,27 @@ h3 {
 #gradesGrid #stagesContainer {
   display: flex;
   flex-direction: row;
-  margin-top: -1px;
 }
-#gradesGrid .buttons {
+
+#stagesContainer h4 {
   cursor: pointer;
-  transition: background-color 0.3s;
+  color: black;
+  transition: color 0.3s;
 }
-#gradesGrid .buttons:hover {
-  background-color: #aaa;
+#stagesContainer h4:hover {
+  color: #115c11;
 }
-#gradesGrid #add {
-  background-color: #aaa;
-  border: 1px solid #666;
+
+#testGroupsContainer, #testsContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 }
-#gradesGrid #add:hover {
-  background-color: #666;
+
+#gradesContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 /*# sourceMappingURL=style.css.map */

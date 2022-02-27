@@ -2,39 +2,40 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 
 import Swal from 'sweetalert2';
+import { deleteTestAction, updateTestAction } from '../../../actions/courseData';
 
 import { unsetFormScreen } from '../../../actions/ui';
 import { useForms } from '../../../hooks/useForms';
-import { deleteStudentAction, updateStudentAction } from '../../../actions/studentData';
 
-export const UpdateStudent = ( { studentIndex } ) => {
+
+export const UpdateTest = ( { testIndex, testGroupIndex, stageIndex } ) => {
     
     const dispatch = useDispatch();
 
     const { institutions, activeCourse } = useSelector( state => state.data );
 
-    const student = institutions[ activeCourse.institution ].groups[ activeCourse.group ].students[ studentIndex ];
+    const updatedTest = institutions[ activeCourse.institution ].groups[ activeCourse.group ].courses[ activeCourse.course ].stages[ stageIndex ].testGroups[ testGroupIndex ].tests[ testIndex ];
 
     const [ formValues, handleFormValues ] = useForms( { 
 
-        lastName: student.lastName,
-        firstName: student.firstName,
-        additionalData: student.additionalData,
+        test: updatedTest?.test,
+        percentWeight: updatedTest?.percentWeight,
+        additionalData: updatedTest?.additionalData,
     } );
 
-    const { lastName, firstName, additionalData } = formValues;
+    const { test, percentWeight, additionalData } = formValues;
 
 
-    const handleUpdateStudent = ( e ) => {
+    const handleUpdateTest = ( e ) => {
 
         e.preventDefault();
 
         try{
-            dispatch( updateStudentAction( lastName, firstName, additionalData, studentIndex ) );
+            dispatch( updateTestAction( test, percentWeight, additionalData, testIndex, testGroupIndex, stageIndex ) );
         }catch( err )
         {
             Swal.fire({
-                title: 'Error en la actualización del/la estudiante',
+                title: 'Error en la actualización de la evaluación',
                 text: err,
                 icon: 'error',
                 showClass: {
@@ -51,10 +52,10 @@ export const UpdateStudent = ( { studentIndex } ) => {
         dispatch( unsetFormScreen() );
     };
 
-    const handleDeleteStudent = () => {
+    const handleDeleteTest = () => {
         
         Swal.fire({
-            title: `¿Está seguro/a de que desea eliminar al/a estudiante "${institutions[activeCourse.institution].groups[activeCourse.group].students[studentIndex].lastName}"?`,
+            title: `¿Está seguro/a de que desea eliminar la evaluación "${institutions[activeCourse.institution].groups[activeCourse.group].courses[ activeCourse.course ].stages[stageIndex].testGroups[ testGroupIndex ].tests[ testIndex ].test }"?`,
             text: 'Si guarda los cambios, se perderán sus datos de manera definitiva.',
             icon: 'warning',
             showCancelButton: true,
@@ -72,12 +73,12 @@ export const UpdateStudent = ( { studentIndex } ) => {
 
                 if( result.isConfirmed )
                 {
-                    dispatch( deleteStudentAction( studentIndex ) );
+                    dispatch( deleteTestAction( testIndex, testGroupIndex, stageIndex ) );
                     
                     Swal.fire({
                         position: 'top-end',
                         icon: 'success',
-                        title: 'Estudiante eliminado/a',
+                        title: 'Evaluación eliminada',
                         showConfirmButton: false,
                         timer: 1000
                         });
@@ -90,28 +91,28 @@ export const UpdateStudent = ( { studentIndex } ) => {
 
     return (
     
-        <form onSubmit={ handleUpdateStudent } className='forms' >
+        <form onSubmit={ handleUpdateTest } className='forms' >
 
             <i className="far fa-window-close" onClick={ () => dispatch( unsetFormScreen() ) }></i>
 
-            <h3>Editar estudiante</h3>
+            <h3>Editar evaluación</h3>
 
             <input 
                 type="text"
-                placeholder="Apellido"
-                name="lastName"
+                placeholder="Evaluación"
+                name="test"
                 autoComplete='off'
                 autoFocus
-                value={ lastName }
+                value={ test }
                 onChange={ handleFormValues }
             />
 
             <input 
                 type="text"
-                placeholder="Nombre"
-                name="firstName"
+                placeholder="Incidencia porcentual en la categoría"
+                name="percentWeight"
                 autoComplete='off'
-                value={ firstName }
+                value={ percentWeight }
                 onChange={ handleFormValues }
                 />
 
@@ -125,8 +126,8 @@ export const UpdateStudent = ( { studentIndex } ) => {
             ></textarea>
 
             <div id="buttonsContainer">
-                <button type='submit' className='sendButton'>Actualizar estudiante</button>
-                <i className="fas fa-trash-alt" title="Eliminar estudiante" onClick={ handleDeleteStudent }></i>
+                <button type='submit' className='sendButton'>Actualizar evaluación</button>
+                <i className="fas fa-trash-alt" title="Eliminar evaluación" onClick={ handleDeleteTest }></i>
             </div>
         </form>
     )

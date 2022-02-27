@@ -37,6 +37,10 @@ export const actionTypes = {
         updateTestGroup: "[data[ Update testGroup",
         deleteTestGroup: "[data] Delete testGroup",
 
+        addTest: "[data] Add test",
+        updateTest: "[data[ Update test",
+        deleteTest: "[data] Delete test",
+
         dataLoad: "[data] Load data",
         fullDataErase: "[data] Erase full data",
     },

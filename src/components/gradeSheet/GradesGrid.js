@@ -20,7 +20,7 @@ export const GradesGrid = () => {
 
         <div id="gradesGrid">
 
-            <h3 className='cells'>{ `${ institutions[ activeCourse.institution ].institution } - ${ institutions[ activeCourse.institution ].groups[ activeCourse.group ].group } - ${ institutions[ activeCourse.institution ].groups[ activeCourse.group ].courses[ activeCourse.course ].course }` }</h3>
+            <h3 className='cells container bigTitle'>{ `${ institutions[ activeCourse.institution ].institution } - ${ institutions[ activeCourse.institution ].groups[ activeCourse.group ].group } - ${ institutions[ activeCourse.institution ].groups[ activeCourse.group ].courses[ activeCourse.course ].course }` }</h3>
 
             <div id='stagesContainer'>
                 {
@@ -33,14 +33,12 @@ export const GradesGrid = () => {
                     />) )
                 }
 
-                <h4 
-                    id='add'
-                    className='cells buttons'
+                <div className='cells buttons stage'
                     title='Añadir etapa'
                     onClick={ handleNewStage }
                 >
-                    <i className="fas fa-plus"></i>
-                </h4>
+                        <i className="fas fa-plus"></i>
+                </div>
             </div>
             
 

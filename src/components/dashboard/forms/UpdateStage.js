@@ -53,7 +53,7 @@ export const UpdateStage = ( { stageIndex } ) => {
     const handleDeleteStage = () => {
         
         Swal.fire({
-            title: `¿Está seguro/a que desea eliminar la etapa "${institutions[activeCourse.institution].groups[activeCourse.group].courses[activeCourse.course].stages[stageIndex].stage}"?`,
+            title: `¿Está seguro/a de que desea eliminar la etapa "${institutions[activeCourse.institution].groups[activeCourse.group].courses[activeCourse.course].stages[stageIndex].stage}"?`,
             text: 'Si guarda los cambios, se perderán sus datos de manera definitiva; incluidas las evaluaciones. Puede editar éstas si quiere conservarlas',
             icon: 'warning',
             showCancelButton: true,
