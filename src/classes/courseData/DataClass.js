@@ -1,10 +1,11 @@
-import { Student } from "../studentData/studentClass";
-import { Course } from "./CourseClass";
-import { Group } from "./GroupClass";
 import { Institution } from "./InstitutionClass";
+import { Group } from "./GroupClass";
+import { Course } from "./CourseClass";
 import { Stage } from "./StageClass";
-import { Test } from "./TestClass";
 import { TestGroup } from "./TestGroupClass";
+import { Test } from "./TestClass";
+import { Student } from "../studentData/StudentClass";
+import { Grade } from "../studentData/GradeClass";
 
 export class Data
 {
@@ -30,7 +31,12 @@ export class Data
 
                         const testGroups = stage.testGroups.map( tG => {
 
-                            const tests = tG.tests.map( test => new Test( test.test, test.percentWeight, test.additionalData ) );
+                            const tests = tG.tests.map( test => {
+
+                                const grades = test.grades.map( grade => new Grade( grade.idStudent, grade.score ));
+                                
+                                return new Test( test.test, test.percentWeight, test.additionalData, grades );
+                            });
 
                             return new TestGroup( tG.testGroup, tG.percentWeight, tests );
                         });
@@ -43,9 +49,7 @@ export class Data
     
                 const students = group.students.map( student => {
 
-                    const grades = []; //TODO: Mapeo de notas
-
-                    return new Student( student.lastName, student.firstName, student.additionalData, grades, student.id );
+                    return new Student( student.lastName, student.firstName, student.additionalData, student.id );
                 });
     
                 return new Group( group.group, courses, students );

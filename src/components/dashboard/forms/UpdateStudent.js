@@ -17,9 +17,9 @@ export const UpdateStudent = ( { studentIndex } ) => {
 
     const [ formValues, handleFormValues ] = useForms( { 
 
-        lastName: student.lastName,
-        firstName: student.firstName,
-        additionalData: student.additionalData,
+        lastName: student?.lastName,
+        firstName: student?.firstName,
+        additionalData: student?.additionalData,
     } );
 
     const { lastName, firstName, additionalData } = formValues;

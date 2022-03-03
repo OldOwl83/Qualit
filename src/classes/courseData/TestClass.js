@@ -1,12 +1,35 @@
 export class Test
 {
-    constructor( name, percentWeight = 0, additionalData = '' )
+    constructor( name, percentWeight = 0, additionalData = '', gradesArr = [] )
     {
-        if( typeof name !== "string" || typeof percentWeight !== "number" || typeof additionalData !== 'string' )
-            throw TypeError("Los objetos TestGroup toman un string, un number y otro string como parámetros.");
+        if( typeof name !== "string" || typeof percentWeight !== "number" || typeof additionalData !== 'string' || !Array.isArray( gradesArr ) )
+            throw TypeError("Los objetos Test toman dos strings, un number y un array como parámetros.");
 
         this.test = name;
         this.percentWeight = percentWeight;
         this.additionalData = additionalData;
+        this.grades = gradesArr;
+    }
+
+    addNewGrade( gradeObj )
+    {
+        this.grades.push( gradeObj );
+    }
+
+    setGradeScore( idStudent, score )
+    {
+        for( let i = 0; i < this.grades.length; i ++ )
+        {
+            if( this.grades[i].idStudent == idStudent )
+            {
+                this.grades[i].score = score;
+                break;
+            }
+        }
+    }
+
+    deleteGrade( idStudent )
+    {
+        this.grades = this.grades.filter( grade => grade.idStudent != idStudent );
     }
 }

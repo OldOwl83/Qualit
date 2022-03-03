@@ -1,3 +1,5 @@
+import { Grade } from "../studentData/GradeClass";
+
 export class Group
 {
     constructor( name, coursesArr = [], studentsArr = [] )
@@ -51,6 +53,12 @@ export class Group
             else
                 return -1;
         } );
+
+        for( let i = 0; i < this.courses.length; i++ )
+            for( let j = 0; j < this.courses[i].stages.length; j++ )
+                for( let k = 0; k < this.courses[i].stages[j].testGroups.length; k++ )
+                    for( let l = 0; l < this.courses[i].stages[j].testGroups[k].tests.length; l++ )
+                        this.courses[i].stages[j].testGroups[k].tests[l].grades.push( new Grade( studentObj.id ) );
     }
 
     updateStudentData( studentIndex, newData )
@@ -62,6 +70,14 @@ export class Group
 
     deleteStudent( studentIndex )
     {
+        const idStudent = this.students[ studentIndex ].id;
+
         this.students.splice( studentIndex, 1 );
+
+        for( let i = 0; i < this.courses.length; i++ )
+            for( let j = 0; j < this.courses[i].stages.length; j++ )
+                for( let k = 0; k < this.courses[i].stages[j].testGroups.length; k++ )
+                    for( let l = 0; l < this.courses[i].stages[j].testGroups[k].tests.length; l++ )
+                        this.courses[i].stages[j].testGroups[k].tests[l].grades = this.courses[i].stages[j].testGroups[k].tests[l].grades.filter( grade => grade.idStudent != idStudent );
     }
 }
