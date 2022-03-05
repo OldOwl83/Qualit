@@ -455,9 +455,6 @@ h3 {
   cursor: pointer;
   transition: background-color 0.3s;
 }
-#mainSheet .buttons:hover {
-  background-color: #aaa;
-}
 #mainSheet .buttons.stage {
   background-color: #83e983;
 }
@@ -466,6 +463,17 @@ h3 {
 }
 #mainSheet .buttons.test {
   background-color: #ffc933;
+}
+#mainSheet .buttons:hover {
+  background-color: #aaa;
+}
+#mainSheet .edit {
+  cursor: pointer;
+  color: black;
+  transition: color 0.3s;
+}
+#mainSheet .edit:hover {
+  color: #115c11;
 }
 #mainSheet .grades {
   width: 2vw;
@@ -508,22 +516,13 @@ h3 {
   flex-direction: row;
 }
 
-#stagesContainer h4 {
-  cursor: pointer;
-  color: black;
-  transition: color 0.3s;
-}
-#stagesContainer h4:hover {
-  color: #115c11;
-}
-
-#testGroupsContainer, #testsContainer {
+.testGroupsContainer, .testsContainer {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
 }
 
-#gradesContainer {
+.gradesContainer, .averagesContainer {
   display: flex;
   flex-direction: column;
   justify-content: center;

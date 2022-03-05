@@ -1,14 +1,17 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { setFormScreen } from '../../actions/ui';
 import { AddTest } from '../dashboard/forms/AddTest';
 import { UpdateTestGroup } from '../dashboard/forms/UpdateTestGroup';
+import { Average } from './Average';
 import { Test } from './Test';
 
 export const TestGroup = ( { testGroupObj, testGroupIndex, stageIndex } ) => {
 
     const dispatch = useDispatch();
+
+    const { institutions, activeCourse } = useSelector( state => state.data );
 
 
     const handleTestGroupUpdate = () => {
@@ -27,14 +30,14 @@ export const TestGroup = ( { testGroupObj, testGroupIndex, stageIndex } ) => {
         <div className='container testGroupContainer'>
 
             <h4 
-                className='cells'
+                className='cells edit'
                 title={ `Editar categoría "${ testGroupObj.testGroup }"` } 
                 onClick={ handleTestGroupUpdate }
             >
                 { testGroupObj.testGroup }
             </h4>
 
-            <div id='testsContainer'>
+            <div className='testsContainer'>
                 {
                     testGroupObj.tests.map( ( test, index ) => (
                     
@@ -53,6 +56,16 @@ export const TestGroup = ( { testGroupObj, testGroupIndex, stageIndex } ) => {
                     onClick={ handleNewTest }
                 >
                     <i className="fas fa-plus"></i>
+                </div>
+
+                <div className='averagesContainer'>
+
+                    <h4 className='cells'>Promedio</h4>
+                    { institutions[ activeCourse.institution ].groups[ activeCourse.group ].students.map( student => {
+
+                        return <Average studentId={ student.id } testGroupObj={ testGroupObj } />
+
+                    }) }
                 </div>
             </div>
         </div>

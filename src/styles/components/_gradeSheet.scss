@@ -73,10 +73,6 @@
         cursor: pointer;
     
         transition: background-color .3s;
-    
-        &:hover{
-            background-color: #aaa;
-        }
 
         &.stage{
             background-color: lighten( $primary_dark_color, 30% );
@@ -88,6 +84,21 @@
 
         &.test{
             background-color: lighten( $secondary_dark_color, 10% );
+        }
+
+        &:hover{
+            background-color: #aaa;
+        }
+    }
+
+    .edit{
+        cursor: pointer;
+        color: black;
+        
+        transition: color .3s;
+
+        &:hover{
+            color: darken($primary_dark_color , 20%);
         }
     }
 
@@ -145,26 +156,13 @@
     }
 }
 
-#stagesContainer{
-    
-    h4{
-        cursor: pointer;
-        color: black;
-        
-        transition: color .3s;
-    }
-    h4:hover{
-        color: darken($primary_dark_color , 20%);
-    }
-}
-
-#testGroupsContainer, #testsContainer{
+.testGroupsContainer, .testsContainer{
     display: flex;
     flex-direction: row;
     justify-content: space-around;
 }
 
-#gradesContainer{
+.gradesContainer, .averagesContainer{
     display: flex;
     flex-direction: column;
     justify-content: center;

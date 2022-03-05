@@ -41,6 +41,8 @@ export const actionTypes = {
         updateTest: "[data[ Update test",
         deleteTest: "[data] Delete test",
 
+        setScore: "[data] Set score",
+
         dataLoad: "[data] Load data",
         fullDataErase: "[data] Erase full data",
     },

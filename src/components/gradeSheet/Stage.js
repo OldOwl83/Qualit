@@ -22,14 +22,14 @@ export const Stage = ( { stageObj, stageIndex } ) => {
     return (
         <div className='container stageContainer'>
             <h4 
-                className='cells'
+                className='cells edit'
                 title={ `Editar etapa "${ stageObj.stage }"` } 
                 onClick={ handleStageUpdate }
             >
                 { stageObj.stage }
             </h4>
 
-            <div id="testGroupsContainer">
+            <div className="testGroupsContainer">
                 {
                     stageObj.testGroups.map( ( tG, index ) => (
                     

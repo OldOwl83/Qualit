@@ -239,6 +239,14 @@ export const dataReducer = ( state = initialState, action ) => {
                 newState.institutions[ state.activeCourse.institution ].groups[ state.activeCourse.group ].courses[ state.activeCourse.course].stages[ action.payload.stageIndex ].testGroups[ action.payload.testGroupIndex ].deleteTest( action.payload.testIndex ); 
 
                 return newState;
+
+            case actionTypes.data.setScore:
+
+                newState = new Data( state.institutions, state.activeCourse );
+                
+                newState.institutions[ state.activeCourse.institution ].groups[ state.activeCourse.group ].courses[ state.activeCourse.course].stages[ action.payload.stageIndex ].testGroups[ action.payload.testGroupIndex ].tests[ action.payload.testIndex ].setGradeScore( action.payload.studentId, action.payload.score ); 
+
+                return newState;
     
         default:
             return state;

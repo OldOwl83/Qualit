@@ -17,6 +17,7 @@ import Swal from 'sweetalert2';
 import isAlpha from 'validator/lib/isAlpha';
 import isEmail from 'validator/lib/isEmail';
 import isStrongPassword from 'validator/lib/isStrongPassword';
+import isNumeric from 'validator/lib/isNumeric';
 
 import 'animate.css';
 
@@ -97,6 +98,38 @@ export const formValidate = ( fieldsObject ) => {
         Swal.fire({
             title: 'Imagen rechazada',
             text: 'El archivo debe ser menor a 1MB y su extensión puede ser .png, .jpg o .jpeg.',
+            icon: 'error',
+            showClass: {
+              popup: 'animate__animated animate__backInDown'
+            },
+            hideClass: {
+              popup: 'animate__animated animate__backOutUp'
+            }
+          });
+
+          return false;
+
+    }else if( fieldsObject.score && !isNumeric( fieldsObject.score ) )
+    {
+        Swal.fire({
+            title: 'Formulario inválido',
+            text: 'Las calificaciones sólo pueden representarse de forma numérica. (Utilice el punto "." como separador decimal.)',
+            icon: 'error',
+            showClass: {
+              popup: 'animate__animated animate__backInDown'
+            },
+            hideClass: {
+              popup: 'animate__animated animate__backOutUp'
+            }
+          });
+
+          return false;
+
+    }else if( fieldsObject.score && ( Number( fieldsObject.score ) > 100 || Number( fieldsObject.score ) < 0 ) )
+    {
+        Swal.fire({
+            title: 'Formulario inválido',
+            text: 'Sólo se permiten calificaciones en el rango 0-100',
             icon: 'error',
             showClass: {
               popup: 'animate__animated animate__backInDown'
