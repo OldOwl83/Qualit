@@ -31,40 +31,51 @@ export const TestGroup = ( { testGroupObj, testGroupIndex, stageIndex } ) => {
 
             <h4 
                 className='cells edit'
-                title={ `Editar categoría "${ testGroupObj.testGroup }"` } 
+                title={ `Editar "${ testGroupObj.testGroup }"` } 
                 onClick={ handleTestGroupUpdate }
             >
-                { testGroupObj.testGroup }
+                { 
+                    testGroupObj.testGroup.length < 10 ?
+                    testGroupObj.testGroup :
+                    testGroupObj.testGroup.slice(0, 8) + '...'
+                }
             </h4>
 
             <div className='testsContainer'>
-                {
-                    testGroupObj.tests.map( ( test, index ) => (
-                    
-                        <Test 
-                            key={ test.test } 
-                            testObj={ test } 
-                            testIndex={ index } 
-                            testGroupIndex={ testGroupIndex } 
-                            stageIndex={ stageIndex } 
-                        />))
-                }
+                <div className='leftHalfContainer'>
+                    {
+                        testGroupObj.tests.map( ( test, index ) => (
+                        
+                            <Test 
+                                key={ test.test } 
+                                testObj={ test } 
+                                testIndex={ index } 
+                                testGroupIndex={ testGroupIndex } 
+                                stageIndex={ stageIndex } 
+                            />))
+                    }
 
-                <div 
-                    className='cells buttons test'
-                    title='Añadir evaluación'
-                    onClick={ handleNewTest }
-                >
-                    <i className="fas fa-plus"></i>
+                    <div 
+                        className='cells buttons test'
+                        title='Añadir evaluación'
+                        onClick={ handleNewTest }
+                    >
+                        <i className="fas fa-plus"></i>
+                    </div>
                 </div>
 
-                <div className='averagesContainer'>
+                <div className='averagesContainer' style={{ marginTop: '2px' }}>
 
-                    <h4 className='cells'>Promedio</h4>
+                    <h5 className='cells'>Pr. catg.</h5>
+
                     { institutions[ activeCourse.institution ].groups[ activeCourse.group ].students.map( student => {
 
-                        return <Average studentId={ student.id } testGroupObj={ testGroupObj } />
-
+                        return <Average 
+                                    key={ student.id} 
+                                    studentId={ student.id }
+                                    studentLastName={ student.lastName } 
+                                    object={ testGroupObj } 
+                                />
                     }) }
                 </div>
             </div>

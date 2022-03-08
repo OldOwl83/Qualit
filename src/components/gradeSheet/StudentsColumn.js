@@ -28,32 +28,42 @@ export const StudentsColumn = () => {
         <div id="studentsColumn">
 
             <h3 className='cells container bigTitle'>Curso</h3>
-            <h4 className='cells container stageContainer'>Etapas</h4>
-            <h4 className='cells container testGroupContainer'>Categorías</h4>
-            <h5 className='cells container testContainer'>Evaluaciones</h5>
-            
 
-            { 
-                students.map( ( student, index ) => {
-                    return (
+            <div className='container stageContainer'>
+                <h4 className='cells stageContainer'>Etapas</h4>
+
+                <div className='container testGroupContainer' style={{ marginTop: '2px'}}>
+                    <h4 className='cells testGroupContainer'>Categorías</h4>
+
+                    <div className='container testContainer' style={{ marginTop: '2px'}}>
+                        <h5 className='cells testContainer'>Evaluaciones</h5>
+                        
+
+                        { 
+                            students.map( ( student, index ) => {
+                                return (
+                                    <div 
+                                        key={ student.id }
+                                        className='cells container studentContainer'
+                                        style={{ marginBottom: '2px' }}
+                                        title="Editar estudiante"
+                                        onClick={ () => handleStudentUpdate( index ) }
+                                    >
+                                        { `${ student.lastName }, ${ student.firstName }` }
+                                    </div> 
+                                )
+                            })
+                        }
+
                         <div 
-                            key={ student.id }
-                            className='cells container students'
-                            title="Editar estudiante"
-                            onClick={ () => handleStudentUpdate( index ) }
-                        >
-                            { `${ student.lastName }, ${ student.firstName }` }
-                        </div> 
-                    )
-                })
-            }
-
-            <div 
-                className='cells buttons' 
-                title="Agregar estudiante" 
-                onClick={ handleNewStudent }
-            >    
-                    <i className="fas fa-plus"></i>
+                            className='cells buttons studentContainer' 
+                            title="Agregar estudiante" 
+                            onClick={ handleNewStudent }
+                        >    
+                                <i className="fas fa-plus"></i>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     )

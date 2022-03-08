@@ -39,12 +39,11 @@ export const Score = ( { studentId, testObj, testIndex, testGroupIndex, stageInd
 
         <input 
             key={ studentId }
-            className='cells container grades'
+            className='cells container score grades'
             type="text"
             value={ score }
             onChange={ handleChangeScore }
             onBlur={ handleValueValidation }
         />
     );
-
 }

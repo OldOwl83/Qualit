@@ -4,7 +4,7 @@ import { StudentsColumn } from './StudentsColumn'
 
 export const GradeSheet = () => {
     return (
-        <div id="mainSheet">
+        <div id="mainSheet" className='animate__animated animate__fadeIn'>
 
             <StudentsColumn />
             <GradesGrid />

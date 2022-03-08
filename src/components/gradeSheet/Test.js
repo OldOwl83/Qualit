@@ -22,21 +22,23 @@ export const Test = ( { testObj, testIndex, testGroupIndex, stageIndex } ) => {
     
         <div className='container testContainer'>
 
-            <h4 
+            <h5 
                 className='cells edit'
-                title={ `Editar evaluación "${ testObj.test }"` }
+                title={ `Editar "${ testObj.test }"` }
                 onClick={ handleTestUpdate }
             >
-                { testObj.test }
-            </h4>
+                { 
+                    testObj.test.length < 6 ?
+                    testObj.test :
+                    testObj.test.slice(0, 4) + '...'
+                }
+            </h5>
 
             <div className='gradesContainer'>
                 {
                     institutions[ activeCourse.institution ].groups[ activeCourse.group ].students.map( student => (
                     <Score 
                         key={ student.id }
-                        className='cells container grades'
-                        type="text"
                         studentId={ student.id }
                         testObj={ testObj }
                         testIndex={ testIndex }
