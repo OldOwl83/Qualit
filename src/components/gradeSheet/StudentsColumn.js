@@ -54,13 +54,12 @@ export const StudentsColumn = () => {
                                 )
                             })
                         }
-
                         <div 
                             className='cells buttons studentContainer' 
                             title="Agregar estudiante" 
                             onClick={ handleNewStudent }
-                        >    
-                                <i className="fas fa-plus"></i>
+                        >
+                            <i className="fas fa-plus"></i>
                         </div>
                     </div>
                 </div>

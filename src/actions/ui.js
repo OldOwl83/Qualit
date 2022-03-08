@@ -25,3 +25,16 @@ export const unsetFormScreen = () => (
         type: actionTypes.ui.unsetFormScreen,
     }
 );
+
+
+export const dataIsSaved = () => (
+    {
+        type: actionTypes.ui.dataSaved,
+    }
+);
+
+export const dataIsUnsaved = () => (
+    {
+        type: actionTypes.ui.dataUnsaved,
+    }
+);

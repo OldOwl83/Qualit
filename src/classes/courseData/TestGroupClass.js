@@ -29,6 +29,9 @@ export class TestGroup
 
     updateTest( testIndex, name, weight, additionalData )
     {
+        if( !name )
+            throw Error( 'El nombre es obligatorio.' );
+
         if( this.tests[ testIndex ].test !== name )    
             for( const test of this.tests)
                 if( test.test === name )

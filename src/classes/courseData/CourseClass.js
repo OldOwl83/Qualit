@@ -30,6 +30,9 @@ export class Course
 
     updateStage( stageIndex, newName, newWeight = 0 )
     {
+        if( !newName )
+            throw Error( 'El nombre es obligatorio.' );
+
         if( this.stages[ stageIndex ].stage !== newName )
             for( const stage of this.stages)
                 if( stage.stage === newName )

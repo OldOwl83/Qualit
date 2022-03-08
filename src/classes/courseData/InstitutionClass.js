@@ -21,6 +21,9 @@ export class Institution
 
     updateGroupName( groupIndex, newName )
     {
+        if( !newName )
+            throw Error( 'El nombre es obligatorio.' );
+
         if( this.groups[ groupIndex ].group === newName )
             return;
 

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 import { FormScreen } from './FormScreen';
@@ -8,11 +8,32 @@ import { TopNavbar } from './topNavbar/TopNavbar';
 
 export const Dashboard = () => {
 
-    const { ui, data } = useSelector( state => state );
+    const { ui } = useSelector( state => state );
+    
+    const { formScreen, dataSaved } = ui;
 
-    const { formScreen } = ui;
+    
+    const preventUnloadWindow = ( e ) => {
 
-    const { activeCourse } = data;
+        e.preventDefault();
+
+        return e.returnValue = 'Hay cambios sin guardar. Si continúa, se perderán.';
+    };
+
+    useEffect(() => {
+        
+        if( !dataSaved )
+            window.addEventListener( 'beforeunload', preventUnloadWindow );
+        else
+            window.removeEventListener( 'beforeunload', preventUnloadWindow );
+
+    
+        return () => {
+            window.removeEventListener( 'beforeunload', preventUnloadWindow );
+        };
+
+    }, [ dataSaved ]);
+
 
     return (
         <>
@@ -22,7 +43,7 @@ export const Dashboard = () => {
 
             <TopNavbar />
 
-            { activeCourse.course !== -1 && <GradeSheet /> }
+            <GradeSheet />
 
         </div>
         </>

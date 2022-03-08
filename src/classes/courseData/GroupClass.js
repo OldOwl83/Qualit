@@ -23,6 +23,9 @@ export class Group
 
     updateCourseName( courseIndex, newName )
     {
+        if( !newName )
+            throw Error( 'El nombre es obligatorio.' );
+
         if( this.courses[ courseIndex ].course === newName )
             return;
 
@@ -63,6 +66,9 @@ export class Group
 
     updateStudentData( studentIndex, newData )
     {
+        if( !newData.lastName )
+            throw Error( 'El apellido es obligatorio.' );
+
         this.students[ studentIndex ].lastName = newData.lastName;
         this.students[ studentIndex ].firstName = newData.firstName;
         this.students[ studentIndex ].additionalData = newData.additionalData;

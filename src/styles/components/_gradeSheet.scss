@@ -41,12 +41,6 @@
         display: flex;
         flex-direction: row;
         justify-content: space-around;
-
-        // color: beige;
-
-        // span{
-        //     background-color: $tertiary_dark_color;
-        // }
     }
     
     .stageContainer{
@@ -67,7 +61,7 @@
     .studentContainer{
         
         background-color: lighten( $secondary_light_color, 8% );
-        border-color: darken( $primary_dark_color, 10% );
+        border-color: darken( $primary_dark_color, 20% );
 
         font: {
             family: 'Arial';
@@ -151,6 +145,8 @@
             weight: bold;
         }
         text-align: center;
+        
+        border-color: #555;
         
         &:focus{
             user-select: all;

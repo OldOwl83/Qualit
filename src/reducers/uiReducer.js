@@ -3,6 +3,7 @@ import { actionTypes } from "../types/types";
 const initialState = {
     loading: false,
     formScreen: false,
+    dataSaved: true,
 }
 
 export const uiReducer = ( state = initialState, action ) => {
@@ -39,6 +40,23 @@ export const uiReducer = ( state = initialState, action ) => {
                 {
                     ...state,
                     formScreen: false,
+                }
+            );
+
+
+        case actionTypes.ui.dataSaved:
+            return (
+                {
+                    ...state,
+                    dataSaved: true,
+                }
+            );
+
+        case actionTypes.ui.dataUnsaved:
+            return (
+                {
+                    ...state,
+                    dataSaved: false,
                 }
             );
     

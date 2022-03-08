@@ -57,6 +57,8 @@ export class Data
     
             return new Institution( instit.institution, groups );
         });
+
+        this.activeCourse = dataFromDB.activeCourse;
     };
 
     addNewInstitution( institObj )
@@ -70,6 +72,9 @@ export class Data
 
     updateInstitName( institIndex, newName )
     {
+        if( !newName )
+            throw Error( 'El nombre es obligatorio.' );
+
         if( this.institutions[ institIndex ].institution === newName )
             return;
 

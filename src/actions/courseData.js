@@ -5,132 +5,228 @@ import { db } from "../SDKs/firebase";
 
 import { actionTypes } from "../types/types";
 import { Data } from "../classes/courseData/DataClass";
-import { startLoading, stopLoading } from "./ui";
+import { dataIsSaved, dataIsUnsaved, startLoading, stopLoading } from "./ui";
 
 
-export const addCourseAction = ( institution, group, course ) => (
-    {
-        type: actionTypes.data.addCourse,
-        payload: {
+export const addCourseAction = ( institution, group, course ) => {
 
-            institution: institution,
-            group: group,
-            course: course,
-        }
-    }
-);
+    return ( dispatch ) => {
 
-export const updateCourseAction = ( newData ) => (
-    {
-        type: actionTypes.data.updateCourse,
-        payload: {
-            institution: newData.institution,
-            group: newData.group,
-            course: newData.course,
-        },
-    }
-);
+        dispatch(
+            {
+                type: actionTypes.data.addCourse,
+                payload: {
+        
+                    institution: institution,
+                    group: group,
+                    course: course,
+                }
+            }
+        );
 
-export const deleteCourseAction = () => (
-    {
-        type: actionTypes.data.deleteCourse,
-    }
-);
+        dispatch( dataIsUnsaved() );
+    };
+};
 
-
-export const addStageAction = ( name, percentWeight ) => (
-    {
-        type: actionTypes.data.addStage,
-        payload: {
-            stage: name,
-            percentWeight: percentWeight,
-        }
-    }
-);
-
-export const updateStageAction = ( name, percentWeight, stageIndex ) => (
-    {
-        type: actionTypes.data.updateStage,
-        payload: {
-            stage: name,
-            percentWeight,
-            stageIndex
-        }
-    }
-);
-
-export const deleteStageAction = ( stageIndex ) => (
-    {
-        type: actionTypes.data.deleteStage,
-        payload: stageIndex
-    }
-);
+export const updateCourseAction = ( newData ) => {
+    
+    return ( dispatch ) => {
+    
+        dispatch(
+            {
+                type: actionTypes.data.updateCourse,
+                payload: {
+                    institution: newData.institution,
+                    group: newData.group,
+                    course: newData.course,
+                },
+            }
+        );
+    
+        dispatch( dataIsUnsaved() );
+    };
+}
 
 
-export const addTestGroupAction = ( name, percentWeight, stageIndex ) => (
-    {
-        type: actionTypes.data.addTestGroup,
-        payload: {
-            testGroup: name,
-            percentWeight,
-            stageIndex
-        }
-    }
-);
+export const deleteCourseAction = () => {
 
-export const updateTestGroupAction = ( name, percentWeight, testGroupIndex, stageIndex ) => (
-    {
-        type: actionTypes.data.updateTestGroup,
-        payload: {
-            testGroup: name,
-            percentWeight,
-            testGroupIndex,
-            stageIndex,
-        }
-    }
-);
+    return ( dispatch ) => {
 
-export const deleteTestGroupAction = ( testGroupIndex, stageIndex ) => (
-    {
-        type: actionTypes.data.deleteTestGroup,
-        payload: { testGroupIndex, stageIndex }
-    }
-);
+        dispatch(
+            {
+                type: actionTypes.data.deleteCourse,
+            }
+        );
+
+        dispatch( dataIsUnsaved() );
+    };
+};
 
 
-export const addTestAction = ( name, percentWeight, additionalData, testGroupIndex, stageIndex ) => (
-    {
-        type: actionTypes.data.addTest,
-        payload: {
-            test: name,
-            percentWeight,
-            additionalData,
-            testGroupIndex,
-            stageIndex 
-        }
-    }
-);
+export const addStageAction = ( name, percentWeight ) => {
 
-export const updateTestAction = ( name, percentWeight, additionalData, testIndex, testGroupIndex, stageIndex ) => (
-    {
-        type: actionTypes.data.updateTest,
-        payload: {
-            test: name,
-            percentWeight,
-            additionalData,
-            testIndex,
-            testGroupIndex,
-            stageIndex 
-        }
-    }
-);
+    return ( dispatch ) => {
 
-export const deleteTestAction = ( testIndex, testGroupIndex, stageIndex ) => (
-    {
-        type: actionTypes.data.deleteTest,
-        payload: { testIndex, testGroupIndex, stageIndex }
-    }
-);
+        dispatch(
+            {
+                type: actionTypes.data.addStage,
+                payload: {
+                    stage: name,
+                    percentWeight: percentWeight,
+                }
+            }
+        );
+
+        dispatch( dataIsUnsaved() );
+    };
+};
+
+export const updateStageAction = ( name, percentWeight, stageIndex ) => {
+
+    return ( dispatch ) => {
+
+        dispatch(
+            {
+                type: actionTypes.data.updateStage,
+                payload: {
+                    stage: name,
+                    percentWeight,
+                    stageIndex
+                }
+            }
+        );
+
+        dispatch( dataIsUnsaved() );
+    };
+};
+
+export const deleteStageAction = ( stageIndex ) => {
+
+    return ( dispatch ) => {
+
+        dispatch(
+            {
+                type: actionTypes.data.deleteStage,
+                payload: stageIndex
+            }
+        );
+
+        dispatch( dataIsUnsaved() );
+    };
+};
+
+export const addTestGroupAction = ( name, percentWeight, stageIndex ) => {
+
+    return ( dispatch ) => {
+
+        dispatch(
+            {
+                type: actionTypes.data.addTestGroup,
+                payload: {
+                    testGroup: name,
+                    percentWeight,
+                    stageIndex
+                }
+            }
+        );
+
+        dispatch( dataIsUnsaved() );
+    };
+};
+
+export const updateTestGroupAction = ( name, percentWeight, testGroupIndex, stageIndex ) => {
+
+    return ( dispatch ) => {
+
+        dispatch(
+            {
+                type: actionTypes.data.updateTestGroup,
+                payload: {
+                    testGroup: name,
+                    percentWeight,
+                    testGroupIndex,
+                    stageIndex,
+                }
+            }
+        );
+
+        dispatch( dataIsUnsaved() );
+    };
+};
+
+export const deleteTestGroupAction = ( testGroupIndex, stageIndex ) => {
+
+    return ( dispatch ) => {
+
+        dispatch(
+            {
+                type: actionTypes.data.deleteTestGroup,
+                payload: { testGroupIndex, stageIndex }
+            }
+        );
+
+        dispatch( dataIsUnsaved() );
+    };
+};
+
+
+export const addTestAction = ( name, percentWeight, additionalData, testGroupIndex, stageIndex ) => {
+
+    return ( dispatch ) => {
+
+        dispatch(
+            {
+                type: actionTypes.data.addTest,
+                payload: {
+                    test: name,
+                    percentWeight,
+                    additionalData,
+                    testGroupIndex,
+                    stageIndex 
+                }
+            }
+        );
+
+        dispatch( dataIsUnsaved() );
+    };
+};
+
+export const updateTestAction = ( name, percentWeight, additionalData, testIndex, testGroupIndex, stageIndex ) => {
+
+    return ( dispatch ) => {
+
+        dispatch(
+            {
+                type: actionTypes.data.updateTest,
+                payload: {
+                    test: name,
+                    percentWeight,
+                    additionalData,
+                    testIndex,
+                    testGroupIndex,
+                    stageIndex 
+                }
+            }
+        );
+
+        dispatch( dataIsUnsaved() );
+    };
+};
+
+export const deleteTestAction = ( testIndex, testGroupIndex, stageIndex ) => {
+
+    return ( dispatch ) => {
+
+        dispatch(
+            {
+                type: actionTypes.data.deleteTest,
+                payload: { testIndex, testGroupIndex, stageIndex }
+            }
+        );
+
+        dispatch( dataIsUnsaved() );
+    };
+};
 
 
 export const uploadData = ( data, uid ) => {
@@ -149,6 +245,8 @@ export const uploadData = ( data, uid ) => {
                     showConfirmButton: false,
                     timer: 1000
                   });
+
+                dispatch( dataIsSaved() );
             })
             .catch( ( err ) => {
 
@@ -183,6 +281,7 @@ export const downloadData = ( uid ) => {
                 data.parseDataFromDB( JSON.parse( snap.data().data ) );
 
                 dispatch( dataLoadAction( data ) );
+                dispatch( dataIsSaved() );
             })
             .catch( err => {
 
@@ -204,11 +303,11 @@ export const downloadData = ( uid ) => {
 };
 
 export const dataLoadAction = ( data ) => (
-        {
-            type: actionTypes.data.dataLoad,
-            payload: data,
-        }
-    );
+    {
+        type: actionTypes.data.dataLoad,
+        payload: data,
+    }
+);
 
 export const fullDataEraseAction = () => (
     {

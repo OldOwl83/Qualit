@@ -31,6 +31,9 @@ export class Stage
 
     updateTestGroup( tGIndex, name, weight )
     {
+        if( !name )
+            throw Error( 'El nombre es obligatorio.' );
+            
         if( this.testGroups[ tGIndex ].testGroup !== name )    
             for( const tG of this.testGroups)
                 if( tG.testGroup === name )

@@ -13,6 +13,9 @@ export const actionTypes = {
 
         setFormScreen: "[FormScreen] Set",
         unsetFormScreen: "[FormScreen] Unset",
+
+        dataSaved: "[Save] Data is saved",
+        dataUnsaved: "[Save] Data is not saved",
     },
 
     usProf: {

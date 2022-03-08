@@ -11,7 +11,7 @@ import { UpdateCourse } from '../forms/UpdateCourse';
 export const CourseSelector = () => {
 
     const dispatch = useDispatch();
-    const { data, auth } = useSelector( state => state );
+    const { data, auth, ui } = useSelector( state => state );
 
     const { institutions, activeCourse } = data;
 
@@ -177,11 +177,11 @@ export const CourseSelector = () => {
                 <i className="fas fa-trash-alt" title="Eliminar curso seleccionado" onClick={ handleDeleteCourse }></i>
                 <button 
                     title="Salvar los últimos cambios"
+                    disabled={ ui.dataSaved ? true : false }
                     onClick={ handleDataSave }
                 >Guardar</button>
                 
             </div>
-
         </div>
     );
 }

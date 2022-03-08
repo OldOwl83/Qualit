@@ -101,13 +101,14 @@ body {
 }
 #courseSelector .selector .buttonsContainer {
   position: absolute;
-  bottom: 0px;
+  bottom: 3px;
   left: 0%;
   z-index: -2;
   display: flex;
   flex-direction: column;
   width: 100%;
   box-sizing: border-box;
+  box-shadow: 0 0 3px 1px #444;
   transition: transform 0.35s linear;
 }
 #courseSelector .selector .buttonsContainer button {
@@ -169,9 +170,14 @@ body {
   border-radius: 6px;
   transition: color 0.3s, background-color 0.3s;
 }
-#courseSelector #courseOptContainer button:hover {
+#courseSelector #courseOptContainer button:disabled {
+  color: beige;
+  background-color: #aaa;
+}
+#courseSelector #courseOptContainer button:hover:not(#courseSelector #courseOptContainer button:disabled) {
   color: beige;
   background-color: orangered;
+  cursor: pointer;
 }
 #courseSelector #courseOptContainer button:active {
   color: beige;
@@ -228,13 +234,14 @@ body {
 }
 #userProfile .buttonsContainer {
   position: absolute;
-  bottom: -2px;
+  bottom: 1px;
   left: 12%;
   z-index: -2;
   display: flex;
   flex-direction: column;
   width: 76%;
   box-sizing: border-box;
+  box-shadow: 0 0 3px 1px #444;
   transition: transform 0.35s linear;
 }
 #userProfile .buttonsContainer button {
@@ -442,7 +449,7 @@ body {
 }
 #mainSheet .studentContainer {
   background-color: #fdeec4;
-  border-color: #188818;
+  border-color: #115c11;
   font-family: "Arial";
   font-size: 1.1rem;
   font-weight: bold;
@@ -501,6 +508,7 @@ body {
   font-size: 1.1rem;
   font-weight: bold;
   text-align: center;
+  border-color: #555;
 }
 #mainSheet .score:focus {
   user-select: all;
