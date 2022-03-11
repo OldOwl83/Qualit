@@ -1,11 +1,12 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 
+import Swal from 'sweetalert2';
 import 'animate.css';
 
 import { useForms } from '../../hooks/useForms';
-import { login } from '../../actions/auth';
-import { Link } from 'react-router-dom';
+import { demoInit, login } from '../../actions/auth';
 
 
 export const LoginScreen = () => {
@@ -24,7 +25,26 @@ export const LoginScreen = () => {
         dispatch( login( values ) );
         
         resetValues();
-    }
+    };
+
+
+    const handleDemoInit = () => {
+
+        Swal.fire({
+            title: 'Qualit DEMO',
+            text: 'Acaba de iniciar una sesión de prueba de Qualit. Ninguno de los datos ingresados se guardará de forma persistente.',
+            icon: 'info',
+            showClass: {
+              popup: 'animate__animated animate__backInDown'
+            },
+            hideClass: {
+              popup: 'animate__animated animate__backOutUp'
+            }
+        });
+
+        dispatch( demoInit() );
+    };
+
 
     return (
 
@@ -51,11 +71,21 @@ export const LoginScreen = () => {
                 onChange={ handleChangeValues }
             />
 
+            <Link to={ '../recovery' }>
+                <p className='link'>¿Olvidó su contraseña?</p>
+            </Link>
+
             <button type='submit' className='sendButton'>Acceder</button>
 
             <Link to={ '../register' }>
                 <p className='link'>¿Aun no tiene una cuenta? Regístrese en Qualit</p>
             </Link>
+
+            <button 
+                type='button' 
+                className='sendButton'
+                onClick={ handleDemoInit }
+            >Probar Qualit sin registrarse</button>
         </form>
         </div>
     );

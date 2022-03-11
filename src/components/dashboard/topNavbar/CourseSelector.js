@@ -5,8 +5,10 @@ import Swal from 'sweetalert2';
 import { setActiveCourse, setActiveGroup, setActiveInstitution } from '../../../actions/activeCourse';
 import { deleteCourseAction, uploadData } from '../../../actions/courseData';
 import { setFormScreen } from '../../../actions/ui';
+import { dataTypes } from '../../../types/types';
 import { AddCourse } from '../forms/AddCourse';
 import { UpdateCourse } from '../forms/UpdateCourse';
+
 
 export const CourseSelector = () => {
 
@@ -177,7 +179,7 @@ export const CourseSelector = () => {
                 <i className="fas fa-trash-alt" title="Eliminar curso seleccionado" onClick={ handleDeleteCourse }></i>
                 <button 
                     title="Salvar los últimos cambios"
-                    disabled={ ui.dataSaved ? true : false }
+                    disabled={ ui.dataSaved || auth.uid === dataTypes.demo.uid ? true : false }
                     onClick={ handleDataSave }
                 >Guardar</button>
                 

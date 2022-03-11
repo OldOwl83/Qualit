@@ -8,7 +8,7 @@ export const Score = ( { studentId, testObj, testIndex, testGroupIndex, stageInd
 
     const dispatch = useDispatch();
 
-    const [ score, setScore ] = useState( isNaN( testObj.grades.filter( grade => grade.idStudent === studentId )[0].score ) ? "" : testObj.grades.filter( grade => grade.idStudent === studentId )[0].score );
+    const [ score, setScore ] = useState( testObj.grades.filter( grade => grade.idStudent === studentId )[0].score === null ? "" : testObj.grades.filter( grade => grade.idStudent === studentId )[0].score );
 
 
     const handleChangeScore = ( e ) => {

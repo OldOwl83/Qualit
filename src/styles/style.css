@@ -162,7 +162,7 @@ body {
   width: 36%;
   height: 4vh;
   font-family: "Cantarell", sans-serif;
-  font-size: 1rem;
+  font-size: 1.2rem;
   font-weight: bold;
   color: orangered;
   background-color: beige;
@@ -224,6 +224,7 @@ body {
   text-align: center;
   font-size: 1.6rem;
   color: #c8f5c8;
+  text-shadow: 0 0px 4px black;
   transition: color 0.4s;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -249,7 +250,7 @@ body {
   height: 3.5vh;
   box-sizing: border-box;
   font-size: 1.1rem;
-  background-color: #ffbb00;
+  background-color: #ffcf4d;
   border: 1px solid orange;
   border-top: none;
   border-radius: 4px;
@@ -277,31 +278,36 @@ body {
 .forms h3 {
   margin: 6px auto;
   font-family: "Cantarell";
-  font-size: 2rem;
+  font-size: 2.2rem;
   color: #c8f5c8;
 }
-.forms input, .forms textarea {
+.forms input, .forms textarea, .forms label {
   width: 80%;
-  margin: 26px auto 0px;
+  margin: 22px auto 0px;
   padding: 8px;
   font-family: "Arial";
-  font-size: 1.1rem;
+  font-size: 1.3rem;
   color: #444;
   background-color: beige;
   border: 1px solid #20b320;
   border-radius: 6px;
   resize: none;
 }
-.forms input:focus, .forms textarea:focus {
+.forms input:focus, .forms textarea:focus, .forms label:focus {
   outline: none;
   box-shadow: 0 0 2px 3px #91ff00;
 }
-.forms input::selection, .forms textarea::selection {
+.forms input::selection, .forms textarea::selection, .forms label::selection {
   color: green;
   background-color: #91ff00;
 }
 .forms input[type=file] {
+  display: none;
   font-size: 0.8rem;
+}
+.forms label:hover {
+  box-shadow: 0 0 2px 3px #91ff00;
+  cursor: pointer;
 }
 .forms .sendButton {
   width: 70%;
@@ -334,8 +340,8 @@ body {
   text-decoration: underline;
 }
 .forms .link {
-  margin-top: 14px;
-  font-size: 0.9rem;
+  margin-top: 10px;
+  font-size: 0.96rem;
   font-weight: bold;
   text-align: center;
   color: #333;
@@ -403,7 +409,7 @@ body {
   position: relative;
   z-index: -5;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   width: 96%;
   height: 82vh;
   margin: 5vh auto 0;
@@ -412,7 +418,6 @@ body {
   background-color: #fdeec4;
   border-radius: 10px;
   box-shadow: 0px 0px 3px 3px #777;
-  overflow: auto;
 }
 #mainSheet .cells {
   margin: 1px;
@@ -434,6 +439,10 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+  padding: 8px;
+  font-size: 1.6rem;
+  color: #c8f5c8;
+  text-shadow: 0 0px 4px black;
 }
 #mainSheet .stageContainer {
   background-color: #83e983;
@@ -533,18 +542,24 @@ body {
   width: 13%;
 }
 
+#gradeSheet {
+  overflow-y: auto;
+}
+
 #gradesGrid {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   width: 86%;
 }
 #gradesGrid #stagesContainer {
   display: flex;
   flex-direction: row;
-  align-items: flex-end;
+  margin-right: 10px;
+  height: fit-content;
+  overflow: auto;
 }
 
-.testGroupsContainer, .testsContainer, .leftHalfContainer {
+#gradeSheet, .testGroupsContainer, .testsContainer, .leftHalfContainer {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
@@ -557,6 +572,7 @@ body {
 .gradesContainer, .averagesContainer {
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 /*# sourceMappingURL=style.css.map */

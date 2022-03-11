@@ -66,6 +66,7 @@ export class TestGroup
 
         for( const test of this.tests )
         {
+            console.log(test.grades.find( grade => grade.idStudent === studentId ))
             if( test.grades.find( grade => grade.idStudent === studentId ).score !== null )
             {
                 if( test.percentWeight )

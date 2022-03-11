@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { unsetFormScreen } from '../../../actions/ui';
-import { updateUserProfile, uploadUserPhoto } from '../../../actions/usProf';
+import { updateUserPassword, updateUserProfile, uploadUserPhoto } from '../../../actions/usProf';
 import { useForms } from '../../../hooks/useForms';
 import { formValidate } from '../../../helpers/formValidate';
 
@@ -13,9 +13,9 @@ export const ProfileUpdate = () => {
 
     const { usProf, auth } = useSelector( state => state );
 
-    const [ formValues, handleChangeValues ] = useForms( usProf );
+    const [ formValues, handleChangeValues ] = useForms( { ...usProf, photo: '', password: '' } );
 
-    const { lastName, firstName } = formValues;
+    const { lastName, firstName, photo, password } = formValues;
 
     const selectedPicture = useRef();
 
@@ -24,7 +24,7 @@ export const ProfileUpdate = () => {
 
         e.preventDefault();
 
-        let newData = { ...formValues };
+        let newData = { ...usProf, lastName, firstName };
         
         const file = selectedPicture.current.files[0];
 
@@ -32,9 +32,27 @@ export const ProfileUpdate = () => {
         {
             if( file )
             {
-                await dispatch( uploadUserPhoto( auth.uid, file ));
+                try
+                {
+                    await dispatch( uploadUserPhoto( auth.uid, file ));
+                    newData = { ...newData, photo: `profileImages/${ auth.uid }${ file.name }` };
 
-                newData = { ...newData, photo: `profileImages/${ auth.uid }${ file.name }` };
+                }catch( err )
+                {
+                    return;
+                };
+
+            }
+
+            if( password )
+            {
+                try
+                {
+                    await dispatch( updateUserPassword( password ));
+                }catch( err )
+                {
+                    return;
+                }
             }
 
             dispatch( updateUserProfile( auth.uid, newData ) );
@@ -69,23 +87,30 @@ export const ProfileUpdate = () => {
                 onChange={ handleChangeValues }
             />
 
+            <label for='imgProfile'>
+                {
+                    `Nueva foto de perfil: ${ photo.slice( photo.lastIndexOf( '\\' ) + 1 ) }` 
+                }
+            </label>
             <input 
                 type="file"
-                placeholder='Elija una foto'
+                id='imgProfile'
                 name="photo"
                 autoComplete='off'
                 ref={ selectedPicture }
+                value={ photo }
+                onChange={ handleChangeValues }
             />
 
-            {/* <input 
+            <input 
                 type="password"
-                placeholder='Contraseña...'
+                placeholder='Nueva contraseña...'
                 autoComplete='off'
                 name="password"
                 id="password"
                 value={ password }
                 onChange={ handleChangeValues }
-            /> */}
+            />
 
             <button type='submit' className='sendButton'>Actualizar</button>
         </form>

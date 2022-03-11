@@ -18,19 +18,19 @@
         
         font: {
             family: 'Cantarell';
-            size: 2rem;
+            size: 2.2rem;
         }
         color: $primary_light_text_color;
     }
 
-    input, textarea{
+    input, textarea, label{
         width: 80%;
-        margin: 26px auto 0px;
+        margin: 22px auto 0px;
         padding: 8px;
 
         font: {
             family: 'Arial';
-            size: 1.1rem;
+            size: 1.3rem;
         }
         color: #444;
 
@@ -53,7 +53,13 @@
     }
 
     input[type='file']{
+        display: none;
         font-size: 0.8rem;
+    }
+
+    label:hover{
+        box-shadow: 0 0 2px 3px $primary_bright_color;
+        cursor: pointer;
     }
 
     .sendButton{
@@ -100,10 +106,10 @@
     }
 
     .link{
-        margin-top: 14px;
+        margin-top: 10px;
 
         font: {
-            size: 0.9rem;
+            size: 0.96rem;
             weight: bold;
         }
         text-align: center;

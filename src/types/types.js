@@ -58,3 +58,10 @@ export const actionTypes = {
         resetActives: "[actCourse] Reset active course",
     }
 };
+
+export const dataTypes = {
+
+    demo: {
+        uid: '[demo] qualitDemo',
+    }
+}

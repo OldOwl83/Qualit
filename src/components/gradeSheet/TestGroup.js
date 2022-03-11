@@ -66,7 +66,10 @@ export const TestGroup = ( { testGroupObj, testGroupIndex, stageIndex } ) => {
 
                 <div className='averagesContainer' style={{ marginTop: '2px' }}>
 
-                    <h5 className='cells'>Pr. catg.</h5>
+                    <h5 
+                        className='cells'
+                        title={ `Promedio de la categoría "${ testGroupObj.testGroup }"`}
+                    >Pr. catg.</h5>
 
                     { institutions[ activeCourse.institution ].groups[ activeCourse.group ].students.map( student => {
 

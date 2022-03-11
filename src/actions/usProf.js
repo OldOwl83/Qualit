@@ -1,10 +1,11 @@
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { ref, uploadBytes } from "firebase/storage";
-import { db, storage } from "../SDKs/firebase";
+import { authentication, db, storage } from "../SDKs/firebase";
 import Swal from "sweetalert2";
 
 import { actionTypes } from "../types/types";
 import { startLoading, stopLoading } from "./ui";
+import { updatePassword } from "firebase/auth";
 
 
 export const getUserProfile = ( uid ) => {
@@ -21,16 +22,16 @@ export const getUserProfile = ( uid ) => {
     };
 };
 
-export const updateUserProfile = ( uid, newUserData) => {
+export const updateUserProfile = ( uid, userNewData) => {
 
     return async( dispatch ) => {
 
         dispatch( startLoading() );
 
-        await setDoc( doc( db, 'users', uid ), newUserData )
+        await setDoc( doc( db, 'users', uid ), userNewData )
             .then( () => {
 
-                dispatch( updateUserProfileAction( newUserData ) );
+                dispatch( updateUserProfileAction( userNewData ) );
 
                 Swal.fire({
                     title: 'Actualización exitosa',
@@ -47,6 +48,32 @@ export const updateUserProfile = ( uid, newUserData) => {
 
                 Swal.fire({
                     title: 'Actualización fallida',
+                    text: err.message,
+                    icon: 'error',
+                    showClass: {
+                      popup: 'animate__animated animate__backInDown'
+                    },
+                    hideClass: {
+                      popup: 'animate__animated animate__backOutUp'
+                    }
+                });
+            });
+
+        dispatch( stopLoading() );
+    };
+};
+
+export const updateUserPassword = ( password ) => {
+
+    return async( dispatch ) => {
+
+        dispatch( startLoading() );
+
+        await updatePassword( authentication.currentUser, password )
+            .catch( err => {
+
+                Swal.fire({
+                    title: 'La contraseña no pudo actualizarse',
                     text: err.message,
                     icon: 'error',
                     showClass: {

@@ -4,15 +4,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getDownloadURL, ref } from 'firebase/storage';
 import Swal from 'sweetalert2';
 
-import { logout } from '../../../actions/auth';
+import { demoExit, logout } from '../../../actions/auth';
 import { setFormScreen, startLoading, stopLoading } from '../../../actions/ui';
 import { storage } from '../../../SDKs/firebase';
 import { ProfileUpdate } from '../forms/ProfileUpdate';
+import { dataTypes } from '../../../types/types';
 
 export const UserProfile = () => {
 
     const dispatch = useDispatch();
-    const { usProf, ui } = useSelector( state => state );
+    const { usProf, ui, auth } = useSelector( state => state );
 
     const { lastName, firstName, photo } = usProf;
     const { dataSaved } = ui;
@@ -77,8 +78,6 @@ export const UserProfile = () => {
 
 
     return (
-
-        // ( !photo || urlPhoto ) &&
         
         <div id="userProfile"> 
             
@@ -93,8 +92,14 @@ export const UserProfile = () => {
             <p>{ `${ firstName } ${ lastName }` }</p>
 
             <div className='buttonsContainer'>
-                <button onClick={ handleProfile }>Editar perfil</button>
-                <button onClick={ handleLogout }>Cerrar sesión</button>
+                <button 
+                    onClick={ handleProfile }
+                    disabled={ auth.uid === dataTypes.demo.uid ? true : false }
+                >Editar perfil</button>
+                
+                <button 
+                    onClick={ auth.uid !== dataTypes.demo.uid ? handleLogout : () => dispatch( demoExit() ) }
+                >Cerrar sesión</button>
             </div>
 
         </div>

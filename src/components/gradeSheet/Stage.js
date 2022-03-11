@@ -60,7 +60,10 @@ export const Stage = ( { stageObj, stageIndex } ) => {
 
                 <div className='averagesContainer' style={{ marginBottom: '3px' }}>
 
-                    <h5 className='cells'>Pr. etap</h5>
+                    <h5 
+                        className='cells' 
+                        title={ `Promedio de la etapa "${ stageObj.stage }"`}
+                    >Pr. etap</h5>
 
                     { institutions[ activeCourse.institution ].groups[ activeCourse.group ].students.map( student => {
 

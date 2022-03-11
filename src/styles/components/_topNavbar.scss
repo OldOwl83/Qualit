@@ -142,7 +142,7 @@
     
             font: {
                 family: 'Cantarell', sans-serif;
-                size: 1rem;
+                size: 1.2rem;
                 weight: bold;
             }
             color: orangered;
@@ -228,6 +228,7 @@
         text-align: center;
         font-size: 1.6rem;
         color: $primary_light_text_color;
+        text-shadow: 0 0px 4px black;
 
         transition: color .4s;
 
@@ -265,7 +266,7 @@
                 size: 1.1rem;
             }
 
-            background-color: $secondary_dark_color;
+            background-color: lighten( $secondary_dark_color, 15% );
             border: 1px solid orange;
             border-top: none;
             border-radius: 4px;

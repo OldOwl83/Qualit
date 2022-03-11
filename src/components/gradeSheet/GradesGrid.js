@@ -20,35 +20,31 @@ export const GradesGrid = () => {
 
         <div id="gradesGrid">
 
-            <h3 id='courseTitle' className='cells container bigTitle'>
-                <span>{ institutions[ activeCourse.institution ].institution }</span>
-                <span>{ institutions[ activeCourse.institution ].groups[ activeCourse.group ].group }</span>
-                <span>{ institutions[ activeCourse.institution ].groups[ activeCourse.group ].courses[ activeCourse.course ].course }</span>
-            </h3>
-
             <div id='stagesContainer'>
-                <div className='leftHalfContainer'>
-                    {
-                        institutions[ activeCourse.institution ].groups[ activeCourse.group ].courses[ activeCourse.course ].stages.map( ( stage, index ) => (
-                        
-                        <Stage 
-                            key={ stage.stage } 
-                            stageObj={ stage } 
-                            stageIndex={ index } 
-                        />) )
-                    }
+                {
+                    institutions[ activeCourse.institution ].groups[ activeCourse.group ].courses[ activeCourse.course ].stages.map( ( stage, index ) => (
+                    
+                    <Stage 
+                        key={ stage.stage } 
+                        stageObj={ stage } 
+                        stageIndex={ index } 
+                    />) )
+                }
 
-                    <div className='cells buttons stage'
-                        title='Añadir etapa'
-                        onClick={ handleNewStage }
-                    >
-                        <i className="fas fa-plus"></i>
-                    </div>
+                <div className='cells buttons stage'
+                    title='Añadir etapa'
+                    onClick={ handleNewStage }
+                >
+                    <i className="fas fa-plus"></i>
                 </div>
+            </div>
+            <div className='stagesContainer'>
+                <h4 className='cells' style={{ marginBottom: '5px', visibility: 'hidden' }}>Relleno</h4>   
+                <h4 className='cells' style={{ marginBottom: '4px', visibility: 'hidden' }}>Relleno</h4> 
 
                 <div id='promGral' className='averagesContainer container' style={{ marginBottom: '3px' }}>
-                     
-                    <h5 className='cells'>Pr. gral.</h5>
+                    
+                    <h5 className='cells'>Promedio final</h5>
 
                     { institutions[ activeCourse.institution ].groups[ activeCourse.group ].students.map( student => {
 

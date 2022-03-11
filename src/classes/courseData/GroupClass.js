@@ -84,6 +84,6 @@ export class Group
             for( let j = 0; j < this.courses[i].stages.length; j++ )
                 for( let k = 0; k < this.courses[i].stages[j].testGroups.length; k++ )
                     for( let l = 0; l < this.courses[i].stages[j].testGroups[k].tests.length; l++ )
-                        this.courses[i].stages[j].testGroups[k].tests[l].grades = this.courses[i].stages[j].testGroups[k].tests[l].grades.filter( grade => grade.idStudent != idStudent );
+                        this.courses[i].stages[j].testGroups[k].tests[l].grades = this.courses[i].stages[j].testGroups[k].tests[l].grades.filter( grade => grade.idStudent !== idStudent );
     }
 }

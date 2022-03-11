@@ -14,6 +14,8 @@ import { authentication } from '../SDKs/firebase';
 import { getUserProfile } from '../actions/usProf';
 import { LoadSpinner } from '../components/LoadSpinner';
 import { downloadData } from '../actions/courseData';
+import { RecoveryScreen } from '../components/userLog/RecoveryScreen';
+import { Verifications } from '../components/userLog/Verifications';
 
 
 export const AppRouter = () => {
@@ -53,6 +55,18 @@ export const AppRouter = () => {
                 <Route path='/login' element={ 
                     <LoginRoutes>
                         <LoginScreen /> 
+                    </LoginRoutes>
+                } />
+                
+                <Route path='/recovery' element={ 
+                    <LoginRoutes>
+                        <RecoveryScreen /> 
+                    </LoginRoutes>
+                } />
+
+                <Route path='/verifications' element={ 
+                    <LoginRoutes>
+                        <Verifications /> 
                     </LoginRoutes>
                 } />
 

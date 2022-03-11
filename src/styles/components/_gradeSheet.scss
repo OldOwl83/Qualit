@@ -3,7 +3,7 @@
     z-index: -5;
 
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
 
     width: 96%;
     height: 82vh;
@@ -14,8 +14,6 @@
     background-color: lighten( $secondary_light_color, 8% );
     border-radius: 10px;
     box-shadow: 0px 0px 3px 3px #777;
-
-    overflow:auto;
 
     .cells{
         margin: 1px;
@@ -41,6 +39,12 @@
         display: flex;
         flex-direction: row;
         justify-content: space-around;
+
+        padding: 8px;
+
+        font-size: 1.6rem;
+        color: $primary_light_text_color;
+        text-shadow: 0 0px 4px black;
     }
     
     .stageContainer{
@@ -177,20 +181,28 @@
     width: 13%;
 }
 
+#gradeSheet{
+    overflow-y: auto;
+}
+
 #gradesGrid{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
 
     width: 86%;
 
     #stagesContainer{
         display: flex;
         flex-direction: row;
-        align-items: flex-end;
+
+        margin-right: 10px;
+        height: fit-content;
+
+        overflow: auto;
     }
 }
 
-.testGroupsContainer, .testsContainer, .leftHalfContainer{
+#gradeSheet, .testGroupsContainer, .testsContainer, .leftHalfContainer{
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -203,4 +215,5 @@
 .gradesContainer, .averagesContainer{
     display: flex;
     flex-direction: column;
+    align-items: center;
 }

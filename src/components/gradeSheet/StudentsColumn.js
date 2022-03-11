@@ -12,7 +12,7 @@ export const StudentsColumn = () => {
 
     const { institutions, activeCourse } = data;
 
-    const { students, courses } = institutions[ activeCourse.institution ].groups[ activeCourse.group ];
+    const { students } = institutions[ activeCourse.institution ].groups[ activeCourse.group ];
 
     const handleNewStudent = () => {
 
@@ -27,16 +27,23 @@ export const StudentsColumn = () => {
     return (
         <div id="studentsColumn">
 
-            <h3 className='cells container bigTitle'>Curso</h3>
-
             <div className='container stageContainer'>
-                <h4 className='cells stageContainer'>Etapas</h4>
+                <h4 
+                    className='cells stageContainer'
+                    title='Las "etapas" representan períodos de tiempo o bloques en que se divide un curso ("Primer Trimestre", "Introducción", "Unidad 1", etc.)'
+                >Etapas</h4>
 
                 <div className='container testGroupContainer' style={{ marginTop: '2px'}}>
-                    <h4 className='cells testGroupContainer'>Categorías</h4>
+                    <h4 
+                        className='cells testGroupContainer'
+                        title='Las "categorías" representan grupos de evaluaciones de tipos diferentes ("Trabajos Prácticos", "Concepto", "Exámenes", etc.)'
+                    >Categorías</h4>
 
                     <div className='container testContainer' style={{ marginTop: '2px'}}>
-                        <h5 className='cells testContainer'>Evaluaciones</h5>
+                        <h5 
+                            className='cells testContainer'
+                            style={{ marginBottom: '2px' }}
+                        >Evaluaciones</h5>
                         
 
                         { 
