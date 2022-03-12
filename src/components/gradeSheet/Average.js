@@ -1,7 +1,7 @@
 import React from 'react';
 
 export const Average = ( { studentId, studentLastName, object } ) => {
-console.log("Average: ", studentId);
+// console.log("Average: ", studentId);
 
     const average = object.getAverage( studentId );
 

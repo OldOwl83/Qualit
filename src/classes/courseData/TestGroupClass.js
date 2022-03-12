@@ -1,19 +1,25 @@
+import { Test } from "./TestClass";
+
+
 export class TestGroup
 {
-    constructor( name = '(s/n)', percentWeight = 0, testsArr = [] )
+    constructor( name = '(s/n)', percentWeight = 0, testsArr = [], studentsArr )
     {
-        if( typeof name !== "string" || typeof percentWeight !== "number" || !Array.isArray( testsArr ) )
-            throw TypeError("Los objetos TestGroup toman un string, un number y un array como parámetros.");
+        if( typeof name !== "string" || typeof percentWeight !== "number" || !Array.isArray( testsArr ) || ( !Array.isArray( studentsArr ) && studentsArr !== undefined ) )
+            throw TypeError("Los objetos TestGroup toman un string, un number y dos array como parámetros.");
 
         this.testGroup = name;
         this.percentWeight = percentWeight;
         this.tests = testsArr;
+
+        if( this.tests.length === 0 )
+            this.addNewTest( undefined, undefined, undefined, undefined, studentsArr );
     }
 
-    addNewTest( testObj )
+    addNewTest( name, percentWeight, additionalData, gradesArr, studentsArr )
     {
         for( const test of this.tests)
-            if( test.test === testObj.test )
+            if( test.test === name )
                 throw Error( "Ya existe una evaluación con ese nombre." );
 
         let totalPercent = 0;
@@ -21,10 +27,10 @@ export class TestGroup
         for( const test of this.tests)
             totalPercent += test.percentWeight;
 
-        if( totalPercent + testObj.percentWeight > 100 )
+        if( totalPercent + percentWeight > 100 )
             throw Error( "La sumatoria de la incidencia porcentual de las evaluaciones de una categoría no puede superar el 100%." );
 
-        this.tests.push( testObj );
+        return this.tests.push( new Test( name, percentWeight, additionalData, gradesArr, studentsArr ) ) - 1;
     }
 
     updateTest( testIndex, name, weight, additionalData )
@@ -50,9 +56,12 @@ export class TestGroup
         this.tests[ testIndex ].additionalData = additionalData;
     }
 
-    deleteTest( testIndex )
+    deleteTest( testIndex, studentsArr )
     {
         this.tests.splice( testIndex, 1 );
+
+        if( this.tests.length === 0 )
+            this.addNewTest( undefined, undefined, undefined, undefined, studentsArr );
     }
 
     getAverage( studentId )
@@ -66,7 +75,6 @@ export class TestGroup
 
         for( const test of this.tests )
         {
-            console.log(test.grades.find( grade => grade.idStudent === studentId ))
             if( test.grades.find( grade => grade.idStudent === studentId ).score !== null )
             {
                 if( test.percentWeight )

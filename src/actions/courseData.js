@@ -4,7 +4,6 @@ import Swal from "sweetalert2";
 import { db } from "../SDKs/firebase";
 
 import { actionTypes } from "../types/types";
-import { Data } from "../classes/courseData/DataClass";
 import { dataIsSaved, dataIsUnsaved, startLoading, stopLoading } from "./ui";
 
 
@@ -276,11 +275,7 @@ export const downloadData = ( uid ) => {
         await getDoc( doc( db, `users/${ uid }/data/mainData` ) )
             .then( snap => {
 
-                const data = new Data();
-
-                data.parseDataFromDB( JSON.parse( snap.data().data ) );
-
-                dispatch( dataLoadAction( data ) );
+                dispatch( dataLoadAction( JSON.parse( snap.data().data ) ) );
                 dispatch( dataIsSaved() );
             })
             .catch( err => {

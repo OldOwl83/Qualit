@@ -1,20 +1,24 @@
 import { Stage } from "./StageClass";
 
+
 export class Course
 {
-    constructor( name, stagesArr = [ new Stage() ] )
+    constructor( name = '(sin nombre)', stagesArr = [], studentsArr )
     {
-        if( typeof name !== "string" || !Array.isArray( stagesArr ) )
-            throw TypeError("Los objetos Course toman un string y un array como parámetros.");
+        if( typeof name !== "string" || !Array.isArray( stagesArr ) || ( !Array.isArray( studentsArr ) && studentsArr !== undefined ) )
+            throw TypeError("Los objetos Course toman un string y dos arrays como parámetros.");
 
         this.course = name;
         this.stages = stagesArr;
+
+        if( this.stages.length === 0 )
+            this.addNewStage( undefined, undefined, undefined, studentsArr );
     }
 
-    addNewStage( stageObj )
+    addNewStage( name, percentWeight, testGroupArr, studentsArr )
     {
         for( const stage of this.stages)
-            if( stage.stage === stageObj.stage )
+            if( stage.stage === name )
                 throw Error( "Esta etapa ya existe." );
         
         let totalPercent = 0;
@@ -22,10 +26,10 @@ export class Course
         for( const stage of this.stages)
             totalPercent += stage.percentWeight;
 
-        if( totalPercent + stageObj.percentWeight > 100 )
+        if( totalPercent + percentWeight > 100 )
             throw Error( "La sumatoria de la incidencia porcentual de las etapas de un curso no puede superar el 100%." );
 
-        this.stages.push( stageObj );
+        return this.stages.push( new Stage( name, percentWeight, testGroupArr, studentsArr ) ) - 1;
     }
 
     updateStage( stageIndex, newName, newWeight = 0 )
@@ -50,12 +54,12 @@ export class Course
         this.stages[ stageIndex ].percentWeight = newWeight;
     }
 
-    deleteStage( stageIndex )
+    deleteStage( stageIndex, studentsArr )
     {
         this.stages.splice( stageIndex, 1 );
 
         if( this.stages.length === 0 )
-            this.addNewStage( new Stage() );
+            this.addNewStage( undefined, undefined, undefined, studentsArr );
     }
 
     getAverage( studentId )

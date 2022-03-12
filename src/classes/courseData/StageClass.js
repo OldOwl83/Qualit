@@ -1,21 +1,25 @@
 import { TestGroup } from "./TestGroupClass";
 
+
 export class Stage
 {
-    constructor( name = '(sin nombre)', percentWeight = 0, testGroupArr = [ new TestGroup() ] )
+    constructor( name = '(sin nombre)', percentWeight = 0, testGroupArr = [], studentsArr )
     {
-        if( typeof name !== "string" || typeof percentWeight !== "number" || !Array.isArray( testGroupArr ) )
-            throw TypeError("Los objetos Stage toman un string, un number y un array como parámetros.");
+        if( typeof name !== "string" || typeof percentWeight !== "number" || !Array.isArray( testGroupArr ) || ( !Array.isArray( studentsArr ) && studentsArr !== undefined ) )
+            throw TypeError("Los objetos Stage toman un string, un number y dos array como parámetros.");
 
         this.stage = name;
         this.percentWeight = percentWeight;
         this.testGroups = testGroupArr;
+
+        if( this.testGroups.length === 0 )
+            this.addNewTestGroup( undefined, undefined, undefined, studentsArr );
     }
 
-    addNewTestGroup( testGroupObj )
+    addNewTestGroup( name, percentWeight, testsArr, studentsArr )
     {
         for( const tG of this.testGroups)
-            if( tG.testGroup === testGroupObj.testGroup )
+            if( tG.testGroup === name )
                 throw Error( "Esta categoría ya existe." );
 
         let totalPercent = 0;
@@ -23,10 +27,10 @@ export class Stage
         for( const tG of this.testGroups)
             totalPercent += tG.percentWeight;
 
-        if( totalPercent + testGroupObj.percentWeight > 100 )
+        if( totalPercent + percentWeight > 100 )
             throw Error( "La sumatoria de la incidencia porcentual de las categorías de una etapa no puede superar el 100%." );
 
-        this.testGroups.push( testGroupObj );
+        return this.testGroups.push( new TestGroup( name, percentWeight, testsArr, studentsArr ) ) - 1;
     }
 
     updateTestGroup( tGIndex, name, weight )
@@ -51,12 +55,12 @@ export class Stage
         this.testGroups[ tGIndex ].percentWeight = weight;
     }
 
-    deleteTestGroup( tGIndex )
+    deleteTestGroup( tGIndex, studentsArr )
     {
         this.testGroups.splice( tGIndex, 1 );
 
         if( this.testGroups.length === 0 )
-            this.addNewTestGroup( new TestGroup() );
+            this.addNewTestGroup( undefined, undefined, undefined, studentsArr );
     }
 
     getAverage( studentId )

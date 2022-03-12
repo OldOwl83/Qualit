@@ -39,8 +39,6 @@ export const dataReducer = ( state = initialState, action ) => {
 
         case actionTypes.activeCourse.setActiveCourse:
             
-            state.activeCourse.course = action.payload;
-
             return new Data( state.institutions, {
                 ...state.activeCourse,
                 course: action.payload,
@@ -55,16 +53,20 @@ export const dataReducer = ( state = initialState, action ) => {
                 course: -1,
         });
 
-    //Gestión de cursos
+    //Carga de datos guardados
         case actionTypes.data.dataLoad:
+            
+            newState = new Data();
+            newState.parseDataFromDB( action.payload );
 
-            return action.payload;
-
+            return newState;
+            
         case actionTypes.data.fullDataErase:
-
+            
             return initialState;
-
-
+                
+                
+    //Gestión de cursos
         case actionTypes.data.addCourse:
 
             newState = new Data( state.institutions, state.activeCourse );
@@ -79,29 +81,23 @@ export const dataReducer = ( state = initialState, action ) => {
                     {
                         if( institutions[i].groups[j].group === action.payload.group )
                         {
-                            institutions[i].groups[j].addNewCourse( new Course( action.payload.course ) )
-
                             activeCourse.institution = i;
                             activeCourse.group = j;
-                            activeCourse.course = institutions[i].groups[j].courses.length - 1;
+                            activeCourse.course = institutions[i].groups[j].addNewCourse( action.payload.course );
                             
                             return newState;
                         }
                     }
 
-                    institutions[i].addNewGroup( new Group( action.payload.group, [ new Course( action.payload.course ) ] ) );
-
                     activeCourse.institution = i;
-                    activeCourse.group = institutions[i].groups.length - 1;
+                    activeCourse.group = institutions[i].addNewGroup( action.payload.group, [ new Course( action.payload.course ) ] );
                     activeCourse.course = 0;
 
                     return newState;
                 }
             }
 
-            newState.addNewInstitution( new Institution( action.payload.institution, [ new Group( action.payload.group, [ new Course( action.payload.course ) ] ) ] ) );
-
-            activeCourse.institution = institutions.length - 1;
+            activeCourse.institution = newState.addNewInstitution( action.payload.institution, [ new Group( action.payload.group, [ new Course( action.payload.course ) ] ) ] );
             activeCourse.group = 0;
             activeCourse.course = 0;
             
@@ -141,7 +137,7 @@ export const dataReducer = ( state = initialState, action ) => {
 
                 newState = new Data( state.institutions, state.activeCourse );
 
-                newState.institutions[ state.activeCourse.institution ].groups[ state.activeCourse.group ].addNewStudent( new Student( action.payload.lastName, action.payload.firstName, action.payload.additionalData ));
+                newState.institutions[ state.activeCourse.institution ].groups[ state.activeCourse.group ].addNewStudent( action.payload.lastName, action.payload.firstName, action.payload.additionalData );
 
                 return newState;
 
@@ -149,10 +145,7 @@ export const dataReducer = ( state = initialState, action ) => {
 
                 newState = new Data( state.institutions, state.activeCourse );
 
-                newState.institutions[ state.activeCourse.institution ].groups[ state.activeCourse.group ].updateStudentData( action.payload.studentIndex, { 
-                    lastName: action.payload.lastName,
-                    firstName: action.payload.firstName,
-                    additionalData: action.payload.additionalData } );
+                newState.institutions[ state.activeCourse.institution ].groups[ state.activeCourse.group ].updateStudentData( action.payload.studentIndex, action.payload.lastName, action.payload.firstName, action.payload.additionalData );
 
                 return newState;
 
@@ -169,9 +162,12 @@ export const dataReducer = ( state = initialState, action ) => {
 
                 newState = new Data( state.institutions, state.activeCourse );
 
-                grades = newState.institutions[ state.activeCourse.institution ].groups[ state.activeCourse.group ].students.map( student => new Grade( student.id ) );
-
-                newState.institutions[ state.activeCourse.institution ].groups[ state.activeCourse.group ].courses[ state.activeCourse.course].addNewStage( new Stage( action.payload.stage, Number( action.payload.percentWeight ), [ new TestGroup( undefined, undefined, [ new Test( undefined, undefined, undefined, grades) ] )] ) );
+                newState.institutions[ state.activeCourse.institution ].groups[ state.activeCourse.group ].courses[ state.activeCourse.course].addNewStage( 
+                    action.payload.stage, 
+                    Number( action.payload.percentWeight ), 
+                    undefined, 
+                    newState.institutions[ state.activeCourse.institution ].groups[ state.activeCourse.group ].students 
+                );
 
                 return newState;
 
@@ -179,7 +175,11 @@ export const dataReducer = ( state = initialState, action ) => {
 
                 newState = new Data( state.institutions, state.activeCourse );
                 
-                newState.institutions[ state.activeCourse.institution ].groups[ state.activeCourse.group ].courses[ state.activeCourse.course].updateStage( action.payload.stageIndex, action.payload.stage, Number( action.payload.percentWeight ) );
+                newState.institutions[ state.activeCourse.institution ].groups[ state.activeCourse.group ].courses[ state.activeCourse.course].updateStage( 
+                    action.payload.stageIndex, 
+                    action.payload.stage, 
+                    Number( action.payload.percentWeight ) 
+                );
 
                 return newState;
 
@@ -187,7 +187,10 @@ export const dataReducer = ( state = initialState, action ) => {
 
                 newState = new Data( state.institutions, state.activeCourse );
                 
-                newState.institutions[ state.activeCourse.institution ].groups[ state.activeCourse.group ].courses[ state.activeCourse.course].deleteStage( action.payload ); 
+                newState.institutions[ state.activeCourse.institution ].groups[ state.activeCourse.group ].courses[ state.activeCourse.course].deleteStage( 
+                    action.payload,
+                    newState.institutions[ state.activeCourse.institution ].groups[ state.activeCourse.group ].students
+                ); 
 
                 return newState;
 
@@ -196,9 +199,12 @@ export const dataReducer = ( state = initialState, action ) => {
 
                 newState = new Data( state.institutions, state.activeCourse );
 
-                grades = newState.institutions[ state.activeCourse.institution ].groups[ state.activeCourse.group ].students.map( student => new Grade( student.id ) );
-
-                newState.institutions[ state.activeCourse.institution ].groups[ state.activeCourse.group ].courses[ state.activeCourse.course ].stages[ action.payload.stageIndex ].addNewTestGroup( new TestGroup( action.payload.testGroup, Number( action.payload.percentWeight ), [ new Test( undefined, undefined, undefined, grades) ] ) );
+                newState.institutions[ state.activeCourse.institution ].groups[ state.activeCourse.group ].courses[ state.activeCourse.course ].stages[ action.payload.stageIndex ].addNewTestGroup( 
+                    action.payload.testGroup, 
+                    Number( action.payload.percentWeight ),
+                    undefined,
+                    newState.institutions[ state.activeCourse.institution ].groups[ state.activeCourse.group ].students
+                );
 
                 return newState;
 
@@ -206,7 +212,11 @@ export const dataReducer = ( state = initialState, action ) => {
 
                 newState = new Data( state.institutions, state.activeCourse );
                 
-                newState.institutions[ state.activeCourse.institution ].groups[ state.activeCourse.group ].courses[ state.activeCourse.course].stages[ action.payload.stageIndex ].updateTestGroup( action.payload.testGroupIndex, action.payload.testGroup, Number( action.payload.percentWeight ) );
+                newState.institutions[ state.activeCourse.institution ].groups[ state.activeCourse.group ].courses[ state.activeCourse.course].stages[ action.payload.stageIndex ].updateTestGroup( 
+                    action.payload.testGroupIndex, 
+                    action.payload.testGroup, 
+                    Number( action.payload.percentWeight ) 
+                );
 
                 return newState;
 
@@ -214,7 +224,10 @@ export const dataReducer = ( state = initialState, action ) => {
 
                 newState = new Data( state.institutions, state.activeCourse );
                 
-                newState.institutions[ state.activeCourse.institution ].groups[ state.activeCourse.group ].courses[ state.activeCourse.course].stages[ action.payload.stageIndex ].deleteTestGroup( action.payload.testGroupIndex ); 
+                newState.institutions[ state.activeCourse.institution ].groups[ state.activeCourse.group ].courses[ state.activeCourse.course].stages[ action.payload.stageIndex ].deleteTestGroup( 
+                    action.payload.testGroupIndex,
+                    newState.institutions[ state.activeCourse.institution ].groups[ state.activeCourse.group ].students
+                ); 
 
                 return newState;
 
@@ -223,9 +236,13 @@ export const dataReducer = ( state = initialState, action ) => {
 
                 newState = new Data( state.institutions, state.activeCourse );
 
-                grades = newState.institutions[ state.activeCourse.institution ].groups[ state.activeCourse.group ].students.map( student => new Grade( student.id ) );
-
-                newState.institutions[ state.activeCourse.institution ].groups[ state.activeCourse.group ].courses[ state.activeCourse.course ].stages[ action.payload.stageIndex ].testGroups[ action.payload.testGroupIndex ].addNewTest( new Test( action.payload.test, Number( action.payload.percentWeight), action.payload.additionalData, grades ) );
+                newState.institutions[ state.activeCourse.institution ].groups[ state.activeCourse.group ].courses[ state.activeCourse.course ].stages[ action.payload.stageIndex ].testGroups[ action.payload.testGroupIndex ].addNewTest( 
+                    action.payload.test, 
+                    Number( action.payload.percentWeight), 
+                    action.payload.additionalData,
+                    undefined,
+                    newState.institutions[ state.activeCourse.institution ].groups[ state.activeCourse.group ].students
+                );
 
                 return newState;
 
@@ -233,7 +250,12 @@ export const dataReducer = ( state = initialState, action ) => {
 
                 newState = new Data( state.institutions, state.activeCourse );
 
-                newState.institutions[ state.activeCourse.institution ].groups[ state.activeCourse.group ].courses[ state.activeCourse.course].stages[ action.payload.stageIndex ].testGroups[ action.payload.testGroupIndex ].updateTest( action.payload.testIndex, action.payload.test, Number( action.payload.percentWeight ), action.payload.additionalData );
+                newState.institutions[ state.activeCourse.institution ].groups[ state.activeCourse.group ].courses[ state.activeCourse.course].stages[ action.payload.stageIndex ].testGroups[ action.payload.testGroupIndex ].updateTest( 
+                    action.payload.testIndex, 
+                    action.payload.test, 
+                    Number( action.payload.percentWeight ), 
+                    action.payload.additionalData 
+                );
 
                 return newState;
 
@@ -241,15 +263,22 @@ export const dataReducer = ( state = initialState, action ) => {
 
                 newState = new Data( state.institutions, state.activeCourse );
                 
-                newState.institutions[ state.activeCourse.institution ].groups[ state.activeCourse.group ].courses[ state.activeCourse.course].stages[ action.payload.stageIndex ].testGroups[ action.payload.testGroupIndex ].deleteTest( action.payload.testIndex ); 
+                newState.institutions[ state.activeCourse.institution ].groups[ state.activeCourse.group ].courses[ state.activeCourse.course].stages[ action.payload.stageIndex ].testGroups[ action.payload.testGroupIndex ].deleteTest( 
+                    action.payload.testIndex,
+                    newState.institutions[ state.activeCourse.institution ].groups[ state.activeCourse.group ].students
+                ); 
 
                 return newState;
 
+        //Notas
             case actionTypes.data.setScore:
 
                 newState = new Data( state.institutions, state.activeCourse );
                 
-                newState.institutions[ state.activeCourse.institution ].groups[ state.activeCourse.group ].courses[ state.activeCourse.course].stages[ action.payload.stageIndex ].testGroups[ action.payload.testGroupIndex ].tests[ action.payload.testIndex ].setGradeScore( action.payload.studentId, action.payload.score ); 
+                newState.institutions[ state.activeCourse.institution ].groups[ state.activeCourse.group ].courses[ state.activeCourse.course].stages[ action.payload.stageIndex ].testGroups[ action.payload.testGroupIndex ].tests[ action.payload.testIndex ].setGradeScore( 
+                    action.payload.studentId, 
+                    action.payload.score 
+                ); 
 
                 return newState;
     

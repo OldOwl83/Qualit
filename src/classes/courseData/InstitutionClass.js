@@ -1,7 +1,8 @@
+import { Group } from "./GroupClass";
 
 export class Institution
 {
-    constructor( name, groupsArr = [] )
+    constructor( name = '(sin nombre)', groupsArr = [] )
     {
         if( typeof name !== "string" || !Array.isArray( groupsArr ) )
             throw TypeError("Los objetos Institution toman un string y un array como parámetros.");
@@ -10,13 +11,13 @@ export class Institution
         this.groups = groupsArr;
     }
 
-    addNewGroup( groupObj )
+    addNewGroup( name, coursesArr, studentsArr  )
     {
         for( const group of this.groups)
-            if( group.group === groupObj.group )
+            if( group.group === name )
                 throw Error("Este grupo ya existe.");
 
-        this.groups.push( groupObj );
+        return this.groups.push( new Group( name, coursesArr, studentsArr ) ) - 1;
     }
 
     updateGroupName( groupIndex, newName )

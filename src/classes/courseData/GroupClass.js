@@ -1,8 +1,10 @@
-import { Grade } from "../studentData/GradeClass";
+import { Student } from "../studentData/StudentClass";
+import { Course } from "./CourseClass";
+
 
 export class Group
 {
-    constructor( name, coursesArr = [], studentsArr = [] )
+    constructor( name = '(sin nombre)', coursesArr = [], studentsArr = [] )
     {
         if( typeof name !== "string" || !Array.isArray( coursesArr ) || !Array.isArray( studentsArr ) )
             throw TypeError("Los objetos Group toman un string y dos array como parámetros.");
@@ -12,13 +14,13 @@ export class Group
         this.students = studentsArr;
     }
 
-    addNewCourse( courseObj )
+    addNewCourse( name, stagesArr )
     {
         for( const course of this.courses)
-            if( course.course === courseObj.course )
+            if( course.course === name )
                 throw Error( "Este curso ya existe." );
                 
-        this.courses.push( courseObj );
+        return this.courses.push( new Course( name, stagesArr, this.students ) ) - 1;
     }
 
     updateCourseName( courseIndex, newName )
@@ -26,32 +28,33 @@ export class Group
         if( !newName )
             throw Error( 'El nombre es obligatorio.' );
 
-        if( this.courses[ courseIndex ].course === newName )
-            return;
-
-        for( const course of this.courses)
-            if( course.course === newName )
-                throw Error("Este curso ya existe.");
+        if( this.courses[ courseIndex ].course !== newName )
+            for( const course of this.courses)
+                if( course.course === newName )
+                    throw Error("Este curso ya existe.");
 
         this.courses[ courseIndex ].course = newName;
     }
 
-    deleteCourse( courseIndex )
+    deleteCourse( courseIndex, studentsArr )
     {
         this.courses.splice( courseIndex, 1 );
     }
 
-    addNewStudent( studentObj )
+    addNewStudent( lastName, firstName, additionalData )
     {
-        for( const student of this.students ) //Asignación automática de ID
-            if( student.id >= studentObj.id )
-                studentObj.assignID( student.id + 1);
+        const newStudent = new Student( lastName, firstName, additionalData );
 
-        this.students.push( studentObj );
+        for( const student of this.students ) //Asignación automática de ID
+            if( student.id >= newStudent.id )
+                newStudent.assignID( student.id + 1);
+
+        this.students.push( newStudent );
+
     //Ordenamiento alfabético
         this.students.sort( ( elem1, elem2 ) => {
             
-            if( `${elem1.lastName}${elem1.firstName}` > `${elem2.lastName}${elem2.firstName}` )
+            if( `${ elem1.lastName.toLowerCase() }${ elem1.firstName.toLowerCase() }` > `${ elem2.lastName.toLowerCase() }${ elem2.firstName.toLowerCase() }` )
                 return 1;
             else
                 return -1;
@@ -61,17 +64,28 @@ export class Group
             for( let j = 0; j < this.courses[i].stages.length; j++ )
                 for( let k = 0; k < this.courses[i].stages[j].testGroups.length; k++ )
                     for( let l = 0; l < this.courses[i].stages[j].testGroups[k].tests.length; l++ )
-                        this.courses[i].stages[j].testGroups[k].tests[l].grades.push( new Grade( studentObj.id ) );
+                        this.courses[i].stages[j].testGroups[k].tests[l].addNewGrade( newStudent.id );
+
+        return this.students.indexOf( newStudent );
     }
 
-    updateStudentData( studentIndex, newData )
+    updateStudentData( studentIndex, lastName, firstName, additionalData )
     {
-        if( !newData.lastName )
+        if( !lastName )
             throw Error( 'El apellido es obligatorio.' );
 
-        this.students[ studentIndex ].lastName = newData.lastName;
-        this.students[ studentIndex ].firstName = newData.firstName;
-        this.students[ studentIndex ].additionalData = newData.additionalData;
+        this.students[ studentIndex ].lastName = lastName;
+        this.students[ studentIndex ].firstName = firstName;
+        this.students[ studentIndex ].additionalData = additionalData;
+
+        //Ordenamiento alfabético
+        this.students.sort( ( elem1, elem2 ) => {
+            
+            if( `${ elem1.lastName.toLowerCase() }${ elem1.firstName.toLowerCase() }` > `${ elem2.lastName.toLowerCase() }${ elem2.firstName.toLowerCase() }` )
+                return 1;
+            else
+                return -1;
+        } );
     }
 
     deleteStudent( studentIndex )
@@ -84,6 +98,6 @@ export class Group
             for( let j = 0; j < this.courses[i].stages.length; j++ )
                 for( let k = 0; k < this.courses[i].stages[j].testGroups.length; k++ )
                     for( let l = 0; l < this.courses[i].stages[j].testGroups[k].tests.length; l++ )
-                        this.courses[i].stages[j].testGroups[k].tests[l].grades = this.courses[i].stages[j].testGroups[k].tests[l].grades.filter( grade => grade.idStudent !== idStudent );
+                        this.courses[i].stages[j].testGroups[k].tests[l].deleteGrade( idStudent );
     }
 }

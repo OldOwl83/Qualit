@@ -11,19 +11,50 @@ export class Data
 {
     constructor( institArr = [], activeCourse = { institution: -1, group: -1, course: -1 } )
     {
-        if( !Array.isArray( institArr ) )
-            throw TypeError("El objeto Data toma un array como parámetro.");
+        if( !Array.isArray( institArr ) || typeof activeCourse !== 'object' )
+            throw TypeError("El objeto Data toma un array y un objeto como parámetro.");
 
         this.institutions = institArr;
         this.activeCourse = activeCourse;
     }
 
+    addNewInstitution( name, groupsArr )
+    {
+        for( const instit of this.institutions)
+            if( instit.institution === name )
+                throw Error("Esta institución ya existe.");
+
+        return this.institutions.push( new Institution( name, groupsArr ) ) - 1;
+    }
+
+    updateInstitName( institIndex, newName )
+    {
+        if( !newName )
+            throw Error( 'El nombre es obligatorio.' );
+
+        if( this.institutions[ institIndex ].institution !== newName )
+            for( const instit of this.institutions)
+                if( instit.institution === newName )
+                    throw Error("Esta institución ya existe.");
+
+        this.institutions[ institIndex ].institution = newName;
+    }
+
+    deleteInstitution( institIndex )
+    {
+        this.institutions.splice( institIndex, 1 );
+    }
+
     parseDataFromDB( dataFromDB = [] ) 
     {
-
         this.institutions = dataFromDB.institutions.map( instit => {
     
             const groups = instit.groups.map( group => {
+
+                const students = group.students.map( student => {
+
+                    return new Student( student.lastName, student.firstName, student.additionalData, student.id );
+                });
     
                 const courses = group.courses.map( course => {
     
@@ -47,11 +78,6 @@ export class Data
                     return new Course( course.course, stages );
                 });
     
-                const students = group.students.map( student => {
-
-                    return new Student( student.lastName, student.firstName, student.additionalData, student.id );
-                });
-    
                 return new Group( group.group, courses, students );
             }); 
     
@@ -60,33 +86,4 @@ export class Data
 
         this.activeCourse = dataFromDB.activeCourse;
     };
-
-    addNewInstitution( institObj )
-    {
-        for( const instit of this.institutions)
-            if( instit.institution === institObj.institution )
-                throw Error("Esta institución ya existe.");
-
-        this.institutions.push( institObj );
-    }
-
-    updateInstitName( institIndex, newName )
-    {
-        if( !newName )
-            throw Error( 'El nombre es obligatorio.' );
-
-        if( this.institutions[ institIndex ].institution === newName )
-            return;
-
-        for( const instit of this.institutions)
-            if( instit.institution === newName )
-                throw Error("Esta institución ya existe.");
-
-        this.institutions[ institIndex ].institution = newName;
-    }
-
-    deleteInstitution( institIndex )
-    {
-        this.institutions.splice( institIndex, 1 );
-    }
 }
