@@ -37,27 +37,32 @@ export const RecoveryScreen = () => {
 
     return (
 
-        <div className='whole-bg'>
-        <form onSubmit={ handlePasswordRecovery } className='forms animate__animated animate__fadeIn' >
+        <div className='whole-bg animate__animated animate__fadeIn'>
 
-            <h3>Restablecimiento de contraseña</h3>
-
-            <input 
-                type="email"
-                placeholder='Email...'
-                name="email"
-                autoComplete='off'
-                value={ email }
-                onChange={ handleChangeValues }
-            />
-
-            <button type='submit' className='sendButton'>Restablecer</button>
-
-            <Link to={ '../login' }>
-                <p className='link'>Volver a la pantalla de acceso</p>
+            <Link to={ '../' }>
+                <h1 title='Ir a la página principal'>Qualit</h1>
             </Link>
+            
+            <form onSubmit={ handlePasswordRecovery } className='forms' >
 
-        </form>
+                <h3>Restablecimiento de contraseña</h3>
+
+                <input 
+                    type="email"
+                    placeholder='Email...'
+                    name="email"
+                    autoComplete='on'
+                    value={ email }
+                    onChange={ handleChangeValues }
+                />
+
+                <button type='submit' className='sendButton'>Restablecer</button>
+
+                <Link to={ '../login' }>
+                    <p className='link'>Volver a la pantalla de acceso</p>
+                </Link>
+
+            </form>
         </div>
     );
 };

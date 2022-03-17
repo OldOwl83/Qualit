@@ -6,6 +6,7 @@ import Swal from 'sweetalert2';
 import { useForms } from '../../../hooks/useForms';
 import { unsetFormScreen } from '../../../actions/ui';
 import { deleteTestGroupAction, updateTestGroupAction } from '../../../actions/courseData';
+import { formValidate } from '../../../helpers/formValidate';
 
 
 export const UpdateTestGroup = ( { testGroupIndex, stageIndex } ) => {
@@ -30,7 +31,8 @@ export const UpdateTestGroup = ( { testGroupIndex, stageIndex } ) => {
         e.preventDefault();
 
         try{
-            dispatch( updateTestGroupAction( testGroup, percentWeight, testGroupIndex, stageIndex ) );
+            if( formValidate( { percentWeight } ) )
+                dispatch( updateTestGroupAction( testGroup, percentWeight, testGroupIndex, stageIndex ) );
         }catch( err )
         {
             Swal.fire({
@@ -102,18 +104,27 @@ export const UpdateTestGroup = ( { testGroupIndex, stageIndex } ) => {
                 name="testGroup"
                 autoComplete='off'
                 autoFocus
+                onFocus={ ( e ) => e.target.select() }
                 value={ testGroup }
                 onChange={ handleFormValues }
             />
 
-            <input 
-                type="text"
-                placeholder="Incidencia procentual en la etapa"
-                name="percentWeight"
-                autoComplete='off'
-                value={ percentWeight }
-                onChange={ handleFormValues }
+            <span>
+                <input 
+                    type="text"
+                    placeholder="Incidencia procentual en la etapa"
+                    name="percentWeight"
+                    autoComplete='off'
+                    onFocus={ ( e ) => e.target.select() }
+                    value={ percentWeight }
+                    onChange={ handleFormValues }
                 />
+                
+                <i 
+                    className="fas fa-info-circle"
+                    title='Indica el peso relativo de la categoría en el promedio de la etapa, representado porcentualmente. La suma de las incidencias de todas las categorías de la etapa no puede ser mayor al 100%. El conjunto de las categorías cuya incidencia no se especifique, o se fije en 0, ocupará el porcentaje necesario para alcanzar el 100% del promedio de la etapa; y dentro de ese conjunto, todas las categorías tendrán el mismo peso.'
+                ></i>
+            </span>
 
             <div id="buttonsContainer">
                 <button type='submit' className='sendButton'>Actualizar categoría</button>

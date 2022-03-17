@@ -102,6 +102,7 @@ export const UpdateStudent = ( { studentIndex } ) => {
                 name="lastName"
                 autoComplete='off'
                 autoFocus
+                onFocus={ ( e ) => e.target.select() }
                 value={ lastName }
                 onChange={ handleFormValues }
             />
@@ -111,6 +112,7 @@ export const UpdateStudent = ( { studentIndex } ) => {
                 placeholder="Nombre"
                 name="firstName"
                 autoComplete='off'
+                onFocus={ ( e ) => e.target.select() }
                 value={ firstName }
                 onChange={ handleFormValues }
                 />

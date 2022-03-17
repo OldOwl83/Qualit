@@ -28,24 +28,34 @@ export const StudentsColumn = () => {
         <div id="studentsColumn">
 
             <div className='container stageContainer'>
-                <h4 
-                    className='cells stageContainer'
-                    title='Las "etapas" representan períodos de tiempo o bloques en que se divide un curso ("Primer Trimestre", "Introducción", "Unidad 1", etc.)'
-                >Etapas</h4>
+                
+                <h4 className='cells stageContainer'>
+                    
+                    Etapas 
+                
+                    <i 
+                        className="fas fa-info-circle"
+                        title='Las "etapas" representan períodos de tiempo o bloques en que se divide un curso ("Primer Trimestre", "Introducción", "Unidad 1", etc.)'
+                    ></i>
+                </h4>
 
                 <div className='container testGroupContainer' style={{ marginTop: '2px'}}>
-                    <h4 
-                        className='cells testGroupContainer'
-                        title='Las "categorías" representan grupos de evaluaciones de tipos diferentes ("Trabajos Prácticos", "Concepto", "Exámenes", etc.)'
-                    >Categorías</h4>
+
+                    <h4 className='cells testGroupContainer'>
+                        
+                        Categorías 
+                        
+                        <i 
+                            className="fas fa-info-circle"
+                            title='Las "categorías" representan grupos de evaluaciones de tipos diferentes ("Trabajos Prácticos", "Concepto", "Exámenes", etc.)'
+                        ></i>
+                    </h4>
 
                     <div className='container testContainer' style={{ marginTop: '2px'}}>
                         <h5 
                             className='cells testContainer'
                             style={{ marginBottom: '2px' }}
                         >Evaluaciones</h5>
-                        
-
                         { 
                             students.map( ( student, index ) => {
                                 return (

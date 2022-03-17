@@ -32,7 +32,7 @@ export const LoginScreen = () => {
 
         Swal.fire({
             title: 'Qualit DEMO',
-            text: 'Acaba de iniciar una sesión de prueba de Qualit. Ninguno de los datos ingresados se guardará de forma persistente.',
+            text: 'Acaba de iniciar una sesión de prueba de Qualit. Aquí encontrará algunos modelos representativos de lo que puede hacer con Qualit. Puede explorar todas las funcionalidades de la aplicación, pero tenga en cuenta que ninguno de los datos ingresados podrá guardarse de forma persistente.',
             icon: 'info',
             showClass: {
               popup: 'animate__animated animate__backInDown'
@@ -48,45 +48,49 @@ export const LoginScreen = () => {
 
     return (
 
-        <div className='whole-bg'>
-        <form onSubmit={ handleLogin } className='forms animate__animated animate__fadeIn' >
-
-            <h3>Acceso de usuario</h3>
-
-            <input 
-                type="email"
-                placeholder='Email...'
-                name="email"
-                autoComplete='off'
-                value={ email }
-                onChange={ handleChangeValues }
-            />
-
-            <input 
-                type="password"
-                placeholder='Contraseña...'
-                name="password"
-                autoComplete='off'
-                value={ password }
-                onChange={ handleChangeValues }
-            />
-
-            <Link to={ '../recovery' }>
-                <p className='link'>¿Olvidó su contraseña?</p>
+        <div className='whole-bg animate__animated animate__fadeIn'>
+            <Link to={ '../' }>
+                <h1 title='Ir a la página principal'>Qualit</h1>
             </Link>
 
-            <button type='submit' className='sendButton'>Acceder</button>
+            <form onSubmit={ handleLogin } className='forms' >
 
-            <Link to={ '../register' }>
-                <p className='link'>¿Aun no tiene una cuenta? Regístrese en Qualit</p>
-            </Link>
+                <h3>Acceso de usuario</h3>
 
-            <button 
-                type='button' 
-                className='sendButton'
-                onClick={ handleDemoInit }
-            >Probar Qualit sin registrarse</button>
-        </form>
+                <input 
+                    type="email"
+                    placeholder='Email...'
+                    name="email"
+                    autoComplete='on'
+                    value={ email }
+                    onChange={ handleChangeValues }
+                />
+
+                <input 
+                    type="password"
+                    placeholder='Contraseña...'
+                    name="password"
+                    autoComplete='off'
+                    value={ password }
+                    onChange={ handleChangeValues }
+                />
+
+                <Link to={ '../recovery' }>
+                    <p className='link'>¿Olvidó su contraseña?</p>
+                </Link>
+
+                <button type='submit' className='sendButton'>Acceder</button>
+
+                <Link to={ '../register' }>
+                    <p className='link'>¿Aun no tiene una cuenta? Regístrese en Qualit</p>
+                </Link>
+
+                <button 
+                    type='button' 
+                    className='sendButton'
+                    onClick={ handleDemoInit }
+                >Probar Qualit sin registrarse</button>
+            </form>
         </div>
     );
 };

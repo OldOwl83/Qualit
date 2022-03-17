@@ -6,6 +6,7 @@ import Swal from 'sweetalert2';
 import { useForms } from '../../../hooks/useForms'
 import { unsetFormScreen } from '../../../actions/ui';
 import { addStageAction } from '../../../actions/courseData';
+import { formValidate } from '../../../helpers/formValidate';
 
 export const AddStage = () => {
 
@@ -25,7 +26,10 @@ export const AddStage = () => {
         e.preventDefault();
                         
         try{
-            dispatch( addStageAction( stage, percentWeight ) );
+
+            if( formValidate( { percentWeight } ) )
+                dispatch( addStageAction( stage, percentWeight ) );
+
         }catch( err )
         {
             Swal.fire({
@@ -66,14 +70,21 @@ export const AddStage = () => {
                 onChange={ handleFormValues }
             />
 
-            <input 
-                type="text"
-                placeholder="Incidencia porcentual en el promedio final"
-                name="percentWeight"
-                autoComplete='off'
-                value={ percentWeight }
-                onChange={ handleFormValues }
-            />
+            <span>
+                <input 
+                    type="text"
+                    placeholder="Incidencia porcentual en el promedio final"
+                    name="percentWeight"
+                    autoComplete='off'
+                    value={ percentWeight }
+                    onChange={ handleFormValues }
+                />
+
+                <i 
+                    className="fas fa-info-circle"
+                    title='Indica el peso relativo de la etapa en el "promedio final", representado porcentualmente. La suma de las incidencias de todas las etapas no puede ser mayor al 100%. El conjunto de las etapas cuya incidencia no se especifique, o se fije en 0, ocupará el porcentaje necesario para alcanzar el 100% del promedio total; y dentro de ese conjunto, todas las etapas tendrán el mismo peso.'
+                ></i>
+            </span>
 
             <button type='submit' className='sendButton'>Agregar etapa</button>
         </form>

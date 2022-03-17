@@ -6,6 +6,7 @@ import Swal from 'sweetalert2';
 import { useForms } from '../../../hooks/useForms'
 import { unsetFormScreen } from '../../../actions/ui';
 import { addTestAction } from '../../../actions/courseData';
+import { formValidate } from '../../../helpers/formValidate';
 
 
 export const AddTest = ( { testGroupIndex, stageIndex } ) => {
@@ -27,7 +28,8 @@ export const AddTest = ( { testGroupIndex, stageIndex } ) => {
         e.preventDefault();
                         
         try{
-            dispatch( addTestAction( test, percentWeight, additionalData, testGroupIndex, stageIndex ) );
+            if( formValidate( { percentWeight } ) )
+                dispatch( addTestAction( test, percentWeight, additionalData, testGroupIndex, stageIndex ) );
         }catch( err )
         {
             Swal.fire({
@@ -67,14 +69,21 @@ export const AddTest = ( { testGroupIndex, stageIndex } ) => {
                 onChange={ handleFormValues }
             />
 
-            <input 
-                type="text"
-                placeholder="Incidencia porcentual en la categoría"
-                name="percentWeight"
-                autoComplete='off'
-                value={ percentWeight }
-                onChange={ handleFormValues }
+            <span>
+                <input 
+                    type="text"
+                    placeholder="Incidencia porcentual en la categoría"
+                    name="percentWeight"
+                    autoComplete='off'
+                    value={ percentWeight }
+                    onChange={ handleFormValues }
                 />
+
+                <i 
+                    className="fas fa-info-circle"
+                    title='Indica el peso relativo de la evaluación en el promedio de la categoría, representado porcentualmente. La suma de las incidencias de todas las evaluaciones de la categoría no puede ser mayor al 100%. El conjunto de las evaluaciones cuya incidencia no se especifique, o se fije en 0, ocupará el porcentaje necesario para alcanzar el 100% del promedio de la categoría; y dentro de ese conjunto, todas las evaluaciones tendrán el mismo peso.'
+                ></i>
+            </span>
 
             <textarea
                 placeholder='Datos adicionales'

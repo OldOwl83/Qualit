@@ -2,20 +2,14 @@ import { actionTypes } from "../types/types";
 
 import { Course } from "../classes/courseData/CourseClass";
 import { Group } from "../classes/courseData/GroupClass";
-import { Institution } from "../classes/courseData/InstitutionClass";
 import { Data } from "../classes/courseData/DataClass";
-import { Student } from "../classes/studentData/StudentClass";
-import { Stage } from "../classes/courseData/StageClass";
-import { TestGroup } from "../classes/courseData/TestGroupClass";
-import { Test } from "../classes/courseData/TestClass";
-import { Grade } from "../classes/studentData/GradeClass";
+
 
 const initialState = new Data();
 
 export const dataReducer = ( state = initialState, action ) => {
 
     let newState;
-    let grades;
 
     switch ( action.type ) {
 

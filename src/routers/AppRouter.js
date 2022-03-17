@@ -16,6 +16,7 @@ import { LoadSpinner } from '../components/LoadSpinner';
 import { downloadData } from '../actions/courseData';
 import { RecoveryScreen } from '../components/userLog/RecoveryScreen';
 import { Verifications } from '../components/userLog/Verifications';
+import { UserReports } from '../components/development/UserReports';
 
 
 export const AppRouter = () => {
@@ -45,6 +46,8 @@ export const AppRouter = () => {
             <Routes>
 
                 <Route path="/" element={ <HomeSite /> } />
+                
+                <Route path="/reports" element={ <UserReports /> } />
 
                 <Route path="/register" element={ 
                     <LoginRoutes>

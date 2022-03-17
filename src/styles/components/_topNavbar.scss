@@ -201,7 +201,8 @@
 
         i{
             font-size: 2.8rem;
-            color: $secondary_dark_color;
+            color: lighten( $secondary_dark_color, 15% );
+            text-shadow: 0 0 4px #777;
         }
 
         img{

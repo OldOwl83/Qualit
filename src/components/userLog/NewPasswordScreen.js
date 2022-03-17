@@ -5,7 +5,7 @@ import 'animate.css';
 
 import { useForms } from '../../hooks/useForms';
 import { confirmRecoveryPassword } from '../../actions/auth';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { formValidate } from '../../helpers/formValidate';
 
 
@@ -36,22 +36,27 @@ export const NewPasswordScreen = ( { recoveryCode }) => {
 
     return (
 
-        <div className='whole-bg'>
-        <form onSubmit={ handlePasswordChange } className='forms animate__animated animate__fadeIn' >
+        <div className='whole-bg animate__animated animate__fadeIn'>
 
-            <h3>Nueva contraseña</h3>
+            <Link to={ '../' }>
+                <h1 title='Ir a la página principal'>Qualit</h1>
+            </Link>
 
-            <input 
-                type="password"
-                placeholder='Nueva contraseña...'
-                name="password"
-                autoComplete='off'
-                value={ password }
-                onChange={ handleChangeValues }
-            />
+            <form onSubmit={ handlePasswordChange } className='forms' >
 
-            <button type='submit' className='sendButton'>Confirmar</button>
-        </form>
+                <h3>Nueva contraseña</h3>
+
+                <input 
+                    type="password"
+                    placeholder='Nueva contraseña...'
+                    name="password"
+                    autoComplete='off'
+                    value={ password }
+                    onChange={ handleChangeValues }
+                />
+
+                <button type='submit' className='sendButton'>Confirmar</button>
+            </form>
         </div>
     );
 };

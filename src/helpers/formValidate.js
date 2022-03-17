@@ -109,7 +109,23 @@ export const formValidate = ( fieldsObject ) => {
 
           return false;
 
-    }else if( fieldsObject.score && !isNumeric( fieldsObject.score ) )
+    }else if( fieldsObject.percentWeight && !isNumeric( String( fieldsObject.percentWeight ) ) )
+    {
+        Swal.fire({
+          title: 'Formulario inválido',
+          text: 'La incidencia porcentual sólo puede representarse de forma numérica. (Evite signos como "%", y utilice el punto "." como separador decimal.)',
+          icon: 'error',
+          showClass: {
+            popup: 'animate__animated animate__backInDown'
+          },
+          hideClass: {
+            popup: 'animate__animated animate__backOutUp'
+          }
+        });
+
+        return false;
+    
+    }else if( fieldsObject.score && !isNumeric( String( fieldsObject.score ) ) )
     {
         Swal.fire({
             title: 'Formulario inválido',
@@ -140,7 +156,6 @@ export const formValidate = ( fieldsObject ) => {
           });
 
           return false;
-
     }
 
     return true;

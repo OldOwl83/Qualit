@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 import { deleteTestAction, updateTestAction } from '../../../actions/courseData';
 
 import { unsetFormScreen } from '../../../actions/ui';
+import { formValidate } from '../../../helpers/formValidate';
 import { useForms } from '../../../hooks/useForms';
 
 
@@ -31,7 +32,8 @@ export const UpdateTest = ( { testIndex, testGroupIndex, stageIndex } ) => {
         e.preventDefault();
 
         try{
-            dispatch( updateTestAction( test, percentWeight, additionalData, testIndex, testGroupIndex, stageIndex ) );
+            if( formValidate( { percentWeight } ) )
+                dispatch( updateTestAction( test, percentWeight, additionalData, testIndex, testGroupIndex, stageIndex ) );
         }catch( err )
         {
             Swal.fire({
@@ -103,18 +105,27 @@ export const UpdateTest = ( { testIndex, testGroupIndex, stageIndex } ) => {
                 name="test"
                 autoComplete='off'
                 autoFocus
+                onFocus={ ( e ) => e.target.select() }
                 value={ test }
                 onChange={ handleFormValues }
             />
 
-            <input 
-                type="text"
-                placeholder="Incidencia porcentual en la categoría"
-                name="percentWeight"
-                autoComplete='off'
-                value={ percentWeight }
-                onChange={ handleFormValues }
+            <span>
+                <input 
+                    type="text"
+                    placeholder="Incidencia porcentual en la categoría"
+                    name="percentWeight"
+                    autoComplete='off'
+                    onFocus={ ( e ) => e.target.select() }
+                    value={ percentWeight }
+                    onChange={ handleFormValues }
                 />
+                
+                <i 
+                    className="fas fa-info-circle"
+                    title='Indica el peso relativo de la evaluación en el promedio de la categoría, representado porcentualmente. La suma de las incidencias de todas las evaluaciones de la categoría no puede ser mayor al 100%. El conjunto de las evaluaciones cuya incidencia no se especifique, o se fije en 0, ocupará el porcentaje necesario para alcanzar el 100% del promedio de la categoría; y dentro de ese conjunto, todas las evaluaciones tendrán el mismo peso.'
+                ></i>
+            </span>
 
             <textarea
                 placeholder='Datos adicionales'

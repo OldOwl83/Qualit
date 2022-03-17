@@ -67,53 +67,58 @@ export const RegisterScreen = () => {
 
     return (
 
-        <div className='whole-bg'>
-        <form onSubmit={ handleRegister } className='forms animate__animated animate__fadeIn' >
+        <div className='whole-bg animate__animated animate__fadeIn'>
 
-            <h3>Registro de usuario</h3>
-
-            <input 
-                type="text"
-                placeholder='Apellido...'
-                name="lastName"
-                autoComplete='off'
-                value={ lastName }
-                onChange={ handleChangeValues }
-            />
-
-            <input 
-                type="text"
-                placeholder='Nombres...'
-                name="firstName"
-                autoComplete='off'
-                value={ firstName }
-                onChange={ handleChangeValues }
-            />
-
-            <input 
-                type="email"
-                placeholder='Email...'
-                name="email"
-                autoComplete='off'
-                value={ email }
-                onChange={ handleChangeValues }
-            />
-
-            <input 
-                type="password"
-                placeholder='Contraseña...'
-                name="password"
-                autoComplete='off'
-                value={ password }
-                onChange={ handleChangeValues }
-            />
-
-            <button type='submit' className='sendButton'>Enviar</button>
-
-            <Link to={ '../login' }>
-                <p className='link'>¿Ya tiene una cuenta? Ingrese a Qualit</p>
+            <Link to={ '../' }>
+                <h1 title='Ir a la página principal'>Qualit</h1>
             </Link>
-        </form>
+
+            <form onSubmit={ handleRegister } className='forms' >
+
+                <h3>Registro de usuario</h3>
+
+                <input 
+                    type="text"
+                    placeholder='Apellido...'
+                    name="lastName"
+                    autoComplete='off'
+                    value={ lastName }
+                    onChange={ handleChangeValues }
+                />
+
+                <input 
+                    type="text"
+                    placeholder='Nombres...'
+                    name="firstName"
+                    autoComplete='off'
+                    value={ firstName }
+                    onChange={ handleChangeValues }
+                />
+
+                <input 
+                    type="email"
+                    placeholder='Email...'
+                    name="email"
+                    autoComplete='on'
+                    value={ email }
+                    onChange={ handleChangeValues }
+                />
+
+                <input 
+                    type="password"
+                    placeholder='Contraseña...'
+                    name="password"
+                    autoComplete='off'
+                    value={ password }
+                    onChange={ handleChangeValues }
+                />
+
+                <button type='submit' className='sendButton'>Enviar</button>
+
+                <Link to={ '../login' }>
+                    <p className='link'>¿Ya tiene una cuenta? Ingrese a Qualit</p>
+                </Link>
+            </form>
         </div>
     );
 };

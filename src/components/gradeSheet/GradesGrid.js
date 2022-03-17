@@ -42,7 +42,7 @@ export const GradesGrid = () => {
                 <h4 className='cells' style={{ marginBottom: '5px', visibility: 'hidden' }}>Relleno</h4>   
                 <h4 className='cells' style={{ marginBottom: '4px', visibility: 'hidden' }}>Relleno</h4> 
 
-                <div id='promGral' className='averagesContainer container' style={{ marginBottom: '3px' }}>
+                <div id='promGral' className='averagesContainer container' style={{ paddingBottom: '3px' }}>
                     
                     <h5 className='cells'>Promedio final</h5>
 

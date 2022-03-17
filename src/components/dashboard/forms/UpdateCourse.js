@@ -67,37 +67,47 @@ export const UpdateCourse = () => {
                 name="institution"
                 autoComplete='on'
                 required
+                autoFocus
+                onFocus={ ( e ) => e.target.select() }
                 value={ institution }
                 onChange={ handleFormValues }
             />
 
-            <input 
-                type="text"
-                placeholder="Grupo"
-                name="group"
-                autoComplete='on'
-                required
-                value={ group }
-                onChange={ handleFormValues }
-            />
-
-            <input 
-                type="text"
-                placeholder="Curso"
-                name="course"
-                autoComplete='off'
-                required
-                value={ course }
-                onChange={ handleFormValues }
+            <span>
+                <input 
+                    type="text"
+                    placeholder="Grupo"
+                    name="group"
+                    autoComplete='on'
+                    required
+                    onFocus={ ( e ) => e.target.select() }
+                    value={ group }
+                    onChange={ handleFormValues }
                 />
 
-                {/* <input 
-                    type="file"
-                    placeholder='Elija una foto'
-                    name="photo"
+                <i 
+                    className="fas fa-info-circle"
+                    title='Designación del conjunto de personas a las que se asignarán las calificaciones ("1º año, 2ª división", "Formadores", "3ª cohorte", etc.)'
+                ></i>
+            </span>
+
+            <span>
+                <input 
+                    type="text"
+                    placeholder="Curso"
+                    name="course"
                     autoComplete='off'
-                    ref={ selectedPicture }
-                /> */}
+                    required
+                    onFocus={ ( e ) => e.target.select() }
+                    value={ course }
+                    onChange={ handleFormValues }
+                />
+
+                <i 
+                    className="fas fa-info-circle"
+                    title='Nombre de la asignatura o propuesta educativa  ("Prácticas del Lenguaje", "Taller de Cine", "Leyendo a Platón", etc.)'
+                ></i>
+            </span>
 
             <button type='submit' className='sendButton'>Actualizar</button>
         </form>

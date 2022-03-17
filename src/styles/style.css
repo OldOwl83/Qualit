@@ -8,7 +8,6 @@ html {
   position: relative;
   height: 100vh;
   font-size: 0.8vw;
-  overflow: hidden;
 }
 
 body {
@@ -38,11 +37,16 @@ body {
   top: 0;
   left: 0;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: space-around;
   align-items: center;
   width: 100%;
   height: 100%;
   background-color: #0000;
+}
+.whole-bg a {
+  margin-top: 4%;
+  text-decoration: none;
 }
 
 .modal-bg {
@@ -50,12 +54,124 @@ body {
   top: 0;
   left: 0;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100%;
   height: 100%;
   background-color: #0003;
   z-index: 10;
+}
+
+.fa-info-circle {
+  margin-left: 0.8vw;
+  color: #c82f00;
+  font-size: 1rem;
+}
+
+header {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: 88%;
+  margin: 10px auto;
+  padding: 5vh 0;
+  background-image: url(../images/header_img.png);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 10px;
+  box-shadow: 0 0 8px 4px #20b320;
+}
+header nav {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+}
+header nav button {
+  margin-left: 8px;
+  padding: 10px 16px;
+  font-family: "Cantarell";
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: beige;
+  background-color: #444;
+  border: 2px solid #888;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.4s, color 0.4s;
+}
+header nav button:hover {
+  color: #444;
+  background-color: beige;
+}
+
+h1 {
+  padding: 16px 32px;
+  color: #d16eff;
+  text-shadow: 0 0 20px black;
+  font-size: 5rem;
+  font-family: "Cantarell";
+  background-color: #9100d4;
+  border: 1px solid #444;
+  border-radius: 34%;
+  box-shadow: 0 0 14px 10px #333;
+  opacity: 0.8;
+}
+
+#version {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 30%;
+  margin: 14vh auto;
+  padding: 14px;
+  border: 3px solid #74cc00;
+  border-radius: 15px;
+  box-shadow: 0 0 8px 2px #333;
+}
+#version p {
+  margin-bottom: 14px;
+  color: #1b991b;
+  text-align: center;
+  font-family: "Cantarell";
+  font-size: 1.6rem;
+}
+#version #title {
+  font-weight: bold;
+  font-size: 2rem;
+}
+
+#footer {
+  width: 74%;
+  margin: 40px auto 0;
+  padding: 3px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: "Cantarell", sans-serif;
+  font-size: 80%;
+  user-select: none;
+  background-color: #222;
+  border: 3px solid #888888;
+}
+#footer #footer_data {
+  width: 40%;
+  color: #b6ffb6;
+}
+#footer #footer_data li {
+  margin: 8px;
+  font-size: 0.9rem;
+  list-style: none;
+}
+#footer #footer_data a {
+  text-decoration: none;
+  color: inherit;
+}
+#footer #developed {
+  width: 8%;
+  margin: 10px;
 }
 
 #topNavbar {
@@ -206,7 +322,8 @@ body {
 }
 #userProfile #imageProfile i {
   font-size: 2.8rem;
-  color: #ffbb00;
+  color: #ffcf4d;
+  text-shadow: 0 0 4px #777;
 }
 #userProfile #imageProfile img {
   width: 100%;
@@ -269,8 +386,8 @@ body {
   display: flex;
   flex-direction: column;
   width: 26%;
-  margin: -6% auto 0;
-  padding: 30px;
+  margin: 3% auto 6%;
+  padding: 2vw;
   background-color: #20b320;
   border-radius: 10px;
   box-shadow: 0px 0px 3px 4px #777;
@@ -280,6 +397,16 @@ body {
   font-family: "Cantarell";
   font-size: 2.2rem;
   color: #c8f5c8;
+  text-align: center;
+}
+.forms span {
+  position: relative;
+  display: flex;
+}
+.forms span .fa-info-circle {
+  position: absolute;
+  right: 2%;
+  top: 56%;
 }
 .forms input, .forms textarea, .forms label {
   width: 80%;
@@ -311,7 +438,7 @@ body {
 }
 .forms .sendButton {
   width: 70%;
-  margin: 40px auto 0;
+  margin: 32px auto 0;
   padding: 8px;
   font-family: "Cantarell", sans-serif;
   font-size: 1.2rem;
@@ -320,6 +447,7 @@ body {
   background-color: #ffc933;
   border: 1px solid #20b320;
   border-radius: 6px;
+  cursor: pointer;
 }
 .forms .sendButton:hover {
   box-shadow: 0 0 2px 3px #91ff00;
@@ -340,7 +468,6 @@ body {
   text-decoration: underline;
 }
 .forms .link {
-  margin-top: 10px;
   font-size: 0.96rem;
   font-weight: bold;
   text-align: center;
@@ -355,7 +482,8 @@ body {
   top: 14px;
   right: 14px;
   font-size: 1.6rem;
-  color: #ffc933;
+  font-weight: bold;
+  color: #664b00;
   cursor: pointer;
 }
 .forms #buttonsContainer {
@@ -423,7 +551,6 @@ body {
   margin: 1px;
   padding: 4px 8px;
   height: fit-content;
-  overflow: hidden;
   white-space: nowrap;
 }
 #mainSheet .container {
@@ -463,6 +590,7 @@ body {
   font-size: 1.1rem;
   font-weight: bold;
   text-align: left;
+  overflow: hidden;
   text-overflow: ellipsis;
   cursor: pointer;
   transition: background-color 0.3s;
@@ -510,7 +638,7 @@ body {
   transition: color 0.4s;
 }
 #mainSheet .edit:hover {
-  color: #c17df8;
+  color: #e1a1ff;
 }
 #mainSheet .score {
   font-family: "Arial";
@@ -533,7 +661,7 @@ body {
   background-color: #ddd;
 }
 #mainSheet #promGral {
-  background-color: #d8aefa;
+  background-color: #e8b5ff;
 }
 
 #studentsColumn {

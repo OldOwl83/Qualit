@@ -6,6 +6,7 @@ import Swal from 'sweetalert2';
 import { useForms } from '../../../hooks/useForms';
 import { unsetFormScreen } from '../../../actions/ui';
 import { deleteStageAction, updateStageAction } from '../../../actions/courseData';
+import { formValidate } from '../../../helpers/formValidate';
 
 export const UpdateStage = ( { stageIndex } ) => {
     
@@ -29,7 +30,8 @@ export const UpdateStage = ( { stageIndex } ) => {
         e.preventDefault();
 
         try{
-            dispatch( updateStageAction( stage, percentWeight, stageIndex ) );
+            if( formValidate( { percentWeight } ) )
+                dispatch( updateStageAction( stage, percentWeight, stageIndex ) );
         }catch( err )
         {
             Swal.fire({
@@ -101,18 +103,28 @@ export const UpdateStage = ( { stageIndex } ) => {
                 name="stage"
                 autoComplete='off'
                 autoFocus
+                onFocus={ ( e ) => e.target.select() }
+                sele
                 value={ stage }
                 onChange={ handleFormValues }
             />
 
-            <input 
-                type="text"
-                placeholder="Incidencia porcentual en el promedio final"
-                name="percentWeight"
-                autoComplete='off'
-                value={ percentWeight }
-                onChange={ handleFormValues }
+            <span>
+                <input 
+                    type="text"
+                    placeholder="Incidencia porcentual en el promedio final"
+                    name="percentWeight"
+                    autoComplete='off'
+                    onFocus={ ( e ) => e.target.select() }
+                    value={ percentWeight }
+                    onChange={ handleFormValues }
                 />
+                
+                <i 
+                    className="fas fa-info-circle"
+                    title='Indica el peso relativo de la etapa en el "promedio final", representado porcentualmente. La suma de las incidencias de todas las etapas no puede ser mayor al 100%. El conjunto de las etapas cuya incidencia no se especifique, o se fije en 0, ocupará el porcentaje necesario para alcanzar el 100% del promedio total; y dentro de ese conjunto, todas las etapas tendrán el mismo peso.'
+                ></i>
+            </span>
 
             <div id="buttonsContainer">
                 <button type='submit' className='sendButton'>Actualizar etapa</button>

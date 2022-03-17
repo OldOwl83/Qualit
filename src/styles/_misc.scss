@@ -4,6 +4,7 @@
     left: 0;
     
     display: flex;
+    flex-direction: column;
     justify-content: $justif-cont;
     align-items: center;
     
@@ -14,11 +15,22 @@
 }
 
 .whole-bg{
-    @include whole-bg;
+    @include whole-bg($justif-cont: space-around);
+
+    a{
+        margin-top: 4%;
+        text-decoration: none;
+    }
 }
 
 .modal-bg{
     @include whole-bg(#0003);
 
     z-index: 10;
+}
+
+.fa-info-circle{
+    margin-left: .8vw;
+    color: rgb(200, 47, 0);
+    font-size: 1rem;
 }
