@@ -9,11 +9,12 @@ import { setFormScreen, startLoading, stopLoading } from '../../../actions/ui';
 import { storage } from '../../../SDKs/firebase';
 import { ProfileUpdate } from '../forms/ProfileUpdate';
 import { dataTypes } from '../../../types/types';
+import { exportToXLSX } from '../../../helpers/exportToXLSX';
 
 export const UserProfile = () => {
 
     const dispatch = useDispatch();
-    const { usProf, ui, auth } = useSelector( state => state );
+    const { usProf, ui, auth, data } = useSelector( state => state );
 
     const { lastName, firstName, photo } = usProf;
     const { dataSaved } = ui;
@@ -26,6 +27,9 @@ export const UserProfile = () => {
         dispatch( setFormScreen( <ProfileUpdate /> ) );
     };
 
+    const handleExportToSpreadSheet = () => {
+        exportToXLSX( data );
+    }
 
     const handleLogout = async() => {
 
@@ -96,6 +100,11 @@ export const UserProfile = () => {
                     onClick={ handleProfile }
                     disabled={ auth.uid === dataTypes.demo.uid ? true : false }
                 >Editar perfil</button>
+
+                <button 
+                    onClick={ handleExportToSpreadSheet }
+                    disabled={ auth.uid === dataTypes.demo.uid ? true : false }
+                >Exportar planillas</button>
                 
                 <button 
                     onClick={ auth.uid !== dataTypes.demo.uid ? handleLogout : () => dispatch( demoExit() ) }
