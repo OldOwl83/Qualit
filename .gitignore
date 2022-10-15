@@ -4,6 +4,11 @@
 /node_modules
 /.pnp
 .pnp.js
+.firebase*
+firebase*
+firestore*
+storage.rules
+remoteconfig.template.json
 
 # testing
 /coverage

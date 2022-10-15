@@ -21,9 +21,13 @@ export const HomeSite = () => {
 
         <div id='version'>
             <p id='title'>Proyecto Qualit</p>
-            <p>Versión 0.1.0</p>
+            <p>Versión 0.2</p>
             <p>Fase Beta: comienzo de pruebas en servidor. La estabilidad de la aplicación y la integridad de los datos ingresados no está garantizada.</p>
             <p>Fallas o sugerencias, por favor reportarlas <Link to={ './reports' }>aquí</Link>.</p>
+            <p>Prueba de nuevas funcionalidades:</p>
+            <ul>
+                <li>exportación a planillas xlsx</li>
+            </ul>
         </div>
         
         <footer id="footer">
